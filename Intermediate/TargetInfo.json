@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Heros_Of_ST",
+			"Path": "..\\Source\\Heros_Of_ST.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "Heros_Of_STEditor",
+			"Path": "..\\Source\\Heros_Of_STEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

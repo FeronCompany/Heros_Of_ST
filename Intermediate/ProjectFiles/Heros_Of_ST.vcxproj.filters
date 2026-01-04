@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Heros_Of_ST.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Heros_Of_ST.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\Heros_Of_STEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Heros_Of_ST">
+      <UniqueIdentifier>{5F8E652B-4350-31D9-AEF2-9CD1A8AF027D}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.Build.cs">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.cpp">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.h">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\MainCamera.cpp">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\MainCamera.h">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
