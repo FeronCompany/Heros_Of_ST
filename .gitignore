@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Intermediate/CachedAssetRegistryDiscovery.bin
+/Intermediate/CachedAssetRegistry_0.bin
