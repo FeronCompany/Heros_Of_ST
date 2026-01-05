@@ -364,9 +364,11 @@ FodyWeavers.xsd
 /Intermediate/CachedAssetRegistryDiscovery.bin
 /Intermediate/CachedAssetRegistry_0.bin
 /Intermediate/Build/SourceFileCache.bin
-/Binaries/Win64/UnrealEditor-Heros_Of_ST.patch_0.exe
-/Binaries/Win64/UnrealEditor-Heros_Of_ST.patch_0.lib
-/Binaries/Win64/UnrealEditor-Heros_Of_ST.patch_0.exp
 /Intermediate/Build/Win64/ActionHistory.bin
 /Intermediate/Build/SourceFileCache.bin
 /Saved/AutoScreenshot.png
+/Binaries/Win64
+/Saved/Config/CrashReportClient
+/Saved/Crashes
+/Saved/Autosaves/Temp
+/Saved/Autosaves/Game
