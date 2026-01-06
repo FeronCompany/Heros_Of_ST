@@ -368,7 +368,7 @@ FodyWeavers.xsd
 /Intermediate/Build/SourceFileCache.bin
 /Saved/AutoScreenshot.png
 /Binaries/Win64
-#/Saved/Config/CrashReportClient
+/Saved/Config/CrashReportClient
 /Saved/Crashes
 /Saved/Autosaves/Temp
 /Saved/Autosaves/Game
