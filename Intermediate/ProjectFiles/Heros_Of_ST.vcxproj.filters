@@ -11,6 +11,9 @@
     <None Include="..\..\Source\Heros_Of_STEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.editorconfig" />
+    <None Include="..\..\.gitattributes" />
+    <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
@@ -37,12 +40,6 @@
       <Filter>Source\Heros_Of_ST</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.h">
-      <Filter>Source\Heros_Of_ST</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\Heros_Of_ST\MainCamera.cpp">
-      <Filter>Source\Heros_Of_ST</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\Heros_Of_ST\MainCamera.h">
       <Filter>Source\Heros_Of_ST</Filter>
     </ClInclude>
   </ItemGroup>
