@@ -42,5 +42,23 @@
     <ClInclude Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.h">
       <Filter>Source\Heros_Of_ST</Filter>
     </ClInclude>
+    <Filter Include="Source\Heros_Of_ST\Private">
+      <UniqueIdentifier>{7FAA08AD-999A-3390-9BB3-44AAD8B4B766}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\STCharacter.cpp">
+      <Filter>Source\Heros_Of_ST\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\STState.cpp">
+      <Filter>Source\Heros_Of_ST\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\Heros_Of_ST\Public">
+      <UniqueIdentifier>{5EDEE8AC-3DEC-3E04-B2B4-AAF19C4F378A}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\STCharacter.h">
+      <Filter>Source\Heros_Of_ST\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\STState.h">
+      <Filter>Source\Heros_Of_ST\Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
