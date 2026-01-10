@@ -5,34 +5,34 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "STCharacter.h"
+#include "Characters/STCharacter.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 void EmptyLinkFunctionForGeneratedCodeSTCharacter() {}
 
 // ********** Begin Cross Module References ********************************************************
-COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
-HEROS_OF_ST_API UClass* Z_Construct_UClass_USTCharacter();
-HEROS_OF_ST_API UClass* Z_Construct_UClass_USTCharacter_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_AActor();
+HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTCharacter();
+HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTCharacter_NoRegister();
 UPackage* Z_Construct_UPackage__Script_Heros_Of_ST();
 // ********** End Cross Module References **********************************************************
 
-// ********** Begin Class USTCharacter *************************************************************
-void USTCharacter::StaticRegisterNativesUSTCharacter()
+// ********** Begin Class ASTCharacter *************************************************************
+void ASTCharacter::StaticRegisterNativesASTCharacter()
 {
 }
-FClassRegistrationInfo Z_Registration_Info_UClass_USTCharacter;
-UClass* USTCharacter::GetPrivateStaticClass()
+FClassRegistrationInfo Z_Registration_Info_UClass_ASTCharacter;
+UClass* ASTCharacter::GetPrivateStaticClass()
 {
-	using TClass = USTCharacter;
-	if (!Z_Registration_Info_UClass_USTCharacter.InnerSingleton)
+	using TClass = ASTCharacter;
+	if (!Z_Registration_Info_UClass_ASTCharacter.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
 			StaticPackage(),
 			TEXT("STCharacter"),
-			Z_Registration_Info_UClass_USTCharacter.InnerSingleton,
-			StaticRegisterNativesUSTCharacter,
+			Z_Registration_Info_UClass_ASTCharacter.InnerSingleton,
+			StaticRegisterNativesASTCharacter,
 			sizeof(TClass),
 			alignof(TClass),
 			TClass::StaticClassFlags,
@@ -45,37 +45,34 @@ UClass* USTCharacter::GetPrivateStaticClass()
 			&TClass::WithinClass::StaticClass
 		);
 	}
-	return Z_Registration_Info_UClass_USTCharacter.InnerSingleton;
+	return Z_Registration_Info_UClass_ASTCharacter.InnerSingleton;
 }
-UClass* Z_Construct_UClass_USTCharacter_NoRegister()
+UClass* Z_Construct_UClass_ASTCharacter_NoRegister()
 {
-	return USTCharacter::GetPrivateStaticClass();
+	return ASTCharacter::GetPrivateStaticClass();
 }
-struct Z_Construct_UClass_USTCharacter_Statics
+struct Z_Construct_UClass_ASTCharacter_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
-#endif
-		{ "IncludePath", "STCharacter.h" },
-		{ "ModuleRelativePath", "Public/STCharacter.h" },
+		{ "IncludePath", "Characters/STCharacter.h" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
 	};
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<USTCharacter>::IsAbstract,
+		TCppClassTypeTraits<ASTCharacter>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-UObject* (*const Z_Construct_UClass_USTCharacter_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UObject,
+UObject* (*const Z_Construct_UClass_ASTCharacter_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_AActor,
 	(UObject* (*)())Z_Construct_UPackage__Script_Heros_Of_ST,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_USTCharacter_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_USTCharacter_Statics::ClassParams = {
-	&USTCharacter::StaticClass,
-	nullptr,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ASTCharacter_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_ASTCharacter_Statics::ClassParams = {
+	&ASTCharacter::StaticClass,
+	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
@@ -85,31 +82,30 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_USTCharacter_Statics::C
 	0,
 	0,
 	0,
-	0x001000A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_USTCharacter_Statics::Class_MetaDataParams), Z_Construct_UClass_USTCharacter_Statics::Class_MetaDataParams)
+	0x009001A4u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ASTCharacter_Statics::Class_MetaDataParams), Z_Construct_UClass_ASTCharacter_Statics::Class_MetaDataParams)
 };
-UClass* Z_Construct_UClass_USTCharacter()
+UClass* Z_Construct_UClass_ASTCharacter()
 {
-	if (!Z_Registration_Info_UClass_USTCharacter.OuterSingleton)
+	if (!Z_Registration_Info_UClass_ASTCharacter.OuterSingleton)
 	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USTCharacter.OuterSingleton, Z_Construct_UClass_USTCharacter_Statics::ClassParams);
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ASTCharacter.OuterSingleton, Z_Construct_UClass_ASTCharacter_Statics::ClassParams);
 	}
-	return Z_Registration_Info_UClass_USTCharacter.OuterSingleton;
+	return Z_Registration_Info_UClass_ASTCharacter.OuterSingleton;
 }
-USTCharacter::USTCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
-DEFINE_VTABLE_PTR_HELPER_CTOR(USTCharacter);
-USTCharacter::~USTCharacter() {}
-// ********** End Class USTCharacter ***************************************************************
+DEFINE_VTABLE_PTR_HELPER_CTOR(ASTCharacter);
+ASTCharacter::~ASTCharacter() {}
+// ********** End Class ASTCharacter ***************************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STCharacter_h__Script_Heros_Of_ST_Statics
+struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USTCharacter, USTCharacter::StaticClass, TEXT("USTCharacter"), &Z_Registration_Info_UClass_USTCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTCharacter), 2184603428U) },
+		{ Z_Construct_UClass_ASTCharacter, ASTCharacter::StaticClass, TEXT("ASTCharacter"), &Z_Registration_Info_UClass_ASTCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTCharacter), 2552298961U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STCharacter_h__Script_Heros_Of_ST_3258837952(TEXT("/Script/Heros_Of_ST"),
-	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_3155844467(TEXT("/Script/Heros_Of_ST"),
+	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // ********** End Registration *********************************************************************

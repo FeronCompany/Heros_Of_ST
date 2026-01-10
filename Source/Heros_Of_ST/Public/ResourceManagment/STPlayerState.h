@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "STCharacter.generated.h"
+#include "GameFramework/PlayerState.h"
+#include "STPlayerState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class HEROS_OF_ST_API USTCharacter : public UObject
+class HEROS_OF_ST_API ASTPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	

@@ -1,2 +1,5 @@
-C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\STCharacter.h
-C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\STState.h
+C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\Characters\BaseCharacter.h
+C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\ResourceManagment\STPlayerState.h
+C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\ResourceManagment\CharacterSearcher.h
+C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\Characters\STCharacter.h
+C:\Users\Administrator\Documents\Unreal Projects\Heros_Of_ST\Source\Heros_Of_ST\Public\States\STState.h

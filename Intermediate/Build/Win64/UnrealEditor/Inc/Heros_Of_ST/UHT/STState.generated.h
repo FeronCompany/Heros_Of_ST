@@ -4,7 +4,7 @@
 	DO NOT modify this manually! Edit the corresponding .h files instead!
 ===========================================================================*/
 
-// IWYU pragma: private, include "STState.h"
+// IWYU pragma: private, include "States/STState.h"
 
 #ifdef HEROS_OF_ST_STState_generated_h
 #error "STState.generated.h already included, missing '#pragma once' in STState.h"
@@ -16,47 +16,45 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
-// ********** Begin Class USTState *****************************************************************
-HEROS_OF_ST_API UClass* Z_Construct_UClass_USTState_NoRegister();
+// ********** Begin Class ASTState *****************************************************************
+HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_INCLASS_NO_PURE_DECLS \
 private: \
-	static void StaticRegisterNativesUSTState(); \
-	friend struct Z_Construct_UClass_USTState_Statics; \
+	static void StaticRegisterNativesASTState(); \
+	friend struct Z_Construct_UClass_ASTState_Statics; \
 	static UClass* GetPrivateStaticClass(); \
-	friend HEROS_OF_ST_API UClass* Z_Construct_UClass_USTState_NoRegister(); \
+	friend HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState_NoRegister(); \
 public: \
-	DECLARE_CLASS2(USTState, UObject, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/Heros_Of_ST"), Z_Construct_UClass_USTState_NoRegister) \
-	DECLARE_SERIALIZER(USTState)
+	DECLARE_CLASS2(ASTState, AActor, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/Heros_Of_ST"), Z_Construct_UClass_ASTState_NoRegister) \
+	DECLARE_SERIALIZER(ASTState)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API USTState(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
-	USTState(USTState&&) = delete; \
-	USTState(const USTState&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, USTState); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(USTState); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USTState) \
-	NO_API virtual ~USTState();
+	ASTState(ASTState&&) = delete; \
+	ASTState(const ASTState&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, ASTState); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ASTState); \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(ASTState) \
+	NO_API virtual ~ASTState();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h_12_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h_15_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_9_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-class USTState;
+class ASTState;
 
-// ********** End Class USTState *******************************************************************
+// ********** End Class ASTState *******************************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_STState_h
+#define CURRENT_FILE_ID FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
