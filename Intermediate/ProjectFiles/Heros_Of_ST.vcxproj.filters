@@ -97,4 +97,7 @@
       <Filter>Source\Heros_Of_ST\Public\States</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\macros.h" />
+  </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 
 
 #include "ResourceManagment/CharacterSearcher.h"
+#include "Heros_Of_ST/macros.h"
 
 ASTCharacter* UCharacterSearcher::FindCharacterByID(const FName& CharacterID)
 {
@@ -35,11 +36,7 @@ bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FName&
 		return false;
 	}
 	CharacterMap.Add(CharacterID, Character);
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		5.f,
-		FColor::Green,
-		FString::Printf(TEXT("Registered Character ID: \"%s\""), *CharacterID.ToString()));
+	PRINT_SCREEN("Registered Character ID: \"%s\"", *CharacterID.ToString());
 	return true;
 }
 
@@ -50,11 +47,7 @@ void UCharacterSearcher::UnregisterCharacter(const FName& CharacterID)
 	if (itor)
 	{
 		CharacterMap.Remove(CharacterID);
-		GEngine->AddOnScreenDebugMessage(
-			-1,
-			5.f,
-			FColor::Green,
-			FString::Printf(TEXT("Unregistered Character ID: \"%s\""), *CharacterID.ToString()));
+		PRINT_SCREEN("Unregistered Character ID: \"%s\"", *CharacterID.ToString());
 	}
 	else
 	{
@@ -72,11 +65,7 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 {
 	// Placeholder for loading character list from save data
 	// TODO: Implement actual loading logic here
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		5.f,
-		FColor::Green,
-		TEXT("Loaded character list from save data (placeholder)."));
+	PRINT_SCREEN("Loaded character list from save data (placeholder).");
 	return true;
 }
 
@@ -84,11 +73,7 @@ void UCharacterSearcher::SaveCharacterListToSaveData()
 {
 	// Placeholder for saving character list to save data
 	// TODO: Implement actual saving logic here
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		5.f,
-		FColor::Green,
-		TEXT("Saved character list to save data (placeholder)."));
+	PRINT_SCREEN("Saved character list to save data (placeholder).");
 }
 
 void UCharacterSearcher::ClearCharacters()
