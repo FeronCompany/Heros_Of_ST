@@ -361,3 +361,19 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Intermediate/CachedAssetRegistryDiscovery.bin
+/Intermediate/CachedAssetRegistry_0.bin
+/Intermediate/Build/SourceFileCache.bin
+/Intermediate/Build/Win64/ActionHistory.bin
+/Intermediate/Build/SourceFileCache.bin
+/Saved/AutoScreenshot.png
+/Binaries
+/Saved/Config/CrashReportClient
+/Saved/Crashes
+/Saved/Autosaves/Temp
+/Saved/Autosaves/Game
+/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini
+/Saved/Autosaves/PackageRestoreData.json
+/Saved/SourceControl/UncontrolledChangelists.json
+/Intermediate/Build/Win64/UnrealEditor/Inc/Heros_Of_ST/UHT/Timestamp
+/DerivedDataCache
