@@ -2,6 +2,7 @@
 
 
 #include "Characters/STCharacter.h"
+#include "ResourceManagment/CharacterSearcher.h"
 
 // Sets default values
 ASTCharacter::ASTCharacter()
@@ -15,12 +16,20 @@ ASTCharacter::ASTCharacter()
 void ASTCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	// Register this character with the CharacterSearcher in the PlayerState
+	auto CharacterSearcher = UCharacterSearcher::Get();
+	CharacterID = CharacterSearcher->GenerateCharacterID();
+	if (!CharacterSearcher->RegisterCharacter(this, CharacterID))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to register character with ID \"%s\"."), *CharacterID.ToString());
+	}
 }
 
 void ASTCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
+	// Unregister this character from the CharacterSearcher
+	UCharacterSearcher::Get()->UnregisterCharacter(CharacterID);
 }
 
 // Called every frame

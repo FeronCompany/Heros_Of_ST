@@ -375,5 +375,10 @@ FodyWeavers.xsd
 /Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini
 /Saved/Autosaves/PackageRestoreData.json
 /Saved/SourceControl/UncontrolledChangelists.json
+/Saved/ShaderDebugInfo
 /Intermediate/Build/Win64/UnrealEditor/Inc/Heros_Of_ST/UHT/Timestamp
 /DerivedDataCache
+/Intermediate/Build/BuildRules
+/Intermediate/ShaderAutogen
+*.code-workspace
+/Content/GFX

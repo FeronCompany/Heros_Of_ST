@@ -42,15 +42,15 @@
     <ClInclude Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.h">
       <Filter>Source\Heros_Of_ST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\macros.h">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </ClInclude>
     <Filter Include="Source\Heros_Of_ST\Private">
       <UniqueIdentifier>{7FAA08AD-999A-3390-9BB3-44AAD8B4B766}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Heros_Of_ST\Private\Characters">
       <UniqueIdentifier>{9F2BAB0A-97B6-3B3C-8E4F-CF1033850343}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Characters\BaseCharacter.cpp">
-      <Filter>Source\Heros_Of_ST\Private\Characters</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Characters\STCharacter.cpp">
       <Filter>Source\Heros_Of_ST\Private\Characters</Filter>
     </ClCompile>
@@ -75,9 +75,6 @@
     <Filter Include="Source\Heros_Of_ST\Public\Characters">
       <UniqueIdentifier>{6CFC33AE-F585-35ED-9068-23055939DAF2}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Characters\BaseCharacter.h">
-      <Filter>Source\Heros_Of_ST\Public\Characters</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Characters\STCharacter.h">
       <Filter>Source\Heros_Of_ST\Public\Characters</Filter>
     </ClInclude>
@@ -96,8 +93,5 @@
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STState.h">
       <Filter>Source\Heros_Of_ST\Public\States</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\Heros_Of_ST\macros.h" />
   </ItemGroup>
 </Project>
