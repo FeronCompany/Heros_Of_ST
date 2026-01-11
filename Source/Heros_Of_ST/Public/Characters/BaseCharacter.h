@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class HEROS_OF_ST_API ABaseCharacter : public ASTCharacter
 {
 	GENERATED_BODY()
@@ -19,5 +19,6 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	FName CharacterID;
 };

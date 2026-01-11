@@ -17,6 +17,18 @@ class HEROS_OF_ST_API UCharacterSearcher : public UObject
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	static UCharacterSearcher* Get()
+	{
+		static UCharacterSearcher* Instance = nullptr;
+		if (!Instance)
+		{
+			Instance = NewObject<UCharacterSearcher>(GetTransientPackage(), NAME_None);
+			Instance->AddToRoot(); // ∑¿÷πGCªÿ ’
+		}
+		return Instance;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	ASTCharacter* FindCharacterByID(const FName& CharacterID);
 
 	FName GenerateCharacterID();
@@ -28,6 +40,15 @@ public:
 	void UnregisterCharacter(const FName& CharacterID);
 
 	virtual void BeginDestroy() override;
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool LoadCharacterListFromSaveData();
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void SaveCharacterListToSaveData();
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void ClearCharacters();
 
 private:
 	TMap<FName, ASTCharacter*> CharacterMap;

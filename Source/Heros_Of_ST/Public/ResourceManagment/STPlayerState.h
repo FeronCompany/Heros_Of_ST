@@ -9,9 +9,11 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTPlayerState : public APlayerState
 {
 	GENERATED_BODY()
-	
+public:
+	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };

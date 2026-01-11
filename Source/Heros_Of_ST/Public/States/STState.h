@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "STState.generated.h"
 
+/**
+ * Empires, Kingdoms, and States; Not status
+ */
 UCLASS()
 class HEROS_OF_ST_API ASTState : public AActor
 {

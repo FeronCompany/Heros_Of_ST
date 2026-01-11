@@ -21,7 +21,7 @@ ASTCharacter* UCharacterSearcher::FindCharacterByID(const FName& CharacterID)
 FName UCharacterSearcher::GenerateCharacterID()
 {
     FName ID = *FString::FromInt(CurrentIDCounter++);
-	UE_LOG(LogTemp, Warning, TEXT("Generated Character ID: \"%s\""), *ID.ToString());
+	//UE_LOG(LogTemp, Display, TEXT("Generated Character ID: \"%s\""), *ID.ToString());
     return ID;
 }
 
@@ -34,7 +34,12 @@ bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FName&
 		UE_LOG(LogTemp, Error, TEXT("Character ID \"%s\" is already registered."), *CharacterID.ToString());
 		return false;
 	}
-	CharacterMap[CharacterID] = Character;
+	CharacterMap.Add(CharacterID, Character);
+	GEngine->AddOnScreenDebugMessage(
+		-1,
+		5.f,
+		FColor::Green,
+		FString::Printf(TEXT("Registered Character ID: \"%s\""), *CharacterID.ToString()));
 	return true;
 }
 
@@ -44,8 +49,12 @@ void UCharacterSearcher::UnregisterCharacter(const FName& CharacterID)
 	auto itor = CharacterMap.Find(CharacterID);
 	if (itor)
 	{
-		(*itor)->ConditionalBeginDestroy();
 		CharacterMap.Remove(CharacterID);
+		GEngine->AddOnScreenDebugMessage(
+			-1,
+			5.f,
+			FColor::Green,
+			FString::Printf(TEXT("Unregistered Character ID: \"%s\""), *CharacterID.ToString()));
 	}
 	else
 	{
@@ -56,6 +65,34 @@ void UCharacterSearcher::UnregisterCharacter(const FName& CharacterID)
 void UCharacterSearcher::BeginDestroy()
 {
 	Super::BeginDestroy();
+	ClearCharacters();
+}
+
+bool UCharacterSearcher::LoadCharacterListFromSaveData()
+{
+	// Placeholder for loading character list from save data
+	// TODO: Implement actual loading logic here
+	GEngine->AddOnScreenDebugMessage(
+		-1,
+		5.f,
+		FColor::Green,
+		TEXT("Loaded character list from save data (placeholder)."));
+	return true;
+}
+
+void UCharacterSearcher::SaveCharacterListToSaveData()
+{
+	// Placeholder for saving character list to save data
+	// TODO: Implement actual saving logic here
+	GEngine->AddOnScreenDebugMessage(
+		-1,
+		5.f,
+		FColor::Green,
+		TEXT("Saved character list to save data (placeholder)."));
+}
+
+void UCharacterSearcher::ClearCharacters()
+{
 	FScopeLock Lock(&SyncLock);
 	for (auto& Pair : CharacterMap)
 	{

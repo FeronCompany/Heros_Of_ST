@@ -17,12 +17,17 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 class ASTCharacter;
+class UCharacterSearcher;
 
 // ********** Begin Class UCharacterSearcher *******************************************************
 #define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execClearCharacters); \
+	DECLARE_FUNCTION(execSaveCharacterListToSaveData); \
+	DECLARE_FUNCTION(execLoadCharacterListFromSaveData); \
 	DECLARE_FUNCTION(execUnregisterCharacter); \
 	DECLARE_FUNCTION(execRegisterCharacter); \
-	DECLARE_FUNCTION(execFindCharacterByID);
+	DECLARE_FUNCTION(execFindCharacterByID); \
+	DECLARE_FUNCTION(execGet);
 
 
 HEROS_OF_ST_API UClass* Z_Construct_UClass_UCharacterSearcher_NoRegister();

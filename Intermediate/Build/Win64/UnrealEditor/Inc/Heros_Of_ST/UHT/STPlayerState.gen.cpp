@@ -55,11 +55,13 @@ struct Z_Construct_UClass_ASTPlayerState_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * \n */" },
 #endif
 		{ "HideCategories", "Input Movement Collision Rendering HLOD WorldPartition DataLayers Transformation" },
 		{ "IncludePath", "ResourceManagment/STPlayerState.h" },
+		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "Public/ResourceManagment/STPlayerState.h" },
 		{ "ShowCategories", "Input|MouseInput Input|TouchInput" },
 	};
@@ -107,10 +109,10 @@ ASTPlayerState::~ASTPlayerState() {}
 struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STPlayerState_h__Script_Heros_Of_ST_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTPlayerState, ASTPlayerState::StaticClass, TEXT("ASTPlayerState"), &Z_Registration_Info_UClass_ASTPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTPlayerState), 4284706806U) },
+		{ Z_Construct_UClass_ASTPlayerState, ASTPlayerState::StaticClass, TEXT("ASTPlayerState"), &Z_Registration_Info_UClass_ASTPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTPlayerState), 947634986U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STPlayerState_h__Script_Heros_Of_ST_1349783278(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STPlayerState_h__Script_Heros_Of_ST_2813334355(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STPlayerState_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STPlayerState_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
