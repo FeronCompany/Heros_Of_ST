@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "STCharacter.generated.h"
 
+class USTTitle;
+
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTCharacter : public AActor
 {
@@ -27,4 +29,7 @@ protected:
 public:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	FName CharacterID;
+	// м╥онап╠М
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	TArray<USTTitle*> Titles;
 };

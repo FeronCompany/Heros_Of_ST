@@ -15,6 +15,7 @@
     <None Include="..\..\.gitattributes" />
     <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Heros_Of_ST.code-workspace" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -69,6 +70,9 @@
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STState.cpp">
       <Filter>Source\Heros_Of_ST\Private\States</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STTitle.cpp">
+      <Filter>Source\Heros_Of_ST\Private\States</Filter>
+    </ClCompile>
     <Filter Include="Source\Heros_Of_ST\Public">
       <UniqueIdentifier>{5EDEE8AC-3DEC-3E04-B2B4-AAF19C4F378A}</UniqueIdentifier>
     </Filter>
@@ -91,6 +95,9 @@
       <UniqueIdentifier>{EE635B07-AC57-39CC-96B0-6D21A6B816E9}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STState.h">
+      <Filter>Source\Heros_Of_ST\Public\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STTitle.h">
       <Filter>Source\Heros_Of_ST\Public\States</Filter>
     </ClInclude>
   </ItemGroup>

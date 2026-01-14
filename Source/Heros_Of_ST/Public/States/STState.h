@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "STState.generated.h"
 
+class USTTitle;
+
 /**
  * Empires, Kingdoms, and States; Not status
  */
@@ -17,13 +19,22 @@ class HEROS_OF_ST_API ASTState : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASTState();
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = "State")
+	TArray<USTTitle*> GetTitles() const { return Titles; }
+
+	UFUNCTION(BlueprintCallable, Category = "State")
+	void InitTitles(const TArray<USTTitle*>& NewTitles) { Titles = NewTitles; }
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
+private:
+	// 所属头衔列表
+	TArray<USTTitle*> Titles;
 };
