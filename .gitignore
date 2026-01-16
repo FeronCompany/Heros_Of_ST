@@ -382,3 +382,4 @@ FodyWeavers.xsd
 /Intermediate/ShaderAutogen
 *.code-workspace
 /Content/GFX
+/Intermediate/Build/Win64/Heros_Of_STEditor/DebugGame/Heros_Of_STEditor.uhtmanifest
