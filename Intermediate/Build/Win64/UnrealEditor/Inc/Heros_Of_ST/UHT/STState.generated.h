@@ -16,10 +16,17 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
+class USTTitle;
+
 // ********** Begin Class ASTState *****************************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execInitTitles); \
+	DECLARE_FUNCTION(execGetTitles);
+
+
 HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASTState(); \
 	friend struct Z_Construct_UClass_ASTState_Statics; \
@@ -30,7 +37,7 @@ public: \
 	DECLARE_SERIALIZER(ASTState)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ASTState(ASTState&&) = delete; \
 	ASTState(const ASTState&) = delete; \
@@ -40,12 +47,13 @@ public: \
 	NO_API virtual ~ASTState();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_14_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_17_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

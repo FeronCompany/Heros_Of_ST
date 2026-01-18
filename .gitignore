@@ -375,5 +375,12 @@ FodyWeavers.xsd
 /Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini
 /Saved/Autosaves/PackageRestoreData.json
 /Saved/SourceControl/UncontrolledChangelists.json
+/Saved/ShaderDebugInfo
 /Intermediate/Build/Win64/UnrealEditor/Inc/Heros_Of_ST/UHT/Timestamp
 /DerivedDataCache
+/Intermediate/Build/BuildRules
+/Intermediate/ShaderAutogen
+/Intermediate/ReimportCache
+*.code-workspace
+/Content/GFX
+/Intermediate/Build/Win64/Heros_Of_STEditor/DebugGame/Heros_Of_STEditor.uhtmanifest

@@ -2,6 +2,7 @@
 
 
 #include "ResourceManagment/CharacterSearcher.h"
+#include "Characters/STCharacter.h"
 #include "Heros_Of_ST/macros.h"
 
 ASTCharacter* UCharacterSearcher::FindCharacterByID(const FName& CharacterID)
@@ -63,6 +64,51 @@ void UCharacterSearcher::BeginDestroy()
 
 bool UCharacterSearcher::LoadCharacterListFromSaveData()
 {
+	// Create controlled character
+	UWorld* World = nullptr;
+	if (GEngine)
+	{
+		for (const FWorldContext& Context : GEngine->GetWorldContexts())
+		{
+			UWorld* CandidateWorld = Context.World();
+			if (CandidateWorld && CandidateWorld->IsGameWorld())
+			{
+				World = CandidateWorld;
+				break;
+			}
+		}
+	}
+	if (!World)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoadCharacterListFromSaveData failed: no valid game world found."));
+		return false;
+	}
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Name = FName(TEXT("CurrentControlledCharacter"));
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.ObjectFlags |= RF_Transient;
+	ASTCharacter* SpawnedCharacter = World->SpawnActor<ASTCharacter>(SpawnParams);
+	if (!SpawnedCharacter)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to spawn controlled character."));
+		return false;
+	}
+	SpawnedCharacter->CharacterID = GenerateCharacterID();
+	if (!RegisterCharacter(SpawnedCharacter, SpawnedCharacter->CharacterID))
+	{
+		SpawnedCharacter->Destroy();
+		return false;
+	}
+	SpawnedCharacter->Attributes.Health = 100;
+	SpawnedCharacter->Attributes.Comprehension = 90;
+	SpawnedCharacter->Attributes.Ingenuity = 80;
+	SpawnedCharacter->Attributes.Perception = 70;
+	SpawnedCharacter->Attributes.Willpower = 60;
+	SpawnedCharacter->Attributes.Charisma = 50;
+	SpawnedCharacter->Attributes.Strategy = 40;
+	SpawnedCharacter->Attributes.Governance = 30;
+	currentControlledCharacter = SpawnedCharacter;
 	// Placeholder for loading character list from save data
 	// TODO: Implement actual loading logic here
 	PRINT_SCREEN("Loaded character list from save data (placeholder).");
@@ -87,4 +133,6 @@ void UCharacterSearcher::ClearCharacters()
 		}
 	}
 	CharacterMap.Empty();
+	//currentControlledCharacter->Destroy();
+	currentControlledCharacter = nullptr;
 }

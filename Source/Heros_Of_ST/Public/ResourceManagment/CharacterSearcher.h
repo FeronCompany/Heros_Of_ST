@@ -4,8 +4,9 @@
 #include <atomic>
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "Characters/STCharacter.h"
 #include "CharacterSearcher.generated.h"
+
+class ASTCharacter;
 
 /**
  * 
@@ -49,6 +50,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void ClearCharacters();
+
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ASTCharacter* currentControlledCharacter = nullptr;
 
 private:
 	TMap<FName, ASTCharacter*> CharacterMap;

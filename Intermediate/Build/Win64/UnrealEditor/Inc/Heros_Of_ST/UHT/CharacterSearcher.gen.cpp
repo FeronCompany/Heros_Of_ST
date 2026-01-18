@@ -380,7 +380,13 @@ struct Z_Construct_UClass_UCharacterSearcher_Statics
 		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_currentControlledCharacter_MetaData[] = {
+		{ "Category", "CharacterSearcher" },
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_currentControlledCharacter;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_UCharacterSearcher_ClearCharacters, "ClearCharacters" }, // 2047699703
@@ -397,6 +403,11 @@ struct Z_Construct_UClass_UCharacterSearcher_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCharacterSearcher_Statics::NewProp_currentControlledCharacter = { "currentControlledCharacter", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCharacterSearcher, currentControlledCharacter), Z_Construct_UClass_ASTCharacter_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_currentControlledCharacter_MetaData), NewProp_currentControlledCharacter_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UCharacterSearcher_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCharacterSearcher_Statics::NewProp_currentControlledCharacter,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UCharacterSearcher_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UCharacterSearcher_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_UObject,
 	(UObject* (*)())Z_Construct_UPackage__Script_Heros_Of_ST,
@@ -408,11 +419,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UCharacterSearcher_Stat
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	FuncInfo,
-	nullptr,
+	Z_Construct_UClass_UCharacterSearcher_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
-	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_UCharacterSearcher_Statics::PropPointers),
 	0,
 	0x001000A0u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UCharacterSearcher_Statics::Class_MetaDataParams), Z_Construct_UClass_UCharacterSearcher_Statics::Class_MetaDataParams)
@@ -434,10 +445,10 @@ UCharacterSearcher::~UCharacterSearcher() {}
 struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCharacterSearcher, UCharacterSearcher::StaticClass, TEXT("UCharacterSearcher"), &Z_Registration_Info_UClass_UCharacterSearcher, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCharacterSearcher), 490005736U) },
+		{ Z_Construct_UClass_UCharacterSearcher, UCharacterSearcher::StaticClass, TEXT("UCharacterSearcher"), &Z_Registration_Info_UClass_UCharacterSearcher, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCharacterSearcher), 284955841U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_2772285027(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_433222072(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
