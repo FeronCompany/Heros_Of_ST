@@ -276,6 +276,9 @@
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\STPlayerState.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STHolding.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STState.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -285,6 +288,7 @@
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Characters\STCharacter.h"/>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\CharacterSearcher.h"/>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\STPlayerState.h"/>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STHolding.h"/>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STState.h"/>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STTitle.h"/>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\StructsAndInterfaces\CharAttributes.h"/>

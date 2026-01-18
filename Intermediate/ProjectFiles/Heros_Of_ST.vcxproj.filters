@@ -67,6 +67,9 @@
     <Filter Include="Source\Heros_Of_ST\Private\States">
       <UniqueIdentifier>{6E939A84-ADBB-3C7C-B063-04817867F67A}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STHolding.cpp">
+      <Filter>Source\Heros_Of_ST\Private\States</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STState.cpp">
       <Filter>Source\Heros_Of_ST\Private\States</Filter>
     </ClCompile>
@@ -94,6 +97,9 @@
     <Filter Include="Source\Heros_Of_ST\Public\States">
       <UniqueIdentifier>{EE635B07-AC57-39CC-96B0-6D21A6B816E9}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STHolding.h">
+      <Filter>Source\Heros_Of_ST\Public\States</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STState.h">
       <Filter>Source\Heros_Of_ST\Public\States</Filter>
     </ClInclude>

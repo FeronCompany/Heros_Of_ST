@@ -7,11 +7,22 @@
 #include "STState.generated.h"
 
 class USTTitle;
+class ASTHolding;
+
+UENUM(Blueprintable)
+enum class EOverlordType : uint8
+{
+	Independent UMETA(DisplayName = "Independent"),
+	Administrative UMETA(DisplayName = "Administrative"),
+	Vassalage UMETA(DisplayName = "Vassalage"),
+	Tributary UMETA(DisplayName = "Tributary"),
+	MAX UMETA(Hidden)
+};
 
 /**
  * Empires, Kingdoms, and States; Not status
  */
-UCLASS()
+UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTState : public AActor
 {
 	GENERATED_BODY()
@@ -26,15 +37,28 @@ public:
 	TArray<USTTitle*> GetTitles() const { return Titles; }
 
 	UFUNCTION(BlueprintCallable, Category = "State")
-	void InitTitles(const TArray<USTTitle*>& NewTitles) { Titles = NewTitles; }
+	ASTHolding* GetCaptial() const { return Captial; }
+
+	UFUNCTION(BlueprintCallable, Category = "State")
+	void InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capital);
+
+	UFUNCTION(BlueprintCallable, Category = "State")
+	void SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	ASTState* OverlordState{ nullptr };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	EOverlordType OverlordType{ EOverlordType::Independent };
+	// 治所
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	ASTHolding* Captial{ nullptr };
 
 private:
-	// 所属头衔列表
+	// 所属头衔列表 * 初始化后不允许修改
 	TArray<USTTitle*> Titles;
 };

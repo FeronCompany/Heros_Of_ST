@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "States/STState.h"
+#include "States/STHolding.h"
 
 // Sets default values
-ASTState::ASTState()
+ASTHolding::ASTHolding()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -12,26 +12,14 @@ ASTState::ASTState()
 }
 
 // Called every frame
-void ASTState::Tick(float DeltaTime)
+void ASTHolding::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
-void ASTState::InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capital)
-{
-	Titles = NewTitles;
-	Captial = capital;
-}
-
-void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType)
-{
-	OverlordState = Overlord;
-	OverlordType = NewOverlordType;
-}
-
 // Called when the game starts or when spawned
-void ASTState::BeginPlay()
+void ASTHolding::BeginPlay()
 {
 	Super::BeginPlay();
 	

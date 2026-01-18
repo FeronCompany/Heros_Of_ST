@@ -3,6 +3,7 @@
 
 #include "Characters/STCharacter.h"
 #include "ResourceManagment/CharacterSearcher.h"
+#include "Heros_Of_ST/macros.h"
 
 // Sets default values
 ASTCharacter::ASTCharacter()
@@ -37,5 +38,15 @@ void ASTCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ASTCharacter::Death(EDeathReason ActualDeathReason)
+{
+	CharacterStatus = ECharacterStatus::Dead;
+	DeathReason = ActualDeathReason;
+	PRINT_SCREEN("Character %s has died due to %s.",
+		*CharacterID.ToString(),
+		*StaticEnum<EDeathReason>()->GetNameStringByValue(static_cast<uint8>(DeathReason)));
+	// TODO: Handle death logic based on DeathReason
 }
 

@@ -9,6 +9,33 @@
 
 class USTTitle;
 
+UENUM(BlueprintType)
+enum class ECharacterStatus : uint8
+{
+	Healthy UMETA(DisplayName = "Healthy"),
+	Wounded  UMETA(DisplayName = "Wounded"),
+	ill  UMETA(DisplayName = "Ill"),
+	Disabled  UMETA(DisplayName = "Disabled"),
+	Dead  UMETA(DisplayName = "Dead"),
+	MAX UMETA(Hidden)
+};
+
+UENUM(BlueprintType)
+enum class EDeathReason : uint8
+{
+	Alive  UMETA(DisplayName = "Alive"),
+	Natural UMETA(DisplayName = "Natural"),
+	Disease  UMETA(DisplayName = "Disease"),
+	KIA  UMETA(DisplayName = "KIA"),
+	Murder  UMETA(DisplayName = "Murder"),
+	Disappearance  UMETA(DisplayName = "Disappearance"),
+	Execution  UMETA(DisplayName = "Execution"),
+	NaturalDisaster  UMETA(DisplayName = "Natural Disaster"),
+	Accident  UMETA(DisplayName = "Accident"),
+	Slaughter  UMETA(DisplayName = "Slaughter"),
+	MAX UMETA(Hidden)
+};
+
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTCharacter : public AActor
 {
@@ -20,6 +47,9 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	void Death(EDeathReason ActualDeathReason);
 
 protected:
 	// Called when the game starts or when spawned
@@ -36,4 +66,10 @@ public:
 	//  Ù–‘
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	FCharAttributes Attributes;
+	// ◊¥Ã¨
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
+	ECharacterStatus CharacterStatus = ECharacterStatus::Healthy;
+	// À¿Õˆ‘≠“Ú
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
+	EDeathReason DeathReason = EDeathReason::Alive;
 };

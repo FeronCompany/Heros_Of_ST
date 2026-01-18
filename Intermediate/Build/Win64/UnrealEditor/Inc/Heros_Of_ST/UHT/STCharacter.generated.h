@@ -16,10 +16,16 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
+enum class EDeathReason : uint8;
+
 // ********** Begin Class ASTCharacter *************************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execDeath);
+
+
 HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTCharacter_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASTCharacter(); \
 	friend struct Z_Construct_UClass_ASTCharacter_Statics; \
@@ -30,7 +36,7 @@ public: \
 	DECLARE_SERIALIZER(ASTCharacter)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ASTCharacter(ASTCharacter&&) = delete; \
 	ASTCharacter(const ASTCharacter&) = delete; \
@@ -40,12 +46,13 @@ public: \
 	NO_API virtual ~ASTCharacter();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_12_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_15_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_39_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -56,5 +63,36 @@ class ASTCharacter;
 
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h
+
+// ********** Begin Enum ECharacterStatus **********************************************************
+#define FOREACH_ENUM_ECHARACTERSTATUS(op) \
+	op(ECharacterStatus::Healthy) \
+	op(ECharacterStatus::Wounded) \
+	op(ECharacterStatus::ill) \
+	op(ECharacterStatus::Disabled) \
+	op(ECharacterStatus::Dead) 
+
+enum class ECharacterStatus : uint8;
+template<> struct TIsUEnumClass<ECharacterStatus> { enum { Value = true }; };
+template<> HEROS_OF_ST_API UEnum* StaticEnum<ECharacterStatus>();
+// ********** End Enum ECharacterStatus ************************************************************
+
+// ********** Begin Enum EDeathReason **************************************************************
+#define FOREACH_ENUM_EDEATHREASON(op) \
+	op(EDeathReason::Alive) \
+	op(EDeathReason::Natural) \
+	op(EDeathReason::Disease) \
+	op(EDeathReason::KIA) \
+	op(EDeathReason::Murder) \
+	op(EDeathReason::Disappearance) \
+	op(EDeathReason::Execution) \
+	op(EDeathReason::NaturalDisaster) \
+	op(EDeathReason::Accident) \
+	op(EDeathReason::Slaughter) 
+
+enum class EDeathReason : uint8;
+template<> struct TIsUEnumClass<EDeathReason> { enum { Value = true }; };
+template<> HEROS_OF_ST_API UEnum* StaticEnum<EDeathReason>();
+// ********** End Enum EDeathReason ****************************************************************
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
