@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "StructsAndInterfaces/CharAttributes.h"
 #include "STCharacter.generated.h"
 
 class USTTitle;
@@ -32,4 +33,7 @@ public:
 	// 头衔列表
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	TArray<USTTitle*> Titles;
+	// 属性
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	FCharAttributes Attributes;
 };

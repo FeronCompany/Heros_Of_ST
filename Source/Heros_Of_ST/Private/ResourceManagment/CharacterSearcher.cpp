@@ -100,6 +100,14 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 		SpawnedCharacter->Destroy();
 		return false;
 	}
+	SpawnedCharacter->Attributes.Health = 100;
+	SpawnedCharacter->Attributes.Comprehension = 90;
+	SpawnedCharacter->Attributes.Ingenuity = 80;
+	SpawnedCharacter->Attributes.Perception = 70;
+	SpawnedCharacter->Attributes.Willpower = 60;
+	SpawnedCharacter->Attributes.Charisma = 50;
+	SpawnedCharacter->Attributes.Strategy = 40;
+	SpawnedCharacter->Attributes.Governance = 30;
 	currentControlledCharacter = SpawnedCharacter;
 	// Placeholder for loading character list from save data
 	// TODO: Implement actual loading logic here
