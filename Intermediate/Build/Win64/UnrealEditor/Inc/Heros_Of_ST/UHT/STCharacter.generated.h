@@ -68,7 +68,7 @@ class ASTCharacter;
 #define FOREACH_ENUM_ECHARACTERSTATUS(op) \
 	op(ECharacterStatus::Healthy) \
 	op(ECharacterStatus::Wounded) \
-	op(ECharacterStatus::ill) \
+	op(ECharacterStatus::Ill) \
 	op(ECharacterStatus::Disabled) \
 	op(ECharacterStatus::Dead) 
 

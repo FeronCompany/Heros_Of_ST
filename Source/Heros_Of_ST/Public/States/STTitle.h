@@ -9,10 +9,24 @@
 class ASTCharacter;
 class ASTState;
 
+UENUM(Blueprintable)
+enum class ETitleRank : uint8
+{
+	Commoner UMETA(DisplayName = "Commoner"),	// 庶民自治组织头衔（掌门、掌柜、宗族组长、住持、道长等）
+	Knight UMETA(DisplayName = "Knight"),		// 骑士，军事贵族
+	Baron UMETA(DisplayName = "Baron"),			// 男爵，乡级主官（乡长、里正）
+	Count UMETA(DisplayName = "Count"),			// 伯爵，县级主官（县令）
+	Marquis UMETA(DisplayName = "Marquis"),		// 侯爵，地级主官（州刺史）
+	Duke UMETA(DisplayName = "Duke"),			// 公爵，省级（道、路、行省）主官（行台、节度使、总督），朝廷重臣（宰相、尚书）
+	King UMETA(DisplayName = "King"),			// 国王、可汗、亲王、大公、帝国摄政
+	Emperor UMETA(DisplayName = "Emperor"),		// 皇帝、大汗、万王之王、奥古斯都
+	MAX UMETA(Hidden)
+};
+
 /**
  * 统治者的头衔、称号
  */
-UCLASS()
+UCLASS(Blueprintable)
 class HEROS_OF_ST_API USTTitle : public UObject
 {
 	GENERATED_BODY()
@@ -25,4 +39,6 @@ public:
 	ASTCharacter* TitleHolder{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
 	ASTState* TitleBelonging{ nullptr };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
+	ETitleRank TitleRank{ ETitleRank::Commoner };
 };

@@ -65,8 +65,18 @@ struct Z_Construct_UClass_ASTHolding_Statics
 		{ "Category", "Holding" },
 		{ "ModuleRelativePath", "Public/States/STHolding.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HoldingID_MetaData[] = {
+		{ "Category", "Holding" },
+		{ "ModuleRelativePath", "Public/States/STHolding.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HoldingName_MetaData[] = {
+		{ "Category", "Holding" },
+		{ "ModuleRelativePath", "Public/States/STHolding.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OwnerState;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_HoldingID;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_HoldingName;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -75,8 +85,12 @@ struct Z_Construct_UClass_ASTHolding_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTHolding_Statics::NewProp_OwnerState = { "OwnerState", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTHolding, OwnerState), Z_Construct_UClass_ASTState_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OwnerState_MetaData), NewProp_OwnerState_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ASTHolding_Statics::NewProp_HoldingID = { "HoldingID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTHolding, HoldingID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HoldingID_MetaData), NewProp_HoldingID_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ASTHolding_Statics::NewProp_HoldingName = { "HoldingName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTHolding, HoldingName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HoldingName_MetaData), NewProp_HoldingName_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASTHolding_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTHolding_Statics::NewProp_OwnerState,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTHolding_Statics::NewProp_HoldingID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTHolding_Statics::NewProp_HoldingName,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ASTHolding_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ASTHolding_Statics::DependentSingletons[])() = {
@@ -115,10 +129,10 @@ ASTHolding::~ASTHolding() {}
 struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h__Script_Heros_Of_ST_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTHolding, ASTHolding::StaticClass, TEXT("ASTHolding"), &Z_Registration_Info_UClass_ASTHolding, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTHolding), 1033654349U) },
+		{ Z_Construct_UClass_ASTHolding, ASTHolding::StaticClass, TEXT("ASTHolding"), &Z_Registration_Info_UClass_ASTHolding, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTHolding), 2863877162U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h__Script_Heros_Of_ST_4092676925(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h__Script_Heros_Of_ST_726362315(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

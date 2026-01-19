@@ -49,7 +49,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 public:	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	FName StateID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	FString StateName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	ASTState* OverlordState{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")

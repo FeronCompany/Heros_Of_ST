@@ -333,6 +333,14 @@ struct Z_Construct_UClass_ASTState_Statics
 		{ "ToolTip", "Empires, Kingdoms, and States; Not status" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StateID_MetaData[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StateName_MetaData[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlordState_MetaData[] = {
 		{ "Category", "State" },
 		{ "ModuleRelativePath", "Public/States/STState.h" },
@@ -352,6 +360,8 @@ struct Z_Construct_UClass_ASTState_Statics
 #endif
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FNamePropertyParams NewProp_StateID;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_StateName;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlordState;
 	static const UECodeGen_Private::FBytePropertyParams NewProp_OverlordType_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp_OverlordType;
@@ -370,11 +380,15 @@ struct Z_Construct_UClass_ASTState_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateID = { "StateID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateID_MetaData), NewProp_StateID_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateName = { "StateName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateName_MetaData), NewProp_StateName_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_OverlordState = { "OverlordState", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, OverlordState), Z_Construct_UClass_ASTState_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlordState_MetaData), NewProp_OverlordState_MetaData) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_OverlordType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_OverlordType = { "OverlordType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, OverlordType), Z_Construct_UEnum_Heros_Of_ST_EOverlordType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlordType_MetaData), NewProp_OverlordType_MetaData) }; // 4125830762
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_Captial = { "Captial", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, Captial), Z_Construct_UClass_ASTHolding_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Captial_MetaData), NewProp_Captial_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASTState_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_StateID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_StateName,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_OverlordState,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_OverlordType_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_OverlordType,
@@ -420,10 +434,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ EOverlordType_StaticEnum, TEXT("EOverlordType"), &Z_Registration_Info_UEnum_EOverlordType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4125830762U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 1286588694U) },
+		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 3703481013U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_1754363052(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_1956397525(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo));

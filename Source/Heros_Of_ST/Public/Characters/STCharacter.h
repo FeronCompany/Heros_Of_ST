@@ -14,7 +14,7 @@ enum class ECharacterStatus : uint8
 {
 	Healthy UMETA(DisplayName = "Healthy"),
 	Wounded  UMETA(DisplayName = "Wounded"),
-	ill  UMETA(DisplayName = "Ill"),
+	Ill  UMETA(DisplayName = "Ill"),
 	Disabled  UMETA(DisplayName = "Disabled"),
 	Dead  UMETA(DisplayName = "Dead"),
 	MAX UMETA(Hidden)
@@ -60,6 +60,9 @@ protected:
 public:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	FName CharacterID;
+	// Character名称
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	FString CharacterName;
 	// 头衔列表
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	TArray<USTTitle*> Titles;

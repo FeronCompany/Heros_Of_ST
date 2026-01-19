@@ -2,6 +2,7 @@
 
 
 #include "States/STState.h"
+#include "ResourceManagment/CharacterSearcher.h"
 
 // Sets default values
 ASTState::ASTState()
@@ -34,6 +35,19 @@ void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType)
 void ASTState::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	// Register this state with the CharacterSearcher in the PlayerState
+	auto CharacterSearcher = UCharacterSearcher::Get();
+	StateID = CharacterSearcher->GenerateCharacterID(); // 虽然叫CharacterID，但也用来给其他子容器生成唯一ID
+	if (!CharacterSearcher->RegisterState(this, StateID))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to register state with ID \"%s\"."), *StateID.ToString());
+	}
+}
+
+void ASTState::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	// Unregister this state from the CharacterSearcher
+	UCharacterSearcher::Get()->UnregisterState(StateID);
 }
 
