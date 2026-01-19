@@ -32,7 +32,7 @@ class HEROS_OF_ST_API USTTitle : public UObject
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
-	FName TitleName;
+	FString TitleName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
 	FString TitleDescription;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")

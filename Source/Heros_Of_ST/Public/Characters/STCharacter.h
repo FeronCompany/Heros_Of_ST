@@ -51,6 +51,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	void Death(EDeathReason ActualDeathReason);
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	bool AccuireTitle(USTTitle* NewTitle, bool IsInitial);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

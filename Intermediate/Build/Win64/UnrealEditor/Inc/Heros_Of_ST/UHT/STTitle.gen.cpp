@@ -182,7 +182,7 @@ struct Z_Construct_UClass_USTTitle_Statics
 		{ "ModuleRelativePath", "Public/States/STTitle.h" },
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FNamePropertyParams NewProp_TitleName;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_TitleName;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_TitleDescription;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_TitleHolder;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_TitleBelonging;
@@ -195,7 +195,7 @@ struct Z_Construct_UClass_USTTitle_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_USTTitle_Statics::NewProp_TitleName = { "TitleName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTTitle, TitleName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TitleName_MetaData), NewProp_TitleName_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_USTTitle_Statics::NewProp_TitleName = { "TitleName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTTitle, TitleName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TitleName_MetaData), NewProp_TitleName_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_USTTitle_Statics::NewProp_TitleDescription = { "TitleDescription", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTTitle, TitleDescription), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TitleDescription_MetaData), NewProp_TitleDescription_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USTTitle_Statics::NewProp_TitleHolder = { "TitleHolder", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTTitle, TitleHolder), Z_Construct_UClass_ASTCharacter_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TitleHolder_MetaData), NewProp_TitleHolder_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USTTitle_Statics::NewProp_TitleBelonging = { "TitleBelonging", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTTitle, TitleBelonging), Z_Construct_UClass_ASTState_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TitleBelonging_MetaData), NewProp_TitleBelonging_MetaData) };
@@ -250,10 +250,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ ETitleRank_StaticEnum, TEXT("ETitleRank"), &Z_Registration_Info_UEnum_ETitleRank, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3444996430U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USTTitle, USTTitle::StaticClass, TEXT("USTTitle"), &Z_Registration_Info_UClass_USTTitle, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTTitle), 123671115U) },
+		{ Z_Construct_UClass_USTTitle, USTTitle::StaticClass, TEXT("USTTitle"), &Z_Registration_Info_UClass_USTTitle, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTTitle), 2647195220U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h__Script_Heros_Of_ST_2414262366(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h__Script_Heros_Of_ST_1533999615(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h__Script_Heros_Of_ST_Statics::EnumInfo));

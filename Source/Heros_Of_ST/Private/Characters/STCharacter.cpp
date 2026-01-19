@@ -4,6 +4,7 @@
 #include "Characters/STCharacter.h"
 #include "ResourceManagment/CharacterSearcher.h"
 #include "Heros_Of_ST/macros.h"
+#include "States/STTitle.h"
 
 // Sets default values
 ASTCharacter::ASTCharacter()
@@ -48,5 +49,23 @@ void ASTCharacter::Death(EDeathReason ActualDeathReason)
 		*CharacterID.ToString(),
 		*StaticEnum<EDeathReason>()->GetNameStringByValue(static_cast<uint8>(DeathReason)));
 	// TODO: Handle death logic based on DeathReason
+}
+
+bool ASTCharacter::AccuireTitle(USTTitle* NewTitle, bool IsInitial)
+{
+	if (NewTitle && !Titles.Contains(NewTitle))
+	{
+		Titles.Add(NewTitle);
+		NewTitle->TitleHolder = this;
+		PRINT_SCREEN("Character %s has acquired title: %s.",
+			*CharacterID.ToString(),
+			*NewTitle->TitleName);
+		if (!IsInitial)
+		{
+			// TODO: Handle any additional logic for acquiring a new title (e.g., notifications, effects)
+		}
+		return true;
+	}
+	return false;
 }
 

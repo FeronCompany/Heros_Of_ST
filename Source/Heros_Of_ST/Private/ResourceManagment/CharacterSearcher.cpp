@@ -116,15 +116,13 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 	DebugHolding->HoldingID = GenerateCharacterID();
 	DebugHolding->HoldingName = TEXT("Xiaoyao City");
 	USTTitle* DebugTitle = NewObject<USTTitle>(DebugState);
-	DebugTitle->TitleName = FName(TEXT("Xiayo Governor"));
+	DebugTitle->TitleName = TEXT("Xiayo Governor");
 	DebugTitle->TitleDescription = TEXT("This is a debug title.");
-	// 关联Title、State和Holding
-	DebugTitle->TitleHolder = SpawnedCharacter;
-	DebugTitle->TitleBelonging = DebugState;
-	DebugHolding->OwnerState = DebugState;
 	DebugTitle->TitleRank = ETitleRank::Count;
+	// 关联Title、State和Holding
+	DebugHolding->OwnerState = DebugState; // holding只与基层state关联
 	DebugState->InitTitles({ DebugTitle }, DebugHolding);
-	currentControlledCharacter->Titles.Add(DebugTitle);
+	currentControlledCharacter->AccuireTitle(DebugTitle, true);
 
 	// Placeholder for loading character list from save data
 	// TODO: Implement actual loading logic here

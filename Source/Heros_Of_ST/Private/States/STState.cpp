@@ -3,6 +3,8 @@
 
 #include "States/STState.h"
 #include "ResourceManagment/CharacterSearcher.h"
+#include "States/STTitle.h"
+#include "Heros_Of_ST/macros.h"
 
 // Sets default values
 ASTState::ASTState()
@@ -23,6 +25,16 @@ void ASTState::InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capita
 {
 	Titles = NewTitles;
 	Captial = capital;
+	for (auto& Title : Titles)
+	{
+		if (Title)
+		{
+			Title->TitleBelonging = this;
+			PRINT_SCREEN("State %s has added title: %s.",
+				*StateID.ToString(),
+				*Title->TitleName);
+		}
+	}
 }
 
 void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType)
