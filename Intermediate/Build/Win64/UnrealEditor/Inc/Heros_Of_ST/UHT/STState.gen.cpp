@@ -85,6 +85,54 @@ UEnum* Z_Construct_UEnum_Heros_Of_ST_EOverlordType()
 }
 // ********** End Enum EOverlordType ***************************************************************
 
+// ********** Begin Class ASTState Function BreakTitle *********************************************
+struct Z_Construct_UFunction_ASTState_BreakTitle_Statics
+{
+	struct STState_eventBreakTitle_Parms
+	{
+		bool IsEndGame;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+#endif // WITH_METADATA
+	static void NewProp_IsEndGame_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsEndGame;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+void Z_Construct_UFunction_ASTState_BreakTitle_Statics::NewProp_IsEndGame_SetBit(void* Obj)
+{
+	((STState_eventBreakTitle_Parms*)Obj)->IsEndGame = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ASTState_BreakTitle_Statics::NewProp_IsEndGame = { "IsEndGame", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(STState_eventBreakTitle_Parms), &Z_Construct_UFunction_ASTState_BreakTitle_Statics::NewProp_IsEndGame_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ASTState_BreakTitle_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTState_BreakTitle_Statics::NewProp_IsEndGame,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_BreakTitle_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASTState_BreakTitle_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ASTState, nullptr, "BreakTitle", Z_Construct_UFunction_ASTState_BreakTitle_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_BreakTitle_Statics::PropPointers), sizeof(Z_Construct_UFunction_ASTState_BreakTitle_Statics::STState_eventBreakTitle_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_BreakTitle_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASTState_BreakTitle_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ASTState_BreakTitle_Statics::STState_eventBreakTitle_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ASTState_BreakTitle()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASTState_BreakTitle_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ASTState::execBreakTitle)
+{
+	P_GET_UBOOL(Z_Param_IsEndGame);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->BreakTitle(Z_Param_IsEndGame);
+	P_NATIVE_END;
+}
+// ********** End Class ASTState Function BreakTitle ***********************************************
+
 // ********** Begin Class ASTState Function GetCaptial *********************************************
 struct Z_Construct_UFunction_ASTState_GetCaptial_Statics
 {
@@ -282,6 +330,7 @@ void ASTState::StaticRegisterNativesASTState()
 {
 	UClass* Class = ASTState::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "BreakTitle", &ASTState::execBreakTitle },
 		{ "GetCaptial", &ASTState::execGetCaptial },
 		{ "GetTitles", &ASTState::execGetTitles },
 		{ "InitTitles", &ASTState::execInitTitles },
@@ -369,6 +418,7 @@ struct Z_Construct_UClass_ASTState_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ASTState_BreakTitle, "BreakTitle" }, // 2764296526
 		{ &Z_Construct_UFunction_ASTState_GetCaptial, "GetCaptial" }, // 1717538785
 		{ &Z_Construct_UFunction_ASTState_GetTitles, "GetTitles" }, // 1150230048
 		{ &Z_Construct_UFunction_ASTState_InitTitles, "InitTitles" }, // 1856890170
@@ -434,10 +484,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ EOverlordType_StaticEnum, TEXT("EOverlordType"), &Z_Registration_Info_UEnum_EOverlordType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4125830762U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 3703481013U) },
+		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 728365143U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_1956397525(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_1403926962(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo));

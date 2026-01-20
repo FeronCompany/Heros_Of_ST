@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "State")
 	void SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType);
 
+	UFUNCTION(BlueprintCallable, Category = "State")
+	void BreakTitle(bool IsEndGame);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

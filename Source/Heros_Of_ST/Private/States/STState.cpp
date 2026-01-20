@@ -4,6 +4,7 @@
 #include "States/STState.h"
 #include "ResourceManagment/CharacterSearcher.h"
 #include "States/STTitle.h"
+#include "Characters/STCharacter.h"
 #include "Heros_Of_ST/macros.h"
 
 // Sets default values
@@ -43,6 +44,22 @@ void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType)
 	OverlordType = NewOverlordType;
 }
 
+void ASTState::BreakTitle(bool IsEndGame)
+{
+	for (auto& Title : Titles)
+	{
+		if (Title)
+		{
+			Title->TitleBelonging = nullptr;
+			Title->TitleHolder->RelinquishTitle(Title, IsEndGame);
+			PRINT_SCREEN("State %s has removed title: %s.",
+				*StateID.ToString(),
+				*Title->TitleName);
+		}
+	}
+	Titles.Empty();
+}
+
 // Called when the game starts or when spawned
 void ASTState::BeginPlay()
 {
@@ -61,5 +78,6 @@ void ASTState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 	// Unregister this state from the CharacterSearcher
 	UCharacterSearcher::Get()->UnregisterState(StateID);
+	BreakTitle(EndPlayReason == EEndPlayReason::Quit);
 }
 

@@ -53,6 +53,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool AccuireTitle(USTTitle* NewTitle, bool IsInitial);
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	bool RelinquishTitle(USTTitle* TitleToRelinquish, bool IsEndGame);
 
 protected:
 	// Called when the game starts or when spawned

@@ -278,6 +278,68 @@ DEFINE_FUNCTION(ASTCharacter::execDeath)
 }
 // ********** End Class ASTCharacter Function Death ************************************************
 
+// ********** Begin Class ASTCharacter Function RelinquishTitle ************************************
+struct Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics
+{
+	struct STCharacter_eventRelinquishTitle_Parms
+	{
+		USTTitle* TitleToRelinquish;
+		bool IsEndGame;
+		bool ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_TitleToRelinquish;
+	static void NewProp_IsEndGame_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsEndGame;
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_TitleToRelinquish = { "TitleToRelinquish", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(STCharacter_eventRelinquishTitle_Parms, TitleToRelinquish), Z_Construct_UClass_USTTitle_NoRegister, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_IsEndGame_SetBit(void* Obj)
+{
+	((STCharacter_eventRelinquishTitle_Parms*)Obj)->IsEndGame = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_IsEndGame = { "IsEndGame", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(STCharacter_eventRelinquishTitle_Parms), &Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_IsEndGame_SetBit, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((STCharacter_eventRelinquishTitle_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(STCharacter_eventRelinquishTitle_Parms), &Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_TitleToRelinquish,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_IsEndGame,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ASTCharacter, nullptr, "RelinquishTitle", Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::PropPointers), sizeof(Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::STCharacter_eventRelinquishTitle_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::STCharacter_eventRelinquishTitle_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ASTCharacter_RelinquishTitle()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ASTCharacter::execRelinquishTitle)
+{
+	P_GET_OBJECT(USTTitle,Z_Param_TitleToRelinquish);
+	P_GET_UBOOL(Z_Param_IsEndGame);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->RelinquishTitle(Z_Param_TitleToRelinquish,Z_Param_IsEndGame);
+	P_NATIVE_END;
+}
+// ********** End Class ASTCharacter Function RelinquishTitle **************************************
+
 // ********** Begin Class ASTCharacter *************************************************************
 void ASTCharacter::StaticRegisterNativesASTCharacter()
 {
@@ -285,6 +347,7 @@ void ASTCharacter::StaticRegisterNativesASTCharacter()
 	static const FNameNativePtrPair Funcs[] = {
 		{ "AccuireTitle", &ASTCharacter::execAccuireTitle },
 		{ "Death", &ASTCharacter::execDeath },
+		{ "RelinquishTitle", &ASTCharacter::execRelinquishTitle },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -395,6 +458,7 @@ struct Z_Construct_UClass_ASTCharacter_Statics
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ASTCharacter_AccuireTitle, "AccuireTitle" }, // 3578536049
 		{ &Z_Construct_UFunction_ASTCharacter_Death, "Death" }, // 3268103029
+		{ &Z_Construct_UFunction_ASTCharacter_RelinquishTitle, "RelinquishTitle" }, // 648697662
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -463,10 +527,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ EDeathReason_StaticEnum, TEXT("EDeathReason"), &Z_Registration_Info_UEnum_EDeathReason, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2762350746U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTCharacter, ASTCharacter::StaticClass, TEXT("ASTCharacter"), &Z_Registration_Info_UClass_ASTCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTCharacter), 2146654587U) },
+		{ Z_Construct_UClass_ASTCharacter, ASTCharacter::StaticClass, TEXT("ASTCharacter"), &Z_Registration_Info_UClass_ASTCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTCharacter), 3337272795U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_902329514(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_2403700394(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::EnumInfo));

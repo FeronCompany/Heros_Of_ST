@@ -21,6 +21,7 @@ enum class EDeathReason : uint8;
 
 // ********** Begin Class ASTCharacter *************************************************************
 #define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h_42_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execRelinquishTitle); \
 	DECLARE_FUNCTION(execAccuireTitle); \
 	DECLARE_FUNCTION(execDeath);
 

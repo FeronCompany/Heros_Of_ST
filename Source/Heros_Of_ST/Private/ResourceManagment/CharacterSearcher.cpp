@@ -112,17 +112,31 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 	ASTState* DebugState = World->SpawnActor<ASTState>();
 	DebugState->StateID = GenerateCharacterID();
 	DebugState->StateName = TEXT("Xiaoyao County");
+	ASTState* Empire = World->SpawnActor<ASTState>();
+	Empire->StateID = GenerateCharacterID();
+	Empire->StateName = TEXT("Tang Empire");
 	ASTHolding* DebugHolding = World->SpawnActor<ASTHolding>();
 	DebugHolding->HoldingID = GenerateCharacterID();
 	DebugHolding->HoldingName = TEXT("Xiaoyao City");
-	USTTitle* DebugTitle = NewObject<USTTitle>(DebugState);
+	USTTitle* DebugTitle = NewObject<USTTitle>();
 	DebugTitle->TitleName = TEXT("Xiayo Governor");
 	DebugTitle->TitleDescription = TEXT("This is a debug title.");
 	DebugTitle->TitleRank = ETitleRank::Count;
+	USTTitle* HouseTitle = NewObject<USTTitle>();
+	HouseTitle->TitleName = TEXT("Dynast Of Li");
+	HouseTitle->TitleDescription = TEXT("Dynast of Li.");
+	HouseTitle->TitleRank = ETitleRank::Commoner;
+	USTTitle* EmpireTitle = NewObject<USTTitle>();
+	EmpireTitle->TitleName = TEXT("Empire Of Tang");
+	EmpireTitle->TitleDescription = TEXT("Empire of Tang.");
+	EmpireTitle->TitleRank = ETitleRank::Emperor;
 	// 关联Title、State和Holding
-	DebugHolding->OwnerState = DebugState; // holding只与基层state关联
+	DebugHolding->OwnerState = DebugState; // holding只被基层state占有，但其它等级的state的治所也可以是这个holding
 	DebugState->InitTitles({ DebugTitle }, DebugHolding);
+	Empire->InitTitles({ EmpireTitle }, DebugHolding);
+	currentControlledCharacter->AccuireTitle(HouseTitle, true);
 	currentControlledCharacter->AccuireTitle(DebugTitle, true);
+	currentControlledCharacter->AccuireTitle(EmpireTitle, true);
 
 	// Placeholder for loading character list from save data
 	// TODO: Implement actual loading logic here

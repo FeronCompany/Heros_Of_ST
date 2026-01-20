@@ -69,3 +69,20 @@ bool ASTCharacter::AccuireTitle(USTTitle* NewTitle, bool IsInitial)
 	return false;
 }
 
+bool ASTCharacter::RelinquishTitle(USTTitle* TitleToRelinquish, bool IsEndGame)
+{
+	if (TitleToRelinquish && Titles.Contains(TitleToRelinquish))
+	{
+		Titles.Remove(TitleToRelinquish);
+		TitleToRelinquish->TitleHolder = nullptr;
+		PRINT_SCREEN("Character %s has relinquished title: %s.",
+			*CharacterID.ToString(),
+			*TitleToRelinquish->TitleName);
+		if (!IsEndGame)
+		{
+			// TODO: Handle any additional logic for relinquishing a title (e.g., notifications, effects)
+		}
+	}
+	return true;
+}
+
