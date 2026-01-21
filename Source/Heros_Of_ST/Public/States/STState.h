@@ -43,7 +43,7 @@ public:
 	void InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capital);
 
 	UFUNCTION(BlueprintCallable, Category = "State")
-	void SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType);
+	void SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType, bool IsInitial);
 
 	UFUNCTION(BlueprintCallable, Category = "State")
 	void BreakTitle(bool IsEndGame);
@@ -63,6 +63,8 @@ public:
 	ASTState* OverlordState{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	EOverlordType OverlordType{ EOverlordType::Independent };
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	TArray<ASTState*> VassalStates;
 	// жнкЫ
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	ASTHolding* Captial{ nullptr };

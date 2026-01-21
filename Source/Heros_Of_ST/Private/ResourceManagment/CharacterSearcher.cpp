@@ -133,6 +133,7 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 	// 关联Title、State和Holding
 	DebugHolding->OwnerState = DebugState; // holding只被基层state占有，但其它等级的state的治所也可以是这个holding
 	DebugState->InitTitles({ DebugTitle }, DebugHolding);
+	DebugState->SubjectTo(Empire, EOverlordType::Administrative, false);
 	Empire->InitTitles({ EmpireTitle }, DebugHolding);
 	currentControlledCharacter->AccuireTitle(HouseTitle, true);
 	currentControlledCharacter->AccuireTitle(DebugTitle, true);

@@ -38,10 +38,18 @@ void ASTState::InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capita
 	}
 }
 
-void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType)
+void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType, bool IsInitial)
 {
 	OverlordState = Overlord;
 	OverlordType = NewOverlordType;
+	Overlord->VassalStates.Add(this);
+	if (!IsInitial)
+	{
+		PRINT_SCREEN("State %s is now subject to %s as a %s.",
+			*StateID.ToString(),
+			*Overlord->StateID.ToString(),
+			*StaticEnum<EOverlordType>()->GetNameStringByValue(static_cast<uint8>(OverlordType)));
+	}
 }
 
 void ASTState::BreakTitle(bool IsEndGame)
@@ -79,5 +87,6 @@ void ASTState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	// Unregister this state from the CharacterSearcher
 	UCharacterSearcher::Get()->UnregisterState(StateID);
 	BreakTitle(EndPlayReason == EEndPlayReason::Quit);
+	VassalStates.Empty();
 }
 
