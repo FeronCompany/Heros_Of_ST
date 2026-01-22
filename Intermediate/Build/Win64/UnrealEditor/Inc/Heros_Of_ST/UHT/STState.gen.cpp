@@ -85,6 +85,36 @@ UEnum* Z_Construct_UEnum_Heros_Of_ST_EOverlordType()
 }
 // ********** End Enum EOverlordType ***************************************************************
 
+// ********** Begin Class ASTState Function AbandonOverlord ****************************************
+struct Z_Construct_UFunction_ASTState_AbandonOverlord_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASTState_AbandonOverlord_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ASTState, nullptr, "AbandonOverlord", nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_AbandonOverlord_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASTState_AbandonOverlord_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_ASTState_AbandonOverlord()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASTState_AbandonOverlord_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ASTState::execAbandonOverlord)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->AbandonOverlord();
+	P_NATIVE_END;
+}
+// ********** End Class ASTState Function AbandonOverlord ******************************************
+
 // ********** Begin Class ASTState Function BreakTitle *********************************************
 struct Z_Construct_UFunction_ASTState_BreakTitle_Statics
 {
@@ -340,6 +370,7 @@ void ASTState::StaticRegisterNativesASTState()
 {
 	UClass* Class = ASTState::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "AbandonOverlord", &ASTState::execAbandonOverlord },
 		{ "BreakTitle", &ASTState::execBreakTitle },
 		{ "GetCaptial", &ASTState::execGetCaptial },
 		{ "GetTitles", &ASTState::execGetTitles },
@@ -434,6 +465,7 @@ struct Z_Construct_UClass_ASTState_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ASTState_AbandonOverlord, "AbandonOverlord" }, // 1795028822
 		{ &Z_Construct_UFunction_ASTState_BreakTitle, "BreakTitle" }, // 2764296526
 		{ &Z_Construct_UFunction_ASTState_GetCaptial, "GetCaptial" }, // 1717538785
 		{ &Z_Construct_UFunction_ASTState_GetTitles, "GetTitles" }, // 1150230048
@@ -504,10 +536,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ EOverlordType_StaticEnum, TEXT("EOverlordType"), &Z_Registration_Info_UEnum_EOverlordType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4125830762U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 3364969452U) },
+		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 2422840038U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_501866116(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_1282801498(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo));

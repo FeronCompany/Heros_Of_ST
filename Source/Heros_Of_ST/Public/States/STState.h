@@ -46,6 +46,9 @@ public:
 	void SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType, bool IsInitial);
 
 	UFUNCTION(BlueprintCallable, Category = "State")
+	void AbandonOverlord();
+
+	UFUNCTION(BlueprintCallable, Category = "State")
 	void BreakTitle(bool IsEndGame);
 
 protected:

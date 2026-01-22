@@ -24,6 +24,7 @@ enum class EOverlordType : uint8;
 // ********** Begin Class ASTState *****************************************************************
 #define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execBreakTitle); \
+	DECLARE_FUNCTION(execAbandonOverlord); \
 	DECLARE_FUNCTION(execSubjectTo); \
 	DECLARE_FUNCTION(execInitTitles); \
 	DECLARE_FUNCTION(execGetCaptial); \

@@ -61,6 +61,9 @@
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\CharacterSearcher.cpp">
       <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\STGameInstance.cpp">
+      <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\STPlayerState.cpp">
       <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
     </ClCompile>
@@ -89,6 +92,9 @@
       <UniqueIdentifier>{06DC51F6-D661-3E8C-8421-1515CCE4C1D3}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\CharacterSearcher.h">
+      <Filter>Source\Heros_Of_ST\Public\ResourceManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\STGameInstance.h">
       <Filter>Source\Heros_Of_ST\Public\ResourceManagment</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\STPlayerState.h">

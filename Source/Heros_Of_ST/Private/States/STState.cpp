@@ -40,6 +40,7 @@ void ASTState::InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capita
 
 void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType, bool IsInitial)
 {
+	AbandonOverlord();
 	OverlordState = Overlord;
 	OverlordType = NewOverlordType;
 	Overlord->VassalStates.Add(this);
@@ -49,6 +50,19 @@ void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType, bool
 			*StateID.ToString(),
 			*Overlord->StateID.ToString(),
 			*StaticEnum<EOverlordType>()->GetNameStringByValue(static_cast<uint8>(OverlordType)));
+	}
+}
+
+void ASTState::AbandonOverlord()
+{
+	if (OverlordState)
+	{
+		OverlordState->VassalStates.Remove(this);
+		PRINT_SCREEN("State %s has abandoned overlord %s.",
+			*StateID.ToString(),
+			*OverlordState->StateID.ToString());
+		OverlordState = nullptr;
+		OverlordType = EOverlordType::Independent;
 	}
 }
 
