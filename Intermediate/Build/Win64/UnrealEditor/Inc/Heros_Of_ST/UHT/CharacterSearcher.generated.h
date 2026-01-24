@@ -30,7 +30,7 @@ class UCharacterSearcher;
 	DECLARE_FUNCTION(execRegisterState); \
 	DECLARE_FUNCTION(execFindStateByID); \
 	DECLARE_FUNCTION(execClearAll); \
-	DECLARE_FUNCTION(execSaveCharacterListToSaveData); \
+	DECLARE_FUNCTION(execSaveData); \
 	DECLARE_FUNCTION(execLoadCharacterListFromSaveData); \
 	DECLARE_FUNCTION(execUnregisterCharacter); \
 	DECLARE_FUNCTION(execRegisterCharacter); \

@@ -16,10 +16,25 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
+struct FHoldingSavedData;
+
+// ********** Begin ScriptStruct FHoldingSavedData *************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_14_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FHoldingSavedData_Statics; \
+	static class UScriptStruct* StaticStruct();
+
+
+struct FHoldingSavedData;
+// ********** End ScriptStruct FHoldingSavedData ***************************************************
+
 // ********** Begin Class ASTHolding ***************************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetSavedHoldingData);
+
+
 HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTHolding_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_14_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASTHolding(); \
 	friend struct Z_Construct_UClass_ASTHolding_Statics; \
@@ -30,7 +45,7 @@ public: \
 	DECLARE_SERIALIZER(ASTHolding)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ASTHolding(ASTHolding&&) = delete; \
 	ASTHolding(const ASTHolding&) = delete; \
@@ -40,12 +55,13 @@ public: \
 	NO_API virtual ~ASTHolding();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_11_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_14_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_24_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_14_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_14_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STHolding_h_27_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

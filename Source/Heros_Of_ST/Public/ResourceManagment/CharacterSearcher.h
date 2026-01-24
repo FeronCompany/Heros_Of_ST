@@ -32,15 +32,15 @@ public:
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	ASTCharacter* FindCharacterByID(const FName& CharacterID);
+	ASTCharacter* FindCharacterByID(const FString& CharacterID);
 
-	FName GenerateCharacterID();
-
-	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	bool RegisterCharacter(ASTCharacter* Character, const FName& CharacterID);
+	FString GenerateCharacterID();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	void UnregisterCharacter(const FName& CharacterID);
+	bool RegisterCharacter(ASTCharacter* Character, const FString& CharacterID);
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void UnregisterCharacter(const FString& CharacterID);
 
 	virtual void BeginDestroy() override;
 
@@ -48,27 +48,29 @@ public:
 	bool LoadCharacterListFromSaveData();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	void SaveCharacterListToSaveData();
+	void SaveData(const FString& SlotName, int32 UserIndex);
+
+	//UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess);
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void ClearAll();
 
 	// States Related
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	ASTState* FindStateByID(const FName& StateId);
+	ASTState* FindStateByID(const FString& StateId);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	bool RegisterState(ASTState* State, const FName& StateID);
+	bool RegisterState(ASTState* State, const FString& StateID);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	void UnregisterState(const FName& StateID);
+	void UnregisterState(const FString& StateID);
 
 	// Holdings Related
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	ASTHolding* FindHoldingByID(const FName& HoldingId);
+	ASTHolding* FindHoldingByID(const FString& HoldingId);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	bool RegisterHolding(ASTHolding* Holding, const FName& HoldingID);
+	bool RegisterHolding(ASTHolding* Holding, const FString& HoldingID);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	void UnregisterHolding(const FName& HoldingID);
-
+	void UnregisterHolding(const FString& HoldingID);
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ASTCharacter* currentControlledCharacter = nullptr;
@@ -78,9 +80,9 @@ private:
 	// Key: ID (FName), Value: Pointer to the object
 	// 不需要存储Titles，因为Title是State和Character的属性，生命周期由State管理
 	// 几种数据耦合度较高，因此统一管理
-	TMap<FName, ASTCharacter*> CharacterMap;
-	TMap<FName, ASTState*> StateMap;
-	TMap<FName, ASTHolding*> HoldingMap;
+	TMap<FString, ASTCharacter*> CharacterMap;
+	TMap<FString, ASTState*> StateMap;
+	TMap<FString, ASTHolding*> HoldingMap;
 	std::atomic<int64> CurrentIDCounter{ 0 };
 	FCriticalSection SyncLock;
 };

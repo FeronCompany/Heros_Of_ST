@@ -3,3 +3,8 @@
 
 #include "ResourceManagment/STGameInstance.h"
 
+void USTGameInstance::Init()
+{
+	Super::Init();
+	// 
+}

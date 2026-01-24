@@ -8,6 +8,19 @@
 
 class ASTState;
 
+USTRUCT(BlueprintType)
+struct HEROS_OF_ST_API FHoldingSavedData
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	FString HoldingID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	FName HoldingName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	FString OwningStateID;
+};
+
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTHolding : public AActor
 {
@@ -16,6 +29,9 @@ class HEROS_OF_ST_API ASTHolding : public AActor
 public:	
 	ASTHolding();
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Holding")
+	FHoldingSavedData GetSavedHoldingData() const;
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,7 +42,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
 	ASTState* OwnerState{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
-	FName HoldingID;
+	FString HoldingID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
-	FString HoldingName;
+	FName HoldingName;
 };

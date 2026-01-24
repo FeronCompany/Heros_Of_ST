@@ -14,4 +14,6 @@ class HEROS_OF_ST_API USTGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
+public:
+	void Init() override;
 };

@@ -2,13 +2,15 @@
 
 
 #include "ResourceManagment/CharacterSearcher.h"
+#include "ResourceManagment/STSaveGame.h"
 #include "Characters/STCharacter.h"
 #include "States/STHolding.h"
 #include "States/STState.h"
 #include "States/STTitle.h"
 #include "Heros_Of_ST/macros.h"
+#include "Kismet/GameplayStatics.h"
 
-ASTCharacter* UCharacterSearcher::FindCharacterByID(const FName& CharacterID)
+ASTCharacter* UCharacterSearcher::FindCharacterByID(const FString& CharacterID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = CharacterMap.Find(CharacterID);
@@ -18,44 +20,44 @@ ASTCharacter* UCharacterSearcher::FindCharacterByID(const FName& CharacterID)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Character ID \"%s\" not found."), *CharacterID.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Character ID \"%s\" not found."), *CharacterID);
 		return nullptr;
 	}
 }
 
-FName UCharacterSearcher::GenerateCharacterID()
+FString UCharacterSearcher::GenerateCharacterID()
 {
-    FName ID = *FString::FromInt(CurrentIDCounter++);
-	//UE_LOG(LogTemp, Display, TEXT("Generated Character ID: \"%s\""), *ID.ToString());
+    FString ID = FString::FromInt(CurrentIDCounter++);
+	//UE_LOG(LogTemp, Display, TEXT("Generated Character ID: \"%s\""), *ID);
     return ID;
 }
 
-bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FName& CharacterID)
+bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FString& CharacterID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = CharacterMap.Find(CharacterID);
 	if (itor)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Character ID \"%s\" is already registered."), *CharacterID.ToString());
+		UE_LOG(LogTemp, Error, TEXT("Character ID \"%s\" is already registered."), *CharacterID);
 		return false;
 	}
 	CharacterMap.Add(CharacterID, Character);
-	PRINT_SCREEN("Registered Character ID: \"%s\"", *CharacterID.ToString());
+	PRINT_SCREEN("Registered Character ID: \"%s\"", *CharacterID);
 	return true;
 }
 
-void UCharacterSearcher::UnregisterCharacter(const FName& CharacterID)
+void UCharacterSearcher::UnregisterCharacter(const FString& CharacterID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = CharacterMap.Find(CharacterID);
 	if (itor)
 	{
 		CharacterMap.Remove(CharacterID);
-		PRINT_SCREEN("Unregistered Character ID: \"%s\"", *CharacterID.ToString());
+		PRINT_SCREEN("Unregistered Character ID: \"%s\"", *CharacterID);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Character ID \"%s\" not found for unregistration."), *CharacterID.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Character ID \"%s\" not found for unregistration."), *CharacterID);
 	}
 }
 
@@ -112,9 +114,11 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 	ASTState* DebugState = World->SpawnActor<ASTState>();
 	DebugState->StateID = GenerateCharacterID();
 	DebugState->StateName = TEXT("Xiaoyao County");
+	DebugState->StateLevel = EStateLevel::County;
 	ASTState* Empire = World->SpawnActor<ASTState>();
 	Empire->StateID = GenerateCharacterID();
 	Empire->StateName = TEXT("Tang Empire");
+	Empire->StateLevel = EStateLevel::Empire;
 	ASTHolding* DebugHolding = World->SpawnActor<ASTHolding>();
 	DebugHolding->HoldingID = GenerateCharacterID();
 	DebugHolding->HoldingName = TEXT("Xiaoyao City");
@@ -145,11 +149,52 @@ bool UCharacterSearcher::LoadCharacterListFromSaveData()
 	return true;
 }
 
-void UCharacterSearcher::SaveCharacterListToSaveData()
+void UCharacterSearcher::SaveData(const FString& SlotName, int32 UserIndex)
 {
-	// Placeholder for saving character list to save data
-	// TODO: Implement actual saving logic here
-	PRINT_SCREEN("Saved character list to save data (placeholder).");
+	USTSaveGame* SaveData = Cast<USTSaveGame>(UGameplayStatics::CreateSaveGameObject(USTSaveGame::StaticClass()));
+	if (!SaveData) {
+		PRINT_SCREEN("Failed to create save game object.");
+		return;
+	}
+	for (const auto& Pair : CharacterMap)
+	{
+		ASTCharacter* Character = Pair.Value;
+		if (Character)
+		{
+			FCharacterSavedData SavedData = Character->GetSavedData();
+			SaveData->SavedCharacters.Add(SavedData);
+		}
+	}
+	for (const auto& Pair : StateMap)
+	{
+		ASTState* State = Pair.Value;
+		if (State)
+		{
+			FStateSavedData SavedData = State->GetSavedStateData();
+			SaveData->SavedStates.Add(SavedData);
+		}
+	}
+	for (const auto& Pair : HoldingMap)
+	{
+		ASTHolding* Holding = Pair.Value;
+		if (Holding)
+		{
+			FHoldingSavedData SavedData = Holding->GetSavedHoldingData();
+			SaveData->SavedHoldings.Add(SavedData);
+		}
+	}
+	SaveData->MainCharacterID = currentControlledCharacter ? currentControlledCharacter->CharacterID : TEXT("");
+	UGameplayStatics::AsyncSaveGameToSlot(
+		SaveData,
+		SlotName,
+		UserIndex,
+		FAsyncSaveGameToSlotDelegate::CreateUObject(this, &UCharacterSearcher::OnSaveGameComplete));
+	//PRINT_SCREEN("Saved character list to save data (placeholder).");
+}
+
+void UCharacterSearcher::OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess)
+{
+	PRINT_SCREEN("Save game completed. Result: %s", bSuccess ? TEXT("True") : TEXT("False"));
 }
 
 void UCharacterSearcher::ClearAll()
@@ -184,7 +229,7 @@ void UCharacterSearcher::ClearAll()
 	PRINT_SCREEN("Cleared all registered characters, states, and holdings.");
 }
 
-ASTState* UCharacterSearcher::FindStateByID(const FName& StateId)
+ASTState* UCharacterSearcher::FindStateByID(const FString& StateId)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = StateMap.Find(StateId);
@@ -194,41 +239,41 @@ ASTState* UCharacterSearcher::FindStateByID(const FName& StateId)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("State ID \"%s\" not found."), *StateId.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("State ID \"%s\" not found."), *StateId);
 		return nullptr;
 	}
 }
 
-bool UCharacterSearcher::RegisterState(ASTState* State, const FName& StateID)
+bool UCharacterSearcher::RegisterState(ASTState* State, const FString& StateID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = StateMap.Find(StateID);
 	if (itor)
 	{
-		UE_LOG(LogTemp, Error, TEXT("State ID \"%s\" is already registered."), *StateID.ToString());
+		UE_LOG(LogTemp, Error, TEXT("State ID \"%s\" is already registered."), *StateID);
 		return false;
 	}
 	StateMap.Add(StateID, State);
-	PRINT_SCREEN("Registered State ID: \"%s\"", *StateID.ToString());
+	PRINT_SCREEN("Registered State ID: \"%s\"", *StateID);
 	return true;
 }
 
-void UCharacterSearcher::UnregisterState(const FName& StateID)
+void UCharacterSearcher::UnregisterState(const FString& StateID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = StateMap.Find(StateID);
 	if (itor)
 	{
 		StateMap.Remove(StateID);
-		PRINT_SCREEN("Unregistered State ID: \"%s\"", *StateID.ToString());
+		PRINT_SCREEN("Unregistered State ID: \"%s\"", *StateID);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("State ID \"%s\" not found for unregistration."), *StateID.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("State ID \"%s\" not found for unregistration."), *StateID);
 	}
 }
 
-ASTHolding* UCharacterSearcher::FindHoldingByID(const FName& HoldingId)
+ASTHolding* UCharacterSearcher::FindHoldingByID(const FString& HoldingId)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = HoldingMap.Find(HoldingId);
@@ -238,36 +283,36 @@ ASTHolding* UCharacterSearcher::FindHoldingByID(const FName& HoldingId)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Holding ID \"%s\" not found."), *HoldingId.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Holding ID \"%s\" not found."), *HoldingId);
 		return nullptr;
 	}
 }
 
-bool UCharacterSearcher::RegisterHolding(ASTHolding* Holding, const FName& HoldingID)
+bool UCharacterSearcher::RegisterHolding(ASTHolding* Holding, const FString& HoldingID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = HoldingMap.Find(HoldingID);
 	if (itor)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Holding ID \"%s\" is already registered."), *HoldingID.ToString());
+		UE_LOG(LogTemp, Error, TEXT("Holding ID \"%s\" is already registered."), *HoldingID);
 		return false;
 	}
 	HoldingMap.Add(HoldingID, Holding);
-	PRINT_SCREEN("Registered Holding ID: \"%s\"", *HoldingID.ToString());
+	PRINT_SCREEN("Registered Holding ID: \"%s\"", *HoldingID);
 	return true;
 }
 
-void UCharacterSearcher::UnregisterHolding(const FName& HoldingID)
+void UCharacterSearcher::UnregisterHolding(const FString& HoldingID)
 {
 	FScopeLock Lock(&SyncLock);
 	auto itor = HoldingMap.Find(HoldingID);
 	if (itor)
 	{
 		HoldingMap.Remove(HoldingID);
-		PRINT_SCREEN("Unregistered Holding ID: \"%s\"", *HoldingID.ToString());
+		PRINT_SCREEN("Unregistered Holding ID: \"%s\"", *HoldingID);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Holding ID \"%s\" not found for unregistration."), *HoldingID.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Holding ID \"%s\" not found for unregistration."), *HoldingID);
 	}
 }

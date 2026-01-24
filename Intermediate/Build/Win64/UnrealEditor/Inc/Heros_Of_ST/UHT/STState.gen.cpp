@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "States/STState.h"
+#include "States/STTitle.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
@@ -18,6 +19,9 @@ HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState_NoRegister();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_USTTitle_NoRegister();
 HEROS_OF_ST_API UEnum* Z_Construct_UEnum_Heros_Of_ST_EOverlordType();
+HEROS_OF_ST_API UEnum* Z_Construct_UEnum_Heros_Of_ST_EStateLevel();
+HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FStateSavedData();
+HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FTitleSavedData();
 UPackage* Z_Construct_UPackage__Script_Heros_Of_ST();
 // ********** End Cross Module References **********************************************************
 
@@ -84,6 +88,195 @@ UEnum* Z_Construct_UEnum_Heros_Of_ST_EOverlordType()
 	return Z_Registration_Info_UEnum_EOverlordType.InnerSingleton;
 }
 // ********** End Enum EOverlordType ***************************************************************
+
+// ********** Begin Enum EStateLevel ***************************************************************
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_EStateLevel;
+static UEnum* EStateLevel_StaticEnum()
+{
+	if (!Z_Registration_Info_UEnum_EStateLevel.OuterSingleton)
+	{
+		Z_Registration_Info_UEnum_EStateLevel.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Heros_Of_ST_EStateLevel, (UObject*)Z_Construct_UPackage__Script_Heros_Of_ST(), TEXT("EStateLevel"));
+	}
+	return Z_Registration_Info_UEnum_EStateLevel.OuterSingleton;
+}
+template<> HEROS_OF_ST_API UEnum* StaticEnum<EStateLevel>()
+{
+	return EStateLevel_StaticEnum();
+}
+struct Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "Commoner.DisplayName", "Commoner" },
+		{ "Commoner.Name", "EStateLevel::Commoner" },
+		{ "County.Comment", "// None Government Organizations\n" },
+		{ "County.DisplayName", "County" },
+		{ "County.Name", "EStateLevel::County" },
+		{ "County.ToolTip", "None Government Organizations" },
+		{ "Default.DisplayName", "Default" },
+		{ "Default.Name", "EStateLevel::Default" },
+		{ "Duchy.Comment", "// County Level State\n" },
+		{ "Duchy.DisplayName", "Duchy" },
+		{ "Duchy.Name", "EStateLevel::Duchy" },
+		{ "Duchy.ToolTip", "County Level State" },
+		{ "Empire.Comment", "// Kingdom Level State\n" },
+		{ "Empire.DisplayName", "Empire" },
+		{ "Empire.Name", "EStateLevel::Empire" },
+		{ "Empire.ToolTip", "Kingdom Level State" },
+		{ "IsBlueprintBase", "true" },
+		{ "Kingdom.Comment", "// Duchy Level State\n" },
+		{ "Kingdom.DisplayName", "Kingdom" },
+		{ "Kingdom.Name", "EStateLevel::Kingdom" },
+		{ "Kingdom.ToolTip", "Duchy Level State" },
+		{ "MAX.Comment", "// Empire Level State\n" },
+		{ "MAX.Hidden", "" },
+		{ "MAX.Name", "EStateLevel::MAX" },
+		{ "MAX.ToolTip", "Empire Level State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+#endif // WITH_METADATA
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EStateLevel::Default", (int64)EStateLevel::Default },
+		{ "EStateLevel::Commoner", (int64)EStateLevel::Commoner },
+		{ "EStateLevel::County", (int64)EStateLevel::County },
+		{ "EStateLevel::Duchy", (int64)EStateLevel::Duchy },
+		{ "EStateLevel::Kingdom", (int64)EStateLevel::Kingdom },
+		{ "EStateLevel::Empire", (int64)EStateLevel::Empire },
+		{ "EStateLevel::MAX", (int64)EStateLevel::MAX },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
+};
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_Heros_Of_ST,
+	nullptr,
+	"EStateLevel",
+	"EStateLevel",
+	Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics::Enumerators,
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	UE_ARRAY_COUNT(Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics::Enum_MetaDataParams), Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics::Enum_MetaDataParams)
+};
+UEnum* Z_Construct_UEnum_Heros_Of_ST_EStateLevel()
+{
+	if (!Z_Registration_Info_UEnum_EStateLevel.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EStateLevel.InnerSingleton, Z_Construct_UEnum_Heros_Of_ST_EStateLevel_Statics::EnumParams);
+	}
+	return Z_Registration_Info_UEnum_EStateLevel.InnerSingleton;
+}
+// ********** End Enum EStateLevel *****************************************************************
+
+// ********** Begin ScriptStruct FStateSavedData ***************************************************
+static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_FStateSavedData;
+class UScriptStruct* FStateSavedData::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_FStateSavedData.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_FStateSavedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FStateSavedData, (UObject*)Z_Construct_UPackage__Script_Heros_Of_ST(), TEXT("StateSavedData"));
+	}
+	return Z_Registration_Info_UScriptStruct_FStateSavedData.OuterSingleton;
+}
+struct Z_Construct_UScriptStruct_FStateSavedData_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StateID_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StateName_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlordStateID_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlordType_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Titles_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CapitalHoldingID_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StateLevel_MetaData[] = {
+		{ "Category", "State Saved Data" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_StateID;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_StateName;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_OverlordStateID;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_OverlordType_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_OverlordType;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_Titles_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_Titles;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_CapitalHoldingID;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_StateLevel_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_StateLevel;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static void* NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FStateSavedData>();
+	}
+	static const UECodeGen_Private::FStructParams StructParams;
+};
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateID = { "StateID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, StateID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateID_MetaData), NewProp_StateID_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateName = { "StateName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, StateName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateName_MetaData), NewProp_StateName_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_OverlordStateID = { "OverlordStateID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, OverlordStateID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlordStateID_MetaData), NewProp_OverlordStateID_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_OverlordType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_OverlordType = { "OverlordType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, OverlordType), Z_Construct_UEnum_Heros_Of_ST_EOverlordType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlordType_MetaData), NewProp_OverlordType_MetaData) }; // 4125830762
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_Titles_Inner = { "Titles", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FTitleSavedData, METADATA_PARAMS(0, nullptr) }; // 1718563148
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_Titles = { "Titles", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, Titles), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Titles_MetaData), NewProp_Titles_MetaData) }; // 1718563148
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_CapitalHoldingID = { "CapitalHoldingID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, CapitalHoldingID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CapitalHoldingID_MetaData), NewProp_CapitalHoldingID_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateLevel_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateLevel = { "StateLevel", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FStateSavedData, StateLevel), Z_Construct_UEnum_Heros_Of_ST_EStateLevel, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateLevel_MetaData), NewProp_StateLevel_MetaData) }; // 563214583
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FStateSavedData_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateName,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_OverlordStateID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_OverlordType_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_OverlordType,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_Titles_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_Titles,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_CapitalHoldingID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateLevel_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FStateSavedData_Statics::NewProp_StateLevel,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FStateSavedData_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FStateSavedData_Statics::StructParams = {
+	(UObject* (*)())Z_Construct_UPackage__Script_Heros_Of_ST,
+	nullptr,
+	&NewStructOps,
+	"StateSavedData",
+	Z_Construct_UScriptStruct_FStateSavedData_Statics::PropPointers,
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FStateSavedData_Statics::PropPointers),
+	sizeof(FStateSavedData),
+	alignof(FStateSavedData),
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	EStructFlags(0x00000201),
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FStateSavedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FStateSavedData_Statics::Struct_MetaDataParams)
+};
+UScriptStruct* Z_Construct_UScriptStruct_FStateSavedData()
+{
+	if (!Z_Registration_Info_UScriptStruct_FStateSavedData.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_FStateSavedData.InnerSingleton, Z_Construct_UScriptStruct_FStateSavedData_Statics::StructParams);
+	}
+	return Z_Registration_Info_UScriptStruct_FStateSavedData.InnerSingleton;
+}
+// ********** End ScriptStruct FStateSavedData *****************************************************
 
 // ********** Begin Class ASTState Function AbandonOverlord ****************************************
 struct Z_Construct_UFunction_ASTState_AbandonOverlord_Statics
@@ -163,6 +356,51 @@ DEFINE_FUNCTION(ASTState::execBreakTitle)
 }
 // ********** End Class ASTState Function BreakTitle ***********************************************
 
+// ********** Begin Class ASTState Function GetAllHoldings *****************************************
+struct Z_Construct_UFunction_ASTState_GetAllHoldings_Statics
+{
+	struct STState_eventGetAllHoldings_Parms
+	{
+		TArray<ASTHolding*> ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_ASTHolding_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(STState_eventGetAllHoldings_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::NewProp_ReturnValue_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ASTState, nullptr, "GetAllHoldings", Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::PropPointers), sizeof(Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::STState_eventGetAllHoldings_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::STState_eventGetAllHoldings_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ASTState_GetAllHoldings()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASTState_GetAllHoldings_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ASTState::execGetAllHoldings)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(TArray<ASTHolding*>*)Z_Param__Result=P_THIS->GetAllHoldings();
+	P_NATIVE_END;
+}
+// ********** End Class ASTState Function GetAllHoldings *******************************************
+
 // ********** Begin Class ASTState Function GetCaptial *********************************************
 struct Z_Construct_UFunction_ASTState_GetCaptial_Statics
 {
@@ -204,6 +442,48 @@ DEFINE_FUNCTION(ASTState::execGetCaptial)
 	P_NATIVE_END;
 }
 // ********** End Class ASTState Function GetCaptial ***********************************************
+
+// ********** Begin Class ASTState Function GetSavedStateData **************************************
+struct Z_Construct_UFunction_ASTState_GetSavedStateData_Statics
+{
+	struct STState_eventGetSavedStateData_Parms
+	{
+		FStateSavedData ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(STState_eventGetSavedStateData_Parms, ReturnValue), Z_Construct_UScriptStruct_FStateSavedData, METADATA_PARAMS(0, nullptr) }; // 1858294653
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ASTState, nullptr, "GetSavedStateData", Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::PropPointers), sizeof(Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::STState_eventGetSavedStateData_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::STState_eventGetSavedStateData_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ASTState_GetSavedStateData()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASTState_GetSavedStateData_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ASTState::execGetSavedStateData)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(FStateSavedData*)Z_Param__Result=P_THIS->GetSavedStateData();
+	P_NATIVE_END;
+}
+// ********** End Class ASTState Function GetSavedStateData ****************************************
 
 // ********** Begin Class ASTState Function GetTitles **********************************************
 struct Z_Construct_UFunction_ASTState_GetTitles_Statics
@@ -372,7 +652,9 @@ void ASTState::StaticRegisterNativesASTState()
 	static const FNameNativePtrPair Funcs[] = {
 		{ "AbandonOverlord", &ASTState::execAbandonOverlord },
 		{ "BreakTitle", &ASTState::execBreakTitle },
+		{ "GetAllHoldings", &ASTState::execGetAllHoldings },
 		{ "GetCaptial", &ASTState::execGetCaptial },
+		{ "GetSavedStateData", &ASTState::execGetSavedStateData },
 		{ "GetTitles", &ASTState::execGetTitles },
 		{ "InitTitles", &ASTState::execInitTitles },
 		{ "SubjectTo", &ASTState::execSubjectTo },
@@ -453,21 +735,29 @@ struct Z_Construct_UClass_ASTState_Statics
 		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StateLevel_MetaData[] = {
+		{ "Category", "State" },
+		{ "ModuleRelativePath", "Public/States/STState.h" },
+	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FNamePropertyParams NewProp_StateID;
-	static const UECodeGen_Private::FStrPropertyParams NewProp_StateName;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_StateID;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_StateName;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlordState;
 	static const UECodeGen_Private::FBytePropertyParams NewProp_OverlordType_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp_OverlordType;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_VassalStates_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_VassalStates;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Captial;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_StateLevel_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_StateLevel;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ASTState_AbandonOverlord, "AbandonOverlord" }, // 1795028822
 		{ &Z_Construct_UFunction_ASTState_BreakTitle, "BreakTitle" }, // 2764296526
+		{ &Z_Construct_UFunction_ASTState_GetAllHoldings, "GetAllHoldings" }, // 4112585679
 		{ &Z_Construct_UFunction_ASTState_GetCaptial, "GetCaptial" }, // 1717538785
+		{ &Z_Construct_UFunction_ASTState_GetSavedStateData, "GetSavedStateData" }, // 196882345
 		{ &Z_Construct_UFunction_ASTState_GetTitles, "GetTitles" }, // 1150230048
 		{ &Z_Construct_UFunction_ASTState_InitTitles, "InitTitles" }, // 1856890170
 		{ &Z_Construct_UFunction_ASTState_SubjectTo, "SubjectTo" }, // 2159013646
@@ -478,14 +768,16 @@ struct Z_Construct_UClass_ASTState_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateID = { "StateID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateID_MetaData), NewProp_StateID_MetaData) };
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateName = { "StateName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateName_MetaData), NewProp_StateName_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateID = { "StateID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateID_MetaData), NewProp_StateID_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateName = { "StateName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateName_MetaData), NewProp_StateName_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_OverlordState = { "OverlordState", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, OverlordState), Z_Construct_UClass_ASTState_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlordState_MetaData), NewProp_OverlordState_MetaData) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_OverlordType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_OverlordType = { "OverlordType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, OverlordType), Z_Construct_UEnum_Heros_Of_ST_EOverlordType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OverlordType_MetaData), NewProp_OverlordType_MetaData) }; // 4125830762
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_VassalStates_Inner = { "VassalStates", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_ASTState_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_VassalStates = { "VassalStates", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, VassalStates), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_VassalStates_MetaData), NewProp_VassalStates_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_Captial = { "Captial", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, Captial), Z_Construct_UClass_ASTHolding_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Captial_MetaData), NewProp_Captial_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateLevel_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_ASTState_Statics::NewProp_StateLevel = { "StateLevel", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTState, StateLevel), Z_Construct_UEnum_Heros_Of_ST_EStateLevel, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StateLevel_MetaData), NewProp_StateLevel_MetaData) }; // 563214583
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASTState_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_StateID,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_StateName,
@@ -495,6 +787,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASTState_
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_VassalStates_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_VassalStates,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_Captial,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_StateLevel_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASTState_Statics::NewProp_StateLevel,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ASTState_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ASTState_Statics::DependentSingletons[])() = {
@@ -534,14 +828,18 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EOverlordType_StaticEnum, TEXT("EOverlordType"), &Z_Registration_Info_UEnum_EOverlordType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4125830762U) },
+		{ EStateLevel_StaticEnum, TEXT("EStateLevel"), &Z_Registration_Info_UEnum_EStateLevel, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 563214583U) },
+	};
+	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
+		{ FStateSavedData::StaticStruct, Z_Construct_UScriptStruct_FStateSavedData_Statics::NewStructOps, TEXT("StateSavedData"), &Z_Registration_Info_UScriptStruct_FStateSavedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FStateSavedData), 1858294653U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 2422840038U) },
+		{ Z_Construct_UClass_ASTState, ASTState::StaticClass, TEXT("ASTState"), &Z_Registration_Info_UClass_ASTState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTState), 2345701600U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_1282801498(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_2467902670(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ClassInfo),
-	nullptr, 0,
+	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h__Script_Heros_Of_ST_Statics::EnumInfo));
 // ********** End Registration *********************************************************************
 

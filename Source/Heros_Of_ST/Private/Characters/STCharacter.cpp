@@ -23,7 +23,7 @@ void ASTCharacter::BeginPlay()
 	CharacterID = CharacterSearcher->GenerateCharacterID();
 	if (!CharacterSearcher->RegisterCharacter(this, CharacterID))
 	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to register character with ID \"%s\"."), *CharacterID.ToString());
+		UE_LOG(LogTemp, Error, TEXT("Failed to register character with ID \"%s\"."), *CharacterID);
 	}
 }
 
@@ -46,7 +46,7 @@ void ASTCharacter::Death(EDeathReason ActualDeathReason)
 	CharacterStatus = ECharacterStatus::Dead;
 	DeathReason = ActualDeathReason;
 	PRINT_SCREEN("Character %s has died due to %s.",
-		*CharacterID.ToString(),
+		*CharacterID,
 		*StaticEnum<EDeathReason>()->GetNameStringByValue(static_cast<uint8>(DeathReason)));
 	// TODO: Handle death logic based on DeathReason
 }
@@ -58,7 +58,7 @@ bool ASTCharacter::AccuireTitle(USTTitle* NewTitle, bool IsInitial)
 		Titles.Add(NewTitle);
 		NewTitle->TitleHolder = this;
 		PRINT_SCREEN("Character %s has acquired title: %s.",
-			*CharacterID.ToString(),
+			*CharacterID,
 			*NewTitle->TitleName);
 		if (!IsInitial)
 		{
@@ -76,7 +76,7 @@ bool ASTCharacter::RelinquishTitle(USTTitle* TitleToRelinquish, bool IsEndGame)
 		Titles.Remove(TitleToRelinquish);
 		TitleToRelinquish->TitleHolder = nullptr;
 		PRINT_SCREEN("Character %s has relinquished title: %s.",
-			*CharacterID.ToString(),
+			*CharacterID,
 			*TitleToRelinquish->TitleName);
 		if (!IsEndGame)
 		{
@@ -84,5 +84,23 @@ bool ASTCharacter::RelinquishTitle(USTTitle* TitleToRelinquish, bool IsEndGame)
 		}
 	}
 	return true;
+}
+
+FCharacterSavedData ASTCharacter::GetSavedData() const
+{
+	FCharacterSavedData SavedData;
+	SavedData.CharacterID = CharacterID;
+	SavedData.CharacterName = CharacterName;
+	for (const auto& Title : Titles)
+	{
+		if (Title)
+		{
+			SavedData.TitleIDs.Add(Title->TitleName);
+		}
+	}
+	SavedData.Attributes = Attributes;
+	SavedData.CharacterStatus = CharacterStatus;
+	SavedData.DeathReason = DeathReason;
+	return SavedData;
 }
 

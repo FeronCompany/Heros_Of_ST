@@ -16,10 +16,25 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
+struct FTitleSavedData;
+
+// ********** Begin ScriptStruct FTitleSavedData ***************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_29_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FTitleSavedData_Statics; \
+	static class UScriptStruct* StaticStruct();
+
+
+struct FTitleSavedData;
+// ********** End ScriptStruct FTitleSavedData *****************************************************
+
 // ********** Begin Class USTTitle *****************************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetSavedTitleData);
+
+
 HEROS_OF_ST_API UClass* Z_Construct_UClass_USTTitle_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_32_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSTTitle(); \
 	friend struct Z_Construct_UClass_USTTitle_Statics; \
@@ -30,7 +45,7 @@ public: \
 	DECLARE_SERIALIZER(USTTitle)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_32_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USTTitle(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -42,12 +57,13 @@ public: \
 	NO_API virtual ~USTTitle();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_29_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_32_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_46_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_32_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_32_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STTitle_h_49_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

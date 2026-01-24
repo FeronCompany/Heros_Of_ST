@@ -1,9 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "States/STState.h"
 #include "ResourceManagment/CharacterSearcher.h"
+#include "States/STState.h"
 #include "States/STTitle.h"
+#include "States/STHolding.h"
 #include "Characters/STCharacter.h"
 #include "Heros_Of_ST/macros.h"
 
@@ -32,7 +33,7 @@ void ASTState::InitTitles(const TArray<USTTitle*>& NewTitles, ASTHolding* capita
 		{
 			Title->TitleBelonging = this;
 			PRINT_SCREEN("State %s has added title: %s.",
-				*StateID.ToString(),
+				*StateID,
 				*Title->TitleName);
 		}
 	}
@@ -47,8 +48,8 @@ void ASTState::SubjectTo(ASTState* Overlord, EOverlordType NewOverlordType, bool
 	if (!IsInitial)
 	{
 		PRINT_SCREEN("State %s is now subject to %s as a %s.",
-			*StateID.ToString(),
-			*Overlord->StateID.ToString(),
+			*StateID,
+			*Overlord->StateID,
 			*StaticEnum<EOverlordType>()->GetNameStringByValue(static_cast<uint8>(OverlordType)));
 	}
 }
@@ -59,8 +60,8 @@ void ASTState::AbandonOverlord()
 	{
 		OverlordState->VassalStates.Remove(this);
 		PRINT_SCREEN("State %s has abandoned overlord %s.",
-			*StateID.ToString(),
-			*OverlordState->StateID.ToString());
+			*StateID,
+			*OverlordState->StateID);
 		OverlordState = nullptr;
 		OverlordType = EOverlordType::Independent;
 	}
@@ -75,11 +76,54 @@ void ASTState::BreakTitle(bool IsEndGame)
 			Title->TitleBelonging = nullptr;
 			Title->TitleHolder->RelinquishTitle(Title, IsEndGame);
 			PRINT_SCREEN("State %s has removed title: %s.",
-				*StateID.ToString(),
+				*StateID,
 				*Title->TitleName);
 		}
 	}
 	Titles.Empty();
+}
+
+TArray<ASTHolding*> ASTState::GetAllHoldings() const
+{
+	if (StateLevel == EStateLevel::County)
+	{
+		return { Captial };
+	}
+	else if (StateLevel == EStateLevel::Commoner)
+	{
+		return {};
+	}
+	else
+	{
+		TArray<ASTHolding*> Holdings;
+		for (auto& VassalState : VassalStates)
+		{
+			if (VassalState)
+			{
+				Holdings.Append(VassalState->GetAllHoldings());
+			}
+		}
+		return Holdings;
+	}
+}
+
+FStateSavedData ASTState::GetSavedStateData() const
+{
+	FStateSavedData SavedData;
+	SavedData.StateID = StateID;
+	SavedData.StateName = StateName;
+	SavedData.OverlordStateID = OverlordState ? OverlordState->StateID : "";
+	SavedData.OverlordType = OverlordType;
+	for (const auto& Title : Titles)
+	{
+		if (Title)
+		{
+			SavedData.Titles.Add(Title->GetSavedTitleData());
+		}
+	}
+	SavedData.CapitalHoldingID = Captial ? Captial->HoldingID : "";
+	SavedData.StateLevel = StateLevel;
+	return SavedData;
 }
 
 // Called when the game starts or when spawned
@@ -91,7 +135,7 @@ void ASTState::BeginPlay()
 	StateID = CharacterSearcher->GenerateCharacterID(); // 虽然叫CharacterID，但也用来给其他子容器生成唯一ID
 	if (!CharacterSearcher->RegisterState(this, StateID))
 	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to register state with ID \"%s\"."), *StateID.ToString());
+		UE_LOG(LogTemp, Error, TEXT("Failed to register state with ID \"%s\"."), *StateID);
 	}
 }
 

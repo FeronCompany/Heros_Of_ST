@@ -7,7 +7,7 @@
 void ASTPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
-	if(!UCharacterSearcher::Get()->LoadCharacterListFromSaveData())
+	if (!UCharacterSearcher::Get()->LoadCharacterListFromSaveData())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Failed to load character list from save data in PlayerState."));
 	}

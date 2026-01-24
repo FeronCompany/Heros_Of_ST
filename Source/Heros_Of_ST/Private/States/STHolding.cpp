@@ -2,6 +2,7 @@
 
 
 #include "States/STHolding.h"
+#include "States/STState.h"
 #include "ResourceManagment/CharacterSearcher.h"
 
 // Sets default values
@@ -19,6 +20,15 @@ void ASTHolding::Tick(float DeltaTime)
 
 }
 
+FHoldingSavedData ASTHolding::GetSavedHoldingData() const
+{
+	FHoldingSavedData SavedData;
+	SavedData.HoldingID = HoldingID;
+	SavedData.HoldingName = HoldingName;
+	SavedData.OwningStateID = OwnerState ? OwnerState->StateID : FString();
+	return  SavedData;
+}
+
 // Called when the game starts or when spawned
 void ASTHolding::BeginPlay()
 {
@@ -28,7 +38,7 @@ void ASTHolding::BeginPlay()
 	HoldingID = CharacterSearcher->GenerateCharacterID();
 	if (!CharacterSearcher->RegisterHolding(this, HoldingID))
 	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to register holding with ID \"%s\"."), *HoldingID.ToString());
+		UE_LOG(LogTemp, Error, TEXT("Failed to register holding with ID \"%s\"."), *HoldingID);
 	}
 }
 

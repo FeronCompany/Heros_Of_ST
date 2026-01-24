@@ -36,6 +36,25 @@ enum class EDeathReason : uint8
 	MAX UMETA(Hidden)
 };
 
+USTRUCT(BlueprintType)
+struct HEROS_OF_ST_API FCharacterSavedData
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	FString CharacterID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	FName CharacterName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	TArray<FString> TitleIDs;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	FCharAttributes Attributes;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	ECharacterStatus CharacterStatus;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	EDeathReason DeathReason;
+};
+
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTCharacter : public AActor
 {
@@ -56,6 +75,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool RelinquishTitle(USTTitle* TitleToRelinquish, bool IsEndGame);
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	FCharacterSavedData GetSavedData() const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -64,10 +86,10 @@ protected:
 
 public:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
-	FName CharacterID;
+	FString CharacterID;
 	// Character名称
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-	FString CharacterName;
+	FName CharacterName;
 	// 头衔列表
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	TArray<USTTitle*> Titles;

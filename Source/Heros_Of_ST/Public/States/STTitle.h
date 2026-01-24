@@ -23,6 +23,23 @@ enum class ETitleRank : uint8
 	MAX UMETA(Hidden)
 };
 
+USTRUCT(BlueprintType)
+struct HEROS_OF_ST_API FTitleSavedData
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
+	FString TitleName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
+	FName TitleDescription;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
+	FString TitleHolderID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
+	FString TitleBelongingStateID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
+	ETitleRank TitleRank;
+};
+
 /**
  * 统治者的头衔、称号
  */
@@ -31,10 +48,14 @@ class HEROS_OF_ST_API USTTitle : public UObject
 {
 	GENERATED_BODY()
 public:
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	FTitleSavedData GetSavedTitleData() const;
+
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
 	FString TitleName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
-	FString TitleDescription;
+	FName TitleDescription;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
 	ASTCharacter* TitleHolder{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")

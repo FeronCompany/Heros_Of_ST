@@ -19,6 +19,7 @@ HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTCharacter_NoRegister();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_USTTitle_NoRegister();
 HEROS_OF_ST_API UEnum* Z_Construct_UEnum_Heros_Of_ST_ECharacterStatus();
 HEROS_OF_ST_API UEnum* Z_Construct_UEnum_Heros_Of_ST_EDeathReason();
+HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FCharacterSavedData();
 HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FCharAttributes();
 UPackage* Z_Construct_UPackage__Script_Heros_Of_ST();
 // ********** End Cross Module References **********************************************************
@@ -170,6 +171,108 @@ UEnum* Z_Construct_UEnum_Heros_Of_ST_EDeathReason()
 }
 // ********** End Enum EDeathReason ****************************************************************
 
+// ********** Begin ScriptStruct FCharacterSavedData ***********************************************
+static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_FCharacterSavedData;
+class UScriptStruct* FCharacterSavedData::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_FCharacterSavedData.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_FCharacterSavedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FCharacterSavedData, (UObject*)Z_Construct_UPackage__Script_Heros_Of_ST(), TEXT("CharacterSavedData"));
+	}
+	return Z_Registration_Info_UScriptStruct_FCharacterSavedData.OuterSingleton;
+}
+struct Z_Construct_UScriptStruct_FCharacterSavedData_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CharacterID_MetaData[] = {
+		{ "Category", "Character Saved Data" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CharacterName_MetaData[] = {
+		{ "Category", "Character Saved Data" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TitleIDs_MetaData[] = {
+		{ "Category", "Character Saved Data" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Attributes_MetaData[] = {
+		{ "Category", "Character Saved Data" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CharacterStatus_MetaData[] = {
+		{ "Category", "Character Saved Data" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DeathReason_MetaData[] = {
+		{ "Category", "Character Saved Data" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_CharacterID;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_CharacterName;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_TitleIDs_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_TitleIDs;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_Attributes;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_CharacterStatus_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_CharacterStatus;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_DeathReason_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_DeathReason;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static void* NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FCharacterSavedData>();
+	}
+	static const UECodeGen_Private::FStructParams StructParams;
+};
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterID = { "CharacterID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCharacterSavedData, CharacterID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterID_MetaData), NewProp_CharacterID_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterName = { "CharacterName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCharacterSavedData, CharacterName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterName_MetaData), NewProp_CharacterName_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_TitleIDs_Inner = { "TitleIDs", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_TitleIDs = { "TitleIDs", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCharacterSavedData, TitleIDs), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TitleIDs_MetaData), NewProp_TitleIDs_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_Attributes = { "Attributes", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCharacterSavedData, Attributes), Z_Construct_UScriptStruct_FCharAttributes, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Attributes_MetaData), NewProp_Attributes_MetaData) }; // 868948367
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterStatus_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterStatus = { "CharacterStatus", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCharacterSavedData, CharacterStatus), Z_Construct_UEnum_Heros_Of_ST_ECharacterStatus, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterStatus_MetaData), NewProp_CharacterStatus_MetaData) }; // 3890419556
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_DeathReason_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_DeathReason = { "DeathReason", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCharacterSavedData, DeathReason), Z_Construct_UEnum_Heros_Of_ST_EDeathReason, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DeathReason_MetaData), NewProp_DeathReason_MetaData) }; // 2762350746
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FCharacterSavedData_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterName,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_TitleIDs_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_TitleIDs,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_Attributes,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterStatus_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_CharacterStatus,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_DeathReason_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewProp_DeathReason,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterSavedData_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FCharacterSavedData_Statics::StructParams = {
+	(UObject* (*)())Z_Construct_UPackage__Script_Heros_Of_ST,
+	nullptr,
+	&NewStructOps,
+	"CharacterSavedData",
+	Z_Construct_UScriptStruct_FCharacterSavedData_Statics::PropPointers,
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterSavedData_Statics::PropPointers),
+	sizeof(FCharacterSavedData),
+	alignof(FCharacterSavedData),
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	EStructFlags(0x00000201),
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterSavedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FCharacterSavedData_Statics::Struct_MetaDataParams)
+};
+UScriptStruct* Z_Construct_UScriptStruct_FCharacterSavedData()
+{
+	if (!Z_Registration_Info_UScriptStruct_FCharacterSavedData.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_FCharacterSavedData.InnerSingleton, Z_Construct_UScriptStruct_FCharacterSavedData_Statics::StructParams);
+	}
+	return Z_Registration_Info_UScriptStruct_FCharacterSavedData.InnerSingleton;
+}
+// ********** End ScriptStruct FCharacterSavedData *************************************************
+
 // ********** Begin Class ASTCharacter Function AccuireTitle ***************************************
 struct Z_Construct_UFunction_ASTCharacter_AccuireTitle_Statics
 {
@@ -278,6 +381,48 @@ DEFINE_FUNCTION(ASTCharacter::execDeath)
 }
 // ********** End Class ASTCharacter Function Death ************************************************
 
+// ********** Begin Class ASTCharacter Function GetSavedData ***************************************
+struct Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics
+{
+	struct STCharacter_eventGetSavedData_Parms
+	{
+		FCharacterSavedData ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character" },
+		{ "ModuleRelativePath", "Public/Characters/STCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(STCharacter_eventGetSavedData_Parms, ReturnValue), Z_Construct_UScriptStruct_FCharacterSavedData, METADATA_PARAMS(0, nullptr) }; // 300549726
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ASTCharacter, nullptr, "GetSavedData", Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::PropPointers), sizeof(Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::STCharacter_eventGetSavedData_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::STCharacter_eventGetSavedData_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ASTCharacter_GetSavedData()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASTCharacter_GetSavedData_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ASTCharacter::execGetSavedData)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(FCharacterSavedData*)Z_Param__Result=P_THIS->GetSavedData();
+	P_NATIVE_END;
+}
+// ********** End Class ASTCharacter Function GetSavedData *****************************************
+
 // ********** Begin Class ASTCharacter Function RelinquishTitle ************************************
 struct Z_Construct_UFunction_ASTCharacter_RelinquishTitle_Statics
 {
@@ -347,6 +492,7 @@ void ASTCharacter::StaticRegisterNativesASTCharacter()
 	static const FNameNativePtrPair Funcs[] = {
 		{ "AccuireTitle", &ASTCharacter::execAccuireTitle },
 		{ "Death", &ASTCharacter::execDeath },
+		{ "GetSavedData", &ASTCharacter::execGetSavedData },
 		{ "RelinquishTitle", &ASTCharacter::execRelinquishTitle },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -444,8 +590,8 @@ struct Z_Construct_UClass_ASTCharacter_Statics
 #endif
 	};
 #endif // WITH_METADATA
-	static const UECodeGen_Private::FNamePropertyParams NewProp_CharacterID;
-	static const UECodeGen_Private::FStrPropertyParams NewProp_CharacterName;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_CharacterID;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_CharacterName;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Titles_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_Titles;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Attributes;
@@ -458,6 +604,7 @@ struct Z_Construct_UClass_ASTCharacter_Statics
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ASTCharacter_AccuireTitle, "AccuireTitle" }, // 3578536049
 		{ &Z_Construct_UFunction_ASTCharacter_Death, "Death" }, // 3268103029
+		{ &Z_Construct_UFunction_ASTCharacter_GetSavedData, "GetSavedData" }, // 3142047241
 		{ &Z_Construct_UFunction_ASTCharacter_RelinquishTitle, "RelinquishTitle" }, // 648697662
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -466,8 +613,8 @@ struct Z_Construct_UClass_ASTCharacter_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_CharacterID = { "CharacterID", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTCharacter, CharacterID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterID_MetaData), NewProp_CharacterID_MetaData) };
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_CharacterName = { "CharacterName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTCharacter, CharacterName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterName_MetaData), NewProp_CharacterName_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_CharacterID = { "CharacterID", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTCharacter, CharacterID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterID_MetaData), NewProp_CharacterID_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_CharacterName = { "CharacterName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTCharacter, CharacterName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CharacterName_MetaData), NewProp_CharacterName_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_Titles_Inner = { "Titles", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_USTTitle_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_Titles = { "Titles", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTCharacter, Titles), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Titles_MetaData), NewProp_Titles_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ASTCharacter_Statics::NewProp_Attributes = { "Attributes", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASTCharacter, Attributes), Z_Construct_UScriptStruct_FCharAttributes, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Attributes_MetaData), NewProp_Attributes_MetaData) }; // 868948367
@@ -526,13 +673,16 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ ECharacterStatus_StaticEnum, TEXT("ECharacterStatus"), &Z_Registration_Info_UEnum_ECharacterStatus, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3890419556U) },
 		{ EDeathReason_StaticEnum, TEXT("EDeathReason"), &Z_Registration_Info_UEnum_EDeathReason, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2762350746U) },
 	};
+	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
+		{ FCharacterSavedData::StaticStruct, Z_Construct_UScriptStruct_FCharacterSavedData_Statics::NewStructOps, TEXT("CharacterSavedData"), &Z_Registration_Info_UScriptStruct_FCharacterSavedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FCharacterSavedData), 300549726U) },
+	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASTCharacter, ASTCharacter::StaticClass, TEXT("ASTCharacter"), &Z_Registration_Info_UClass_ASTCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTCharacter), 3337272795U) },
+		{ Z_Construct_UClass_ASTCharacter, ASTCharacter::StaticClass, TEXT("ASTCharacter"), &Z_Registration_Info_UClass_ASTCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASTCharacter), 3461326676U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_2403700394(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_1070833245(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ClassInfo),
-	nullptr, 0,
+	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Characters_STCharacter_h__Script_Heros_Of_ST_Statics::EnumInfo));
 // ********** End Registration *********************************************************************
 
