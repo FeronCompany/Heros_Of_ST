@@ -9,6 +9,18 @@
 class ASTCharacter;
 class ASTState;
 class ASTHolding;
+class USaveGame;
+
+USTRUCT(BlueprintType)
+struct HEROS_OF_ST_API FSavedDataBriefInfo
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Saved Data Brief Info")
+	FString SlotName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Saved Data Brief Info")
+	FDateTime SaveTime;
+};
 
 /**
  * 游戏中角色的全局搜索器，负责注册和查找角色实例
@@ -45,13 +57,16 @@ public:
 	virtual void BeginDestroy() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	bool LoadCharacterListFromSaveData();
+	bool LoadSaveData(const FString& SlotName, int32 UserIndex);
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void SaveData(const FString& SlotName, int32 UserIndex);
 
-	//UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	void OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool DeleteSaveData(const FString& SlotName);
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	TArray<FSavedDataBriefInfo> GetAllSavedFileInfos();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void ClearAll();
@@ -71,6 +86,12 @@ public:
 	bool RegisterHolding(ASTHolding* Holding, const FString& HoldingID);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void UnregisterHolding(const FString& HoldingID);
+
+private:
+	void OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess);
+	void OnLoadGameComplete(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedSaveGame);
+	UWorld* GetGameWorld() const;
+
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ASTCharacter* currentControlledCharacter = nullptr;
@@ -84,5 +105,7 @@ private:
 	TMap<FString, ASTState*> StateMap;
 	TMap<FString, ASTHolding*> HoldingMap;
 	std::atomic<int64> CurrentIDCounter{ 0 };
-	FCriticalSection SyncLock;
+	FCriticalSection SyncLockChar;
+	FCriticalSection SyncLockState;
+	FCriticalSection SyncLockHolding;
 };

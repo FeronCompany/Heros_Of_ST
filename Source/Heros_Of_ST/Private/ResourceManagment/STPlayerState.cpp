@@ -7,10 +7,10 @@
 void ASTPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
-	if (!UCharacterSearcher::Get()->LoadCharacterListFromSaveData())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to load character list from save data in PlayerState."));
-	}
+	//if (!UCharacterSearcher::Get()->LoadSaveData())
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Failed to load character list from save data in PlayerState."));
+	//}
 }
 
 void ASTPlayerState::EndPlay(const EEndPlayReason::Type EndPlayReason)

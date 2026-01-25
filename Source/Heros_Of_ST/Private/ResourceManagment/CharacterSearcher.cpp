@@ -12,7 +12,7 @@
 
 ASTCharacter* UCharacterSearcher::FindCharacterByID(const FString& CharacterID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockChar);
 	auto itor = CharacterMap.Find(CharacterID);
 	if (itor)
 	{
@@ -34,7 +34,7 @@ FString UCharacterSearcher::GenerateCharacterID()
 
 bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FString& CharacterID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockChar);
 	auto itor = CharacterMap.Find(CharacterID);
 	if (itor)
 	{
@@ -48,7 +48,7 @@ bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FStrin
 
 void UCharacterSearcher::UnregisterCharacter(const FString& CharacterID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockChar);
 	auto itor = CharacterMap.Find(CharacterID);
 	if (itor)
 	{
@@ -67,84 +67,17 @@ void UCharacterSearcher::BeginDestroy()
 	ClearAll();
 }
 
-bool UCharacterSearcher::LoadCharacterListFromSaveData()
+bool UCharacterSearcher::LoadSaveData(const FString& SlotName, int32 UserIndex)
 {
-	// Create controlled character
-	UWorld* World = nullptr;
-	if (GEngine)
+	if (!UGameplayStatics::DoesSaveGameExist(SlotName, UserIndex))
 	{
-		for (const FWorldContext& Context : GEngine->GetWorldContexts())
-		{
-			UWorld* CandidateWorld = Context.World();
-			if (CandidateWorld && CandidateWorld->IsGameWorld())
-			{
-				World = CandidateWorld;
-				break;
-			}
-		}
-	}
-	if (!World)
-	{
-		UE_LOG(LogTemp, Error, TEXT("LoadCharacterListFromSaveData failed: no valid game world found."));
+		PRINT_SCREEN("存档不存在: %s", *SlotName);
 		return false;
 	}
-
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.Name = FName(TEXT("CurrentControlledCharacter"));
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	SpawnParams.ObjectFlags |= RF_Transient;
-	ASTCharacter* SpawnedCharacter = World->SpawnActor<ASTCharacter>(SpawnParams);
-	if (!SpawnedCharacter)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to spawn controlled character."));
-		return false;
-	}
-	SpawnedCharacter->CharacterID = GenerateCharacterID();
-	SpawnedCharacter->CharacterName = TEXT("李世民");
-	SpawnedCharacter->Attributes.Health = 100;
-	SpawnedCharacter->Attributes.Comprehension = 90;
-	SpawnedCharacter->Attributes.Ingenuity = 80;
-	SpawnedCharacter->Attributes.Perception = 70;
-	SpawnedCharacter->Attributes.Willpower = 60;
-	SpawnedCharacter->Attributes.Charisma = 50;
-	SpawnedCharacter->Attributes.Strategy = 40;
-	SpawnedCharacter->Attributes.Governance = 30;
-	currentControlledCharacter = SpawnedCharacter;
-	// 初始化State, Title和Holding的基础属性
-	ASTState* DebugState = World->SpawnActor<ASTState>();
-	DebugState->StateID = GenerateCharacterID();
-	DebugState->StateName = TEXT("Xiaoyao County");
-	DebugState->StateLevel = EStateLevel::County;
-	ASTState* Empire = World->SpawnActor<ASTState>();
-	Empire->StateID = GenerateCharacterID();
-	Empire->StateName = TEXT("Tang Empire");
-	Empire->StateLevel = EStateLevel::Empire;
-	ASTHolding* DebugHolding = World->SpawnActor<ASTHolding>();
-	DebugHolding->HoldingID = GenerateCharacterID();
-	DebugHolding->HoldingName = TEXT("Xiaoyao City");
-	USTTitle* DebugTitle = NewObject<USTTitle>();
-	DebugTitle->TitleName = TEXT("Xiayo Governor");
-	DebugTitle->TitleDescription = TEXT("This is a debug title.");
-	DebugTitle->TitleRank = ETitleRank::Count;
-	USTTitle* HouseTitle = NewObject<USTTitle>();
-	HouseTitle->TitleName = TEXT("Dynast Of Li");
-	HouseTitle->TitleDescription = TEXT("Dynast of Li.");
-	HouseTitle->TitleRank = ETitleRank::Commoner;
-	USTTitle* EmpireTitle = NewObject<USTTitle>();
-	EmpireTitle->TitleName = TEXT("Empire Of Tang");
-	EmpireTitle->TitleDescription = TEXT("Empire of Tang.");
-	EmpireTitle->TitleRank = ETitleRank::Emperor;
-	// 关联Title、State和Holding
-	DebugHolding->OwnerState = DebugState; // holding只被基层state占有，但其它等级的state的治所也可以是这个holding
-	DebugState->InitTitles({ DebugTitle }, DebugHolding);
-	DebugState->SubjectTo(Empire, EOverlordType::Administrative, false);
-	Empire->InitTitles({ EmpireTitle }, DebugHolding);
-	currentControlledCharacter->AccuireTitle(HouseTitle, true);
-	currentControlledCharacter->AccuireTitle(DebugTitle, true);
-	currentControlledCharacter->AccuireTitle(EmpireTitle, true);
-
-	// Placeholder for loading character list from save data
-	// TODO: Implement actual loading logic here
+	UGameplayStatics::AsyncLoadGameFromSlot(
+		SlotName,
+		UserIndex,
+		FAsyncLoadGameFromSlotDelegate::CreateUObject(this, &UCharacterSearcher::OnLoadGameComplete));
 	PRINT_SCREEN("Loaded character list from save data (placeholder).");
 	return true;
 }
@@ -184,6 +117,7 @@ void UCharacterSearcher::SaveData(const FString& SlotName, int32 UserIndex)
 		}
 	}
 	SaveData->MainCharacterID = currentControlledCharacter ? currentControlledCharacter->CharacterID : TEXT("");
+	SaveData->SaveTime = FDateTime::Now();
 	UGameplayStatics::AsyncSaveGameToSlot(
 		SaveData,
 		SlotName,
@@ -192,14 +126,215 @@ void UCharacterSearcher::SaveData(const FString& SlotName, int32 UserIndex)
 	//PRINT_SCREEN("Saved character list to save data (placeholder).");
 }
 
+bool UCharacterSearcher::DeleteSaveData(const FString& SlotName)
+{
+	if (!UGameplayStatics::DoesSaveGameExist(SlotName, 0))
+	{
+		PRINT_SCREEN("存档不存在: %s", *SlotName);
+		return false;
+	}
+	bool bSuccess = UGameplayStatics::DeleteGameInSlot(SlotName, 0);
+	PRINT_SCREEN("Deleted save data in slot %s. Result: %s", *SlotName, bSuccess ? TEXT("True") : TEXT("False"));
+	return bSuccess;
+}
+
+TArray<FSavedDataBriefInfo> UCharacterSearcher::GetAllSavedFileInfos()
+{
+	TArray<FSavedDataBriefInfo> SaveFileInfos;
+	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+	FString SaveDir = FPaths::ProjectSavedDir() + TEXT("SaveGames/");
+	if (!PlatformFile.DirectoryExists(*SaveDir))
+	{
+		PlatformFile.CreateDirectory(*SaveDir);
+	}
+	FString SearchPattern = SaveDir + "*.sav";
+	TArray<FString> SaveFileNames;
+	IFileManager::Get().FindFiles(SaveFileNames, *SearchPattern, true, false);
+	for (const FString& FileName : SaveFileNames)
+	{
+		FString SlotName = FPaths::GetBaseFilename(FileName);
+		FDateTime FileTime = IFileManager::Get().GetTimeStamp(*SlotName);
+		FSavedDataBriefInfo Info;
+		Info.SlotName = SlotName;
+		Info.SaveTime = FileTime;
+		SaveFileInfos.Add(Info);
+	}
+	return SaveFileInfos;
+}
+
 void UCharacterSearcher::OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess)
 {
 	PRINT_SCREEN("Save game completed. Result: %s", bSuccess ? TEXT("True") : TEXT("False"));
 }
 
+void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedSaveGame)
+{
+	UWorld* World = GetGameWorld();
+	if (!World)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoadCharacterListFromSaveData failed: no valid game world found."));
+		return;
+	}
+
+	USTSaveGame* SaveData = Cast<USTSaveGame>(LoadedSaveGame);
+	if (!SaveData)
+	{
+		PRINT_SCREEN("Failed to load save game data from slot: %s", *SlotName);
+		return;
+	}
+	// Clear existing data
+	ClearAll();
+	// Load Holdings
+	for (const FHoldingSavedData& HoldingData : SaveData->SavedHoldings)
+	{
+		ASTHolding* Holding = World->SpawnActor<ASTHolding>();
+		Holding->HoldingID = HoldingData.HoldingID;
+		Holding->HoldingName = HoldingData.HoldingName;
+		// 稍后设置关联信息
+	}
+	// Load States
+	for (const FStateSavedData& StateData : SaveData->SavedStates)
+	{
+		ASTState* State = World->SpawnActor<ASTState>();
+		State->StateID = StateData.StateID;
+		State->StateName = StateData.StateName;
+		State->StateLevel = StateData.StateLevel;
+		// 稍后设置关联信息
+	}
+	// Load Characters
+	for (const FCharacterSavedData& CharacterData : SaveData->SavedCharacters)
+	{
+		ASTCharacter* SpawnedCharacter = World->SpawnActor<ASTCharacter>();
+		if (!SpawnedCharacter)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Failed to spawn controlled character."));
+			continue;
+		}
+		SpawnedCharacter->CharacterID = CharacterData.CharacterID;
+		SpawnedCharacter->CharacterName = CharacterData.CharacterName;
+		SpawnedCharacter->Attributes = CharacterData.Attributes;
+		SpawnedCharacter->CharacterStatus = CharacterData.CharacterStatus;
+		SpawnedCharacter->DeathReason = CharacterData.DeathReason;
+		// 稍后设置关联信息
+	}
+	// Set current controlled character
+	if (SaveData->MainCharacterID.IsEmpty())
+	{
+		currentControlledCharacter = nullptr;
+	}
+	else
+	{
+		currentControlledCharacter = FindCharacterByID(SaveData->MainCharacterID);
+	}
+	// Holdings 设置关联信息
+	for (const FHoldingSavedData& HoldingData : SaveData->SavedHoldings)
+	{
+		ASTHolding* Holding = FindHoldingByID(HoldingData.HoldingID);
+		if (Holding)
+		{
+			ASTState* OwningState = FindStateByID(HoldingData.OwningStateID);
+			if (OwningState)
+			{
+				Holding->OwnerState = OwningState;
+			}
+			else
+			{
+				UE_LOG(
+					LogTemp,
+					Warning,
+					TEXT("Owning State ID \"%s\" not found for Holding ID \"%s\"."),
+					*HoldingData.OwningStateID,
+					*HoldingData.HoldingID);
+			}
+		}
+	}
+	// States 设置关联信息
+	for (const FStateSavedData& StateData : SaveData->SavedStates)
+	{
+		ASTState* State = FindStateByID(StateData.StateID);
+		if (State)
+		{
+			// 设置OverlordState
+			if (!StateData.OverlordStateID.IsEmpty())
+			{
+				ASTState* OverlordState = FindStateByID(StateData.OverlordStateID);
+				if (OverlordState)
+				{
+					State->SubjectTo(OverlordState, StateData.OverlordType, true);
+				}
+				else
+				{
+					UE_LOG(
+						LogTemp,
+						Warning,
+						TEXT("Overlord State ID \"%s\" not found for State ID \"%s\"."),
+						*StateData.OverlordStateID,
+						*StateData.StateID);
+				}
+			}
+			// 设置Titles
+			TArray<USTTitle*> LoadedTitles;
+			for (const FTitleSavedData& TitleData : StateData.Titles)
+			{
+				USTTitle* Title = NewObject<USTTitle>();
+				Title->TitleName = TitleData.TitleName;
+				Title->TitleDescription = TitleData.TitleDescription;
+				Title->TitleRank = TitleData.TitleRank;
+				// 设置TitleHolder
+				ASTCharacter* TitleHolder = FindCharacterByID(TitleData.TitleHolderID);
+				if (TitleHolder)
+				{
+					TitleHolder->AccuireTitle(Title, true);
+				}
+				else
+				{
+					UE_LOG(
+						LogTemp,
+						Warning,
+						TEXT("Title Holder ID \"%s\" not found for Title \"%s\"."),
+						*TitleData.TitleHolderID,
+						*TitleData.TitleName);
+				}
+				LoadedTitles.Add(Title);
+			}
+			// 设置Capital
+			ASTHolding* CapitalHolding = FindHoldingByID(StateData.CapitalHoldingID);
+			State->InitTitles(LoadedTitles, CapitalHolding);
+		}
+	}
+	// Characters 设置关联信息
+	for (const FCharacterSavedData& CharacterData : SaveData->SavedCharacters)
+	{
+		//ASTCharacter* Character = FindCharacterByID(CharacterData.CharacterID);
+		//if (Character)
+		//{
+		//	//
+		//}
+	}
+	PRINT_SCREEN("Loaded character list from save data: %s", *SlotName);
+}
+
+UWorld* UCharacterSearcher::GetGameWorld() const
+{
+	UWorld* World = nullptr;
+	if (GEngine)
+	{
+		for (const FWorldContext& Context : GEngine->GetWorldContexts())
+		{
+			UWorld* CandidateWorld = Context.World();
+			if (CandidateWorld && CandidateWorld->IsGameWorld())
+			{
+				World = CandidateWorld;
+				break;
+			}
+		}
+	}
+	return World;
+}
+
 void UCharacterSearcher::ClearAll()
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockChar);
 	for (auto& Pair : CharacterMap)
 	{
 		if (Pair.Value)
@@ -231,7 +366,7 @@ void UCharacterSearcher::ClearAll()
 
 ASTState* UCharacterSearcher::FindStateByID(const FString& StateId)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockState);
 	auto itor = StateMap.Find(StateId);
 	if (itor)
 	{
@@ -246,7 +381,7 @@ ASTState* UCharacterSearcher::FindStateByID(const FString& StateId)
 
 bool UCharacterSearcher::RegisterState(ASTState* State, const FString& StateID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockState);
 	auto itor = StateMap.Find(StateID);
 	if (itor)
 	{
@@ -260,7 +395,7 @@ bool UCharacterSearcher::RegisterState(ASTState* State, const FString& StateID)
 
 void UCharacterSearcher::UnregisterState(const FString& StateID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockState);
 	auto itor = StateMap.Find(StateID);
 	if (itor)
 	{
@@ -275,7 +410,7 @@ void UCharacterSearcher::UnregisterState(const FString& StateID)
 
 ASTHolding* UCharacterSearcher::FindHoldingByID(const FString& HoldingId)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockHolding);
 	auto itor = HoldingMap.Find(HoldingId);
 	if (itor)
 	{
@@ -290,7 +425,7 @@ ASTHolding* UCharacterSearcher::FindHoldingByID(const FString& HoldingId)
 
 bool UCharacterSearcher::RegisterHolding(ASTHolding* Holding, const FString& HoldingID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockHolding);
 	auto itor = HoldingMap.Find(HoldingID);
 	if (itor)
 	{
@@ -304,7 +439,7 @@ bool UCharacterSearcher::RegisterHolding(ASTHolding* Holding, const FString& Hol
 
 void UCharacterSearcher::UnregisterHolding(const FString& HoldingID)
 {
-	FScopeLock Lock(&SyncLock);
+	FScopeLock Lock(&SyncLockHolding);
 	auto itor = HoldingMap.Find(HoldingID);
 	if (itor)
 	{

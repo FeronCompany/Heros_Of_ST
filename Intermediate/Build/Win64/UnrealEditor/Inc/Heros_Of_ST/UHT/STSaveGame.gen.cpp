@@ -15,6 +15,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSTSaveGame() {}
 
 // ********** Begin Cross Module References ********************************************************
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FDateTime();
 ENGINE_API UClass* Z_Construct_UClass_USaveGame();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_USTSaveGame();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_USTSaveGame_NoRegister();
@@ -82,6 +83,9 @@ struct Z_Construct_UClass_USTSaveGame_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MainCharacterID_MetaData[] = {
 		{ "ModuleRelativePath", "Public/ResourceManagment/STSaveGame.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SaveTime_MetaData[] = {
+		{ "ModuleRelativePath", "Public/ResourceManagment/STSaveGame.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SavedCharacters_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_SavedCharacters;
@@ -91,6 +95,7 @@ struct Z_Construct_UClass_USTSaveGame_Statics
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_SavedHoldings;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_CurrentSavedVersion;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_MainCharacterID;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_SaveTime;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -106,6 +111,7 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_St
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHoldings = { "SavedHoldings", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedHoldings), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedHoldings_MetaData), NewProp_SavedHoldings_MetaData) }; // 613153170
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_CurrentSavedVersion = { "CurrentSavedVersion", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, CurrentSavedVersion), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentSavedVersion_MetaData), NewProp_CurrentSavedVersion_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_MainCharacterID = { "MainCharacterID", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, MainCharacterID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MainCharacterID_MetaData), NewProp_MainCharacterID_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SaveTime = { "SaveTime", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SaveTime), Z_Construct_UScriptStruct_FDateTime, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SaveTime_MetaData), NewProp_SaveTime_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USTSaveGame_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCharacters_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCharacters,
@@ -115,6 +121,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USTSaveGa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHoldings,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_CurrentSavedVersion,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_MainCharacterID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SaveTime,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_USTSaveGame_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_USTSaveGame_Statics::DependentSingletons[])() = {
@@ -153,10 +160,10 @@ USTSaveGame::~USTSaveGame() {}
 struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USTSaveGame, USTSaveGame::StaticClass, TEXT("USTSaveGame"), &Z_Registration_Info_UClass_USTSaveGame, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTSaveGame), 3568847603U) },
+		{ Z_Construct_UClass_USTSaveGame, USTSaveGame::StaticClass, TEXT("USTSaveGame"), &Z_Registration_Info_UClass_USTSaveGame, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTSaveGame), 3174612016U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_735604210(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_1369437190(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

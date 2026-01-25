@@ -27,4 +27,5 @@ public:
 	UPROPERTY(SaveGame) TArray<FHoldingSavedData> SavedHoldings;
 	UPROPERTY(SaveGame) int32 CurrentSavedVersion;
 	UPROPERTY(SaveGame) FString MainCharacterID;
+	UPROPERTY(SaveGame) FDateTime SaveTime;
 };
