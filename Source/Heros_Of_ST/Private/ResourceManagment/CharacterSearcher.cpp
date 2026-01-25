@@ -153,7 +153,7 @@ TArray<FSavedDataBriefInfo> UCharacterSearcher::GetAllSavedFileInfos()
 	for (const FString& FileName : SaveFileNames)
 	{
 		FString SlotName = FPaths::GetBaseFilename(FileName);
-		FDateTime FileTime = IFileManager::Get().GetTimeStamp(*SlotName);
+		FDateTime FileTime = IFileManager::Get().GetTimeStamp(*(SaveDir + SlotName + TEXT(".sav")));
 		FSavedDataBriefInfo Info;
 		Info.SlotName = SlotName;
 		Info.SaveTime = FileTime;
