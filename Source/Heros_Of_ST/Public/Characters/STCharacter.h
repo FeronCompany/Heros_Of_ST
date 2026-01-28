@@ -8,6 +8,7 @@
 #include "STCharacter.generated.h"
 
 class USTTitle;
+class FJsonObject;
 
 UENUM(BlueprintType)
 enum class ECharacterStatus : uint8
@@ -77,6 +78,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	FCharacterSavedData GetSavedData() const;
+
+	static bool ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FCharacterSavedData& OutSavedData);
 
 protected:
 	// Called when the game starts or when spawned

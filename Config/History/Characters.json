@@ -1,0 +1,83 @@
+{
+  "characters": [
+    {
+      "CharacterID": "char_001",
+      "CharacterName": "李渊",
+      "TitleIDs": [
+        "emperor_of_tang"
+      ],
+      "Attributes": {
+        "Health": 70,
+        "Comprehension": 80,
+        "Ingenuity": 60,
+        "Perception": 75,
+        "Willpower": 68,
+        "Charisma": 80,
+        "Strategy": 90,
+        "Governance": 85
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive"
+    },
+    {
+      "CharacterID": "char_002",
+      "CharacterName": "李世民",
+      "TitleIDs": [
+        "prince_of_qin",
+        "pm_of_shangshusheng",
+        "general_of_heaven",
+        "count_of_chang_an"
+      ],
+      "Attributes": {
+        "Health": 85,
+        "Comprehension": 100,
+        "Ingenuity": 62,
+        "Perception": 92,
+        "Willpower": 90,
+        "Charisma": 96,
+        "Strategy": 100,
+        "Governance": 94
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive"
+    },
+    {
+      "CharacterID": "char_003",
+      "CharacterName": "李建成",
+      "TitleIDs": [
+        "crown_prince"
+      ],
+      "Attributes": {
+        "Health": 69,
+        "Comprehension": 83,
+        "Ingenuity": 66,
+        "Perception": 71,
+        "Willpower": 78,
+        "Charisma": 86,
+        "Strategy": 85,
+        "Governance": 87
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive"
+    },
+    {
+      "CharacterID": "char_004",
+      "CharacterName": "李元吉",
+      "TitleIDs": [
+        "prince_of_qi"
+      ],
+      "Attributes": {
+        "Health": 81,
+        "Comprehension": 76,
+        "Ingenuity": 55,
+        "Perception": 72,
+        "Willpower": 77,
+        "Charisma": 74,
+        "Strategy": 71,
+        "Governance": 64
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive"
+    }
+  ]
+}

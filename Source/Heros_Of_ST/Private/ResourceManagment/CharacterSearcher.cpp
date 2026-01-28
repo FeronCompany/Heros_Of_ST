@@ -25,9 +25,9 @@ ASTCharacter* UCharacterSearcher::FindCharacterByID(const FString& CharacterID)
 	}
 }
 
-FString UCharacterSearcher::GenerateCharacterID()
+FString UCharacterSearcher::GenerateID()
 {
-    FString ID = FString::FromInt(CurrentIDCounter++);
+	FString ID = FDateTime::Now().ToString(TEXT("yyyyMMdd")) + FString::FromInt(CurrentIDCounter++);
 	//UE_LOG(LogTemp, Display, TEXT("Generated Character ID: \"%s\""), *ID);
     return ID;
 }
@@ -162,6 +162,122 @@ TArray<FSavedDataBriefInfo> UCharacterSearcher::GetAllSavedFileInfos()
 	return SaveFileInfos;
 }
 
+bool UCharacterSearcher::LoadHistory()
+{
+	FString ConfigDir = FPaths::ProjectConfigDir() + "History/";
+	FString CharacterFilePath = ConfigDir + "Characters.json";
+	FString CharacterJsonContent;
+	TArray<FCharacterSavedData> CharacterHistories;
+	if (FFileHelper::LoadFileToString(CharacterJsonContent, *CharacterFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(CharacterJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& CharactersArray = JsonObject->GetArrayField(TEXT("characters"));
+			for (const TSharedPtr<FJsonValue>& CharacterValue : CharactersArray)
+			{
+				TSharedPtr<FJsonObject> CharacterObject = CharacterValue->AsObject();
+				if (CharacterObject.IsValid())
+				{
+					FCharacterSavedData CharacterData;
+					if (ASTCharacter::ParseFromJson(CharacterObject, CharacterData)) {
+						CharacterHistories.Add(CharacterData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *CharacterFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *CharacterFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load character history file: %s"), *CharacterFilePath);
+	}
+
+	FString StateFilePath = ConfigDir + "States.json";
+	FString StateJsonContent;
+	TArray<FStateSavedData> StateHistories;
+	if (FFileHelper::LoadFileToString(StateJsonContent, *StateFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(StateJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& StatesArray = JsonObject->GetArrayField(TEXT("states"));
+			for (const TSharedPtr<FJsonValue>& StateValue : StatesArray)
+			{
+				TSharedPtr<FJsonObject> StateObject = StateValue->AsObject();
+				if (StateObject.IsValid())
+				{
+					FStateSavedData StateData;
+					if (ASTState::ParseFromJson(StateObject, StateData)) {
+						StateHistories.Add(StateData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *StateFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *StateFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load state history file: %s"), *StateFilePath);
+	}
+
+	FString HoldingFilePath = ConfigDir + "Holdings.json";
+	FString HoldingJsonContent;
+	TArray<FHoldingSavedData> HoldingHistories;
+	if (FFileHelper::LoadFileToString(HoldingJsonContent, *HoldingFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(HoldingJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& HoldingsArray = JsonObject->GetArrayField(TEXT("holdings"));
+			for (const TSharedPtr<FJsonValue>& HoldingValue : HoldingsArray)
+			{
+				TSharedPtr<FJsonObject> HoldingObject = HoldingValue->AsObject();
+				if (HoldingObject.IsValid())
+				{
+					FHoldingSavedData HoldingData;
+					if (ASTHolding::ParseFromJson(HoldingObject, HoldingData)) {
+						HoldingHistories.Add(HoldingData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *HoldingFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *HoldingFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load holding history file: %s"), *HoldingFilePath);
+	}
+	SetupDatabase(CharacterHistories, StateHistories, HoldingHistories);
+	return true;
+}
+
+bool UCharacterSearcher::LoadRules()
+{
+	PRINT_SCREEN("Loading rules ...");
+	FString ConfigDir = FPaths::ProjectConfigDir() + "Rules/";
+	FString StateTemplatesFilePath = ConfigDir + "StateTemplates.json";
+	FString StateTemplatesJsonContent;
+	// TODO: Load rules from JSON files
+	PRINT_SCREEN("Loaded rules.");
+	return true;
+}
+
 void UCharacterSearcher::OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess)
 {
 	PRINT_SCREEN("Save game completed. Result: %s", bSuccess ? TEXT("True") : TEXT("False"));
@@ -169,13 +285,6 @@ void UCharacterSearcher::OnSaveGameComplete(const FString& SlotName, const int32
 
 void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedSaveGame)
 {
-	UWorld* World = GetGameWorld();
-	if (!World)
-	{
-		UE_LOG(LogTemp, Error, TEXT("LoadCharacterListFromSaveData failed: no valid game world found."));
-		return;
-	}
-
 	USTSaveGame* SaveData = Cast<USTSaveGame>(LoadedSaveGame);
 	if (!SaveData)
 	{
@@ -184,25 +293,70 @@ void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32
 	}
 	// Clear existing data
 	ClearAll();
+	SetupDatabase(SaveData->SavedCharacters, SaveData->SavedStates, SaveData->SavedHoldings);
+	// Set current controlled character
+	if (SaveData->MainCharacterID.IsEmpty())
+	{
+		currentControlledCharacter = nullptr;
+	}
+	else
+	{
+		currentControlledCharacter = FindCharacterByID(SaveData->MainCharacterID);
+	}
+	PRINT_SCREEN("Loaded character list from save data: %s", *SlotName);
+}
+
+UWorld* UCharacterSearcher::GetGameWorld() const
+{
+	UWorld* World = nullptr;
+	if (GEngine)
+	{
+		for (const FWorldContext& Context : GEngine->GetWorldContexts())
+		{
+			UWorld* CandidateWorld = Context.World();
+			if (CandidateWorld && CandidateWorld->IsGameWorld())
+			{
+				World = CandidateWorld;
+				break;
+			}
+		}
+	}
+	return World;
+}
+
+void UCharacterSearcher::SetupDatabase(
+	const TArray<FCharacterSavedData>& CharacterDatas,
+	const TArray<FStateSavedData>& StateDatas,
+	const TArray<FHoldingSavedData>& HoldingDatas)
+{
+	UWorld* World = GetGameWorld();
+	if (!World)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoadCharacterListFromSaveData failed: no valid game world found."));
+		return;
+	}
+
 	// Load Holdings
-	for (const FHoldingSavedData& HoldingData : SaveData->SavedHoldings)
+	for (const FHoldingSavedData& HoldingData : HoldingDatas)
 	{
 		ASTHolding* Holding = World->SpawnActor<ASTHolding>();
 		Holding->HoldingID = HoldingData.HoldingID;
 		Holding->HoldingName = HoldingData.HoldingName;
+		RegisterHolding(Holding, HoldingData.HoldingID);
 		// 稍后设置关联信息
 	}
 	// Load States
-	for (const FStateSavedData& StateData : SaveData->SavedStates)
+	for (const FStateSavedData& StateData : StateDatas)
 	{
 		ASTState* State = World->SpawnActor<ASTState>();
 		State->StateID = StateData.StateID;
 		State->StateName = StateData.StateName;
 		State->StateLevel = StateData.StateLevel;
+		RegisterState(State, StateData.StateID);
 		// 稍后设置关联信息
 	}
 	// Load Characters
-	for (const FCharacterSavedData& CharacterData : SaveData->SavedCharacters)
+	for (const FCharacterSavedData& CharacterData : CharacterDatas)
 	{
 		ASTCharacter* SpawnedCharacter = World->SpawnActor<ASTCharacter>();
 		if (!SpawnedCharacter)
@@ -215,19 +369,11 @@ void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32
 		SpawnedCharacter->Attributes = CharacterData.Attributes;
 		SpawnedCharacter->CharacterStatus = CharacterData.CharacterStatus;
 		SpawnedCharacter->DeathReason = CharacterData.DeathReason;
+		RegisterCharacter(SpawnedCharacter, CharacterData.CharacterID);
 		// 稍后设置关联信息
 	}
-	// Set current controlled character
-	if (SaveData->MainCharacterID.IsEmpty())
-	{
-		currentControlledCharacter = nullptr;
-	}
-	else
-	{
-		currentControlledCharacter = FindCharacterByID(SaveData->MainCharacterID);
-	}
 	// Holdings 设置关联信息
-	for (const FHoldingSavedData& HoldingData : SaveData->SavedHoldings)
+	for (const FHoldingSavedData& HoldingData : HoldingDatas)
 	{
 		ASTHolding* Holding = FindHoldingByID(HoldingData.HoldingID);
 		if (Holding)
@@ -249,7 +395,7 @@ void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32
 		}
 	}
 	// States 设置关联信息
-	for (const FStateSavedData& StateData : SaveData->SavedStates)
+	for (const FStateSavedData& StateData : StateDatas)
 	{
 		ASTState* State = FindStateByID(StateData.StateID);
 		if (State)
@@ -303,63 +449,17 @@ void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32
 		}
 	}
 	// Characters 设置关联信息
-	for (const FCharacterSavedData& CharacterData : SaveData->SavedCharacters)
+	for (const FCharacterSavedData& CharacterData : CharacterDatas)
 	{
-		//ASTCharacter* Character = FindCharacterByID(CharacterData.CharacterID);
-		//if (Character)
-		//{
-		//	//
-		//}
 	}
-	PRINT_SCREEN("Loaded character list from save data: %s", *SlotName);
-}
-
-UWorld* UCharacterSearcher::GetGameWorld() const
-{
-	UWorld* World = nullptr;
-	if (GEngine)
-	{
-		for (const FWorldContext& Context : GEngine->GetWorldContexts())
-		{
-			UWorld* CandidateWorld = Context.World();
-			if (CandidateWorld && CandidateWorld->IsGameWorld())
-			{
-				World = CandidateWorld;
-				break;
-			}
-		}
-	}
-	return World;
 }
 
 void UCharacterSearcher::ClearAll()
 {
 	FScopeLock Lock(&SyncLockChar);
-	for (auto& Pair : CharacterMap)
-	{
-		if (Pair.Value)
-		{
-			Pair.Value->ConditionalBeginDestroy();
-		}
-	}
 	CharacterMap.Empty();
-	//currentControlledCharacter->Destroy();
 	currentControlledCharacter = nullptr;
-	for (auto& Pair : StateMap)
-	{
-		if (Pair.Value)
-		{
-			Pair.Value->ConditionalBeginDestroy();
-		}
-	}
 	StateMap.Empty();
-	for (auto& Pair : HoldingMap)
-	{
-		if (Pair.Value)
-		{
-			Pair.Value->ConditionalBeginDestroy();
-		}
-	}
 	HoldingMap.Empty();
 	PRINT_SCREEN("Cleared all registered characters, states, and holdings.");
 }

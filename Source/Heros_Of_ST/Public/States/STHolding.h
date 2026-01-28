@@ -33,6 +33,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Holding")
 	FHoldingSavedData GetSavedHoldingData() const;
 
+	static bool ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHoldingSavedData& OutSavedData);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

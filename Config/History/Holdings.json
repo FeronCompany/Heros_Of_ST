@@ -1,0 +1,9 @@
+{
+  "holdings": [
+    {
+      "HoldingID": "chang_an",
+      "HoldingName": "长安",
+      "OwningStateID": "county_of_chang_an"
+    }
+  ]
+}

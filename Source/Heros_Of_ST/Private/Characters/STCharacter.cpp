@@ -2,7 +2,6 @@
 
 
 #include "Characters/STCharacter.h"
-#include "ResourceManagment/CharacterSearcher.h"
 #include "Heros_Of_ST/macros.h"
 #include "States/STTitle.h"
 
@@ -18,20 +17,11 @@ ASTCharacter::ASTCharacter()
 void ASTCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	// Register this character with the CharacterSearcher in the PlayerState
-	auto CharacterSearcher = UCharacterSearcher::Get();
-	CharacterID = CharacterSearcher->GenerateCharacterID();
-	if (!CharacterSearcher->RegisterCharacter(this, CharacterID))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to register character with ID \"%s\"."), *CharacterID);
-	}
 }
 
 void ASTCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	// Unregister this character from the CharacterSearcher
-	UCharacterSearcher::Get()->UnregisterCharacter(CharacterID);
 }
 
 // Called every frame
@@ -102,5 +92,87 @@ FCharacterSavedData ASTCharacter::GetSavedData() const
 	SavedData.CharacterStatus = CharacterStatus;
 	SavedData.DeathReason = DeathReason;
 	return SavedData;
+}
+
+bool ASTCharacter::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FCharacterSavedData& OutSavedData)
+{
+	if (!JsonObject.IsValid())
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid JSON object provided for character parsing."));
+		return false;
+	}
+	// Parse CharacterID
+	if (JsonObject->HasField(TEXT("CharacterID")))
+	{
+		OutSavedData.CharacterID = JsonObject->GetStringField(TEXT("CharacterID"));
+	}
+	// Parse CharacterName
+	if (JsonObject->HasField(TEXT("CharacterName")))
+	{
+		OutSavedData.CharacterName = FName(*JsonObject->GetStringField(TEXT("CharacterName")));
+	}
+	// Parse Titles
+	if (JsonObject->HasField(TEXT("TitleIDs")))
+	{
+		const TArray<TSharedPtr<FJsonValue>> TitleArray = JsonObject->GetArrayField(TEXT("TitleIDs"));
+		for (const auto& TitleValue : TitleArray)
+		{
+			FString TitleID = TitleValue->AsString();
+			if (!TitleID.IsEmpty())
+			{
+				OutSavedData.TitleIDs.Add(TitleID);
+			}
+		}
+	}
+	// Parse Attributes
+	if (JsonObject->HasField(TEXT("Attributes")))
+	{
+		const TSharedPtr<FJsonObject> AttributesObject = JsonObject->GetObjectField(TEXT("Attributes"));
+		if (AttributesObject->HasField(TEXT("Health")))
+		{
+			OutSavedData.Attributes.Health = AttributesObject->GetIntegerField(TEXT("Health"));
+		}
+		if (AttributesObject->HasField(TEXT("Comprehension")))
+		{
+			OutSavedData.Attributes.Comprehension = AttributesObject->GetIntegerField(TEXT("Comprehension"));
+		}
+		if (AttributesObject->HasField(TEXT("Ingenuity")))
+		{
+			OutSavedData.Attributes.Ingenuity = AttributesObject->GetIntegerField(TEXT("Ingenuity"));
+		}
+		if (AttributesObject->HasField(TEXT("Perception")))
+		{
+			OutSavedData.Attributes.Perception = AttributesObject->GetIntegerField(TEXT("Perception"));
+		}
+		if (AttributesObject->HasField(TEXT("Willpower")))
+		{
+			OutSavedData.Attributes.Willpower = AttributesObject->GetIntegerField(TEXT("Willpower"));
+		}
+		if (AttributesObject->HasField(TEXT("Charisma")))
+		{
+			OutSavedData.Attributes.Charisma = AttributesObject->GetIntegerField(TEXT("Charisma"));
+		}
+		if (AttributesObject->HasField(TEXT("Strategy")))
+		{
+			OutSavedData.Attributes.Strategy = AttributesObject->GetIntegerField(TEXT("Strategy"));
+		}
+		if (AttributesObject->HasField(TEXT("Governance")))
+		{
+			OutSavedData.Attributes.Governance = AttributesObject->GetIntegerField(TEXT("Governance"));
+		}
+	}
+	// Parse CharacterStatus
+	if (JsonObject->HasField(TEXT("CharacterStatus")))
+	{
+		FString StatusString = JsonObject->GetStringField(TEXT("CharacterStatus"));
+		OutSavedData.CharacterStatus = (ECharacterStatus)StaticEnum<ECharacterStatus>()->GetValueByNameString(StatusString);
+	}
+	// Parse DeathReason
+	if (JsonObject->HasField(TEXT("DeathReason")))
+	{
+		FString DeathReasonString = JsonObject->GetStringField(TEXT("DeathReason"));
+		OutSavedData.DeathReason = (EDeathReason)StaticEnum<EDeathReason>()->GetValueByNameString(DeathReasonString);
+	}
+	return true;
 }
 

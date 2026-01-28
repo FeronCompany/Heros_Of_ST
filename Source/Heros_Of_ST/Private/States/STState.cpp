@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ResourceManagment/CharacterSearcher.h"
 #include "States/STState.h"
 #include "States/STTitle.h"
 #include "States/STHolding.h"
@@ -126,24 +125,69 @@ FStateSavedData ASTState::GetSavedStateData() const
 	return SavedData;
 }
 
+bool ASTState::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FStateSavedData& OutSavedData)
+{
+	if (!JsonObject.IsValid())
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid JSON object provided for parsing StateSavedData."));
+		return false;
+	}
+	if (JsonObject->HasField(TEXT("StateID")))
+	{
+		OutSavedData.StateID = JsonObject->GetStringField(TEXT("StateID"));
+	}
+	if (JsonObject->HasField(TEXT("StateName")))
+	{
+		OutSavedData.StateName = FName(*JsonObject->GetStringField(TEXT("StateName")));
+	}
+	if (JsonObject->HasField(TEXT("OverlordStateID")))
+	{
+		OutSavedData.OverlordStateID = JsonObject->GetStringField(TEXT("OverlordStateID"));
+	}
+	if (JsonObject->HasField(TEXT("OverlordType")))
+	{
+		FString OverlordTypeString = JsonObject->GetStringField(TEXT("OverlordType"));
+		OutSavedData.OverlordType = static_cast<EOverlordType>(
+			StaticEnum<EOverlordType>()->GetValueByName(FName(*OverlordTypeString)));
+	}
+	if (JsonObject->HasField(TEXT("Titles")))
+	{
+		const TArray<TSharedPtr<FJsonValue>> TitleArray = JsonObject->GetArrayField(TEXT("Titles"));
+		for (const auto& TitleValue : TitleArray)
+		{
+			const TSharedPtr<FJsonObject>* TitleObject;
+			if (TitleValue->TryGetObject(TitleObject))
+			{
+				FTitleSavedData TitleData;
+				if (USTTitle::ParseFromJson(*TitleObject, TitleData))
+				{
+					OutSavedData.Titles.Add(TitleData);
+				}
+			}
+		}
+	}
+	if (JsonObject->HasField(TEXT("CapitalHoldingID")))
+	{
+		OutSavedData.CapitalHoldingID = JsonObject->GetStringField(TEXT("CapitalHoldingID"));
+	}
+	if (JsonObject->HasField(TEXT("StateLevel")))
+	{
+		FString StateLevelString = JsonObject->GetStringField(TEXT("StateLevel"));
+		OutSavedData.StateLevel = static_cast<EStateLevel>(
+			StaticEnum<EStateLevel>()->GetValueByName(FName(*StateLevelString)));
+	}
+	return true;
+}
+
 // Called when the game starts or when spawned
 void ASTState::BeginPlay()
 {
 	Super::BeginPlay();
-	// Register this state with the CharacterSearcher in the PlayerState
-	auto CharacterSearcher = UCharacterSearcher::Get();
-	StateID = CharacterSearcher->GenerateCharacterID(); // 虽然叫CharacterID，但也用来给其他子容器生成唯一ID
-	if (!CharacterSearcher->RegisterState(this, StateID))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to register state with ID \"%s\"."), *StateID);
-	}
 }
 
 void ASTState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	// Unregister this state from the CharacterSearcher
-	UCharacterSearcher::Get()->UnregisterState(StateID);
 	BreakTitle(EndPlayReason == EEndPlayReason::Quit);
 	VassalStates.Empty();
 }

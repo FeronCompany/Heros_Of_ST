@@ -3,7 +3,6 @@
 
 #include "States/STHolding.h"
 #include "States/STState.h"
-#include "ResourceManagment/CharacterSearcher.h"
 
 // Sets default values
 ASTHolding::ASTHolding()
@@ -29,23 +28,36 @@ FHoldingSavedData ASTHolding::GetSavedHoldingData() const
 	return  SavedData;
 }
 
+bool ASTHolding::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHoldingSavedData& OutSavedData)
+{
+	if (!JsonObject.IsValid())
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid JSON object provided for parsing HoldingSavedData."));
+		return false;
+	}
+	if (JsonObject->HasTypedField<EJson::String>(TEXT("HoldingID")))
+	{
+		OutSavedData.HoldingID = JsonObject->GetStringField(TEXT("HoldingID"));
+	}
+	if (JsonObject->HasTypedField<EJson::String>(TEXT("HoldingName")))
+	{
+		OutSavedData.HoldingName = FName(*JsonObject->GetStringField(TEXT("HoldingName")));
+	}
+	if (JsonObject->HasTypedField<EJson::String>(TEXT("OwningStateID")))
+	{
+		OutSavedData.OwningStateID = JsonObject->GetStringField(TEXT("OwningStateID"));
+	}
+	return true;
+}
+
 // Called when the game starts or when spawned
 void ASTHolding::BeginPlay()
 {
 	Super::BeginPlay();
-	// Register this holding with the CharacterSearcher in the PlayerState
-	auto CharacterSearcher = UCharacterSearcher::Get();
-	HoldingID = CharacterSearcher->GenerateCharacterID();
-	if (!CharacterSearcher->RegisterHolding(this, HoldingID))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to register holding with ID \"%s\"."), *HoldingID);
-	}
 }
 
 void ASTHolding::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	// Unregister this holding from the CharacterSearcher
-	UCharacterSearcher::Get()->UnregisterHolding(HoldingID);
 }
 

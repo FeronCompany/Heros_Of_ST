@@ -90,6 +90,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "State")
 	FStateSavedData GetSavedStateData() const;
 
+	static bool ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FStateSavedData& OutSavedData);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

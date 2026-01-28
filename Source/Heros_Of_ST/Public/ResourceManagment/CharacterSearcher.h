@@ -10,6 +10,10 @@ class ASTCharacter;
 class ASTState;
 class ASTHolding;
 class USaveGame;
+struct FCharacterSavedData;
+struct FStateSavedData;
+struct FHoldingSavedData;
+struct FTitleSavedData;
 
 USTRUCT(BlueprintType)
 struct HEROS_OF_ST_API FSavedDataBriefInfo
@@ -46,7 +50,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	ASTCharacter* FindCharacterByID(const FString& CharacterID);
 
-	FString GenerateCharacterID();
+	FString GenerateID();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	bool RegisterCharacter(ASTCharacter* Character, const FString& CharacterID);
@@ -67,6 +71,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	TArray<FSavedDataBriefInfo> GetAllSavedFileInfos();
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool LoadHistory();
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool LoadRules();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void ClearAll();
@@ -91,6 +101,9 @@ private:
 	void OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess);
 	void OnLoadGameComplete(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedSaveGame);
 	UWorld* GetGameWorld() const;
+	void SetupDatabase(const TArray<FCharacterSavedData>& CharacterDatas,
+		const TArray<FStateSavedData>& StateDatas,
+		const TArray<FHoldingSavedData>& HoldingDatas);
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
