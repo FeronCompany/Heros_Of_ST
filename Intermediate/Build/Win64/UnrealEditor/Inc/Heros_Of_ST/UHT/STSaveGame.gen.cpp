@@ -7,6 +7,8 @@
 #include "UObject/GeneratedCppIncludes.h"
 #include "ResourceManagment/STSaveGame.h"
 #include "Characters/STCharacter.h"
+#include "Identity/STCulture.h"
+#include "Identity/STHouse.h"
 #include "States/STHolding.h"
 #include "States/STState.h"
 
@@ -21,7 +23,9 @@ HEROS_OF_ST_API UClass* Z_Construct_UClass_USTSaveGame();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_USTSaveGame_NoRegister();
 HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FCharacterSavedData();
 HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FHoldingSavedData();
+HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FHouseSavedData();
 HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FStateSavedData();
+HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FSTCultureData();
 UPackage* Z_Construct_UPackage__Script_Heros_Of_ST();
 // ********** End Cross Module References **********************************************************
 
@@ -77,6 +81,12 @@ struct Z_Construct_UClass_USTSaveGame_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SavedHoldings_MetaData[] = {
 		{ "ModuleRelativePath", "Public/ResourceManagment/STSaveGame.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SavedCultures_MetaData[] = {
+		{ "ModuleRelativePath", "Public/ResourceManagment/STSaveGame.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SavedHouses_MetaData[] = {
+		{ "ModuleRelativePath", "Public/ResourceManagment/STSaveGame.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CurrentSavedVersion_MetaData[] = {
 		{ "ModuleRelativePath", "Public/ResourceManagment/STSaveGame.h" },
 	};
@@ -93,6 +103,10 @@ struct Z_Construct_UClass_USTSaveGame_Statics
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_SavedStates;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SavedHoldings_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_SavedHoldings;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_SavedCultures_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_SavedCultures;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_SavedHouses_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_SavedHouses;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_CurrentSavedVersion;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_MainCharacterID;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_SaveTime;
@@ -103,12 +117,16 @@ struct Z_Construct_UClass_USTSaveGame_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCharacters_Inner = { "SavedCharacters", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FCharacterSavedData, METADATA_PARAMS(0, nullptr) }; // 300549726
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCharacters = { "SavedCharacters", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedCharacters), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedCharacters_MetaData), NewProp_SavedCharacters_MetaData) }; // 300549726
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCharacters_Inner = { "SavedCharacters", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FCharacterSavedData, METADATA_PARAMS(0, nullptr) }; // 2263958333
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCharacters = { "SavedCharacters", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedCharacters), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedCharacters_MetaData), NewProp_SavedCharacters_MetaData) }; // 2263958333
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedStates_Inner = { "SavedStates", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FStateSavedData, METADATA_PARAMS(0, nullptr) }; // 314855641
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedStates = { "SavedStates", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedStates), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedStates_MetaData), NewProp_SavedStates_MetaData) }; // 314855641
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHoldings_Inner = { "SavedHoldings", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FHoldingSavedData, METADATA_PARAMS(0, nullptr) }; // 613153170
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHoldings = { "SavedHoldings", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedHoldings), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedHoldings_MetaData), NewProp_SavedHoldings_MetaData) }; // 613153170
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCultures_Inner = { "SavedCultures", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FSTCultureData, METADATA_PARAMS(0, nullptr) }; // 2373928008
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCultures = { "SavedCultures", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedCultures), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedCultures_MetaData), NewProp_SavedCultures_MetaData) }; // 2373928008
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHouses_Inner = { "SavedHouses", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FHouseSavedData, METADATA_PARAMS(0, nullptr) }; // 3751658719
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHouses = { "SavedHouses", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SavedHouses), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SavedHouses_MetaData), NewProp_SavedHouses_MetaData) }; // 3751658719
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_CurrentSavedVersion = { "CurrentSavedVersion", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, CurrentSavedVersion), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentSavedVersion_MetaData), NewProp_CurrentSavedVersion_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_MainCharacterID = { "MainCharacterID", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, MainCharacterID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MainCharacterID_MetaData), NewProp_MainCharacterID_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USTSaveGame_Statics::NewProp_SaveTime = { "SaveTime", nullptr, (EPropertyFlags)0x0010000001000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USTSaveGame, SaveTime), Z_Construct_UScriptStruct_FDateTime, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SaveTime_MetaData), NewProp_SaveTime_MetaData) };
@@ -119,6 +137,10 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USTSaveGa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedStates,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHoldings_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHoldings,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCultures_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedCultures,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHouses_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SavedHouses,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_CurrentSavedVersion,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_MainCharacterID,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USTSaveGame_Statics::NewProp_SaveTime,
@@ -160,10 +182,10 @@ USTSaveGame::~USTSaveGame() {}
 struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USTSaveGame, USTSaveGame::StaticClass, TEXT("USTSaveGame"), &Z_Registration_Info_UClass_USTSaveGame, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTSaveGame), 3047637351U) },
+		{ Z_Construct_UClass_USTSaveGame, USTSaveGame::StaticClass, TEXT("USTSaveGame"), &Z_Registration_Info_UClass_USTSaveGame, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTSaveGame), 1378227653U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_3075816450(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_3494342680(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_STSaveGame_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

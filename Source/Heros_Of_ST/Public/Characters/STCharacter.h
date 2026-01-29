@@ -9,6 +9,8 @@
 
 class USTTitle;
 class FJsonObject;
+class USTCulture;
+class USTHouse;
 
 UENUM(BlueprintType)
 enum class ECharacterStatus : uint8
@@ -47,13 +49,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
 	FName CharacterName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
-	TArray<FString> TitleIDs;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
 	FCharAttributes Attributes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
 	ECharacterStatus CharacterStatus;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
 	EDeathReason DeathReason;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	FString CultureID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
+	FString HouseID;
 };
 
 UCLASS(Blueprintable)
@@ -90,19 +94,25 @@ protected:
 public:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	FString CharacterID;
-	// Character√˚≥∆
+	// CharacterÂêçÁß∞
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	FName CharacterName;
-	// Õ∑œŒ¡–±Ì
+	// Â§¥Ë°îÂàóË°®
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	TArray<USTTitle*> Titles;
-	//  Ù–‘
+	// Â±ûÊÄß
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	FCharAttributes Attributes;
-	// ◊¥Ã¨
+	// Áä∂ÊÄÅ
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	ECharacterStatus CharacterStatus = ECharacterStatus::Healthy;
-	// À¿Õˆ‘≠“Ú
+	// Ê≠ª‰∫°ÂéüÂõ†
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	EDeathReason DeathReason = EDeathReason::Alive;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
+	USTCulture* Culture{ nullptr };
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
+	USTHouse* House{ nullptr };
 };

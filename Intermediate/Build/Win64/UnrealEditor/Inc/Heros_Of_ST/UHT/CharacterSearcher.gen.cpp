@@ -19,6 +19,8 @@ HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTHolding_NoRegister();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState_NoRegister();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_UCharacterSearcher();
 HEROS_OF_ST_API UClass* Z_Construct_UClass_UCharacterSearcher_NoRegister();
+HEROS_OF_ST_API UClass* Z_Construct_UClass_USTCulture_NoRegister();
+HEROS_OF_ST_API UClass* Z_Construct_UClass_USTHouse_NoRegister();
 HEROS_OF_ST_API UScriptStruct* Z_Construct_UScriptStruct_FSavedDataBriefInfo();
 UPackage* Z_Construct_UPackage__Script_Heros_Of_ST();
 // ********** End Cross Module References **********************************************************
@@ -223,6 +225,62 @@ DEFINE_FUNCTION(UCharacterSearcher::execFindCharacterByID)
 }
 // ********** End Class UCharacterSearcher Function FindCharacterByID ******************************
 
+// ********** Begin Class UCharacterSearcher Function FindCultureByID ******************************
+struct Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics
+{
+	struct CharacterSearcher_eventFindCultureByID_Parms
+	{
+		FString CultureId;
+		USTCulture* ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character Searcher" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Cultures Related\n" },
+#endif
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Cultures Related" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CultureId_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_CultureId;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::NewProp_CultureId = { "CultureId", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventFindCultureByID_Parms, CultureId), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CultureId_MetaData), NewProp_CultureId_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventFindCultureByID_Parms, ReturnValue), Z_Construct_UClass_USTCulture_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::NewProp_CultureId,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UCharacterSearcher, nullptr, "FindCultureByID", Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::PropPointers), sizeof(Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::CharacterSearcher_eventFindCultureByID_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::Function_MetaDataParams), Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::CharacterSearcher_eventFindCultureByID_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UCharacterSearcher_FindCultureByID()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UCharacterSearcher_FindCultureByID_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UCharacterSearcher::execFindCultureByID)
+{
+	P_GET_PROPERTY(FStrProperty,Z_Param_CultureId);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(USTCulture**)Z_Param__Result=P_THIS->FindCultureByID(Z_Param_CultureId);
+	P_NATIVE_END;
+}
+// ********** End Class UCharacterSearcher Function FindCultureByID ********************************
+
 // ********** Begin Class UCharacterSearcher Function FindHoldingByID ******************************
 struct Z_Construct_UFunction_UCharacterSearcher_FindHoldingByID_Statics
 {
@@ -278,6 +336,62 @@ DEFINE_FUNCTION(UCharacterSearcher::execFindHoldingByID)
 	P_NATIVE_END;
 }
 // ********** End Class UCharacterSearcher Function FindHoldingByID ********************************
+
+// ********** Begin Class UCharacterSearcher Function FindHouseByID ********************************
+struct Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics
+{
+	struct CharacterSearcher_eventFindHouseByID_Parms
+	{
+		FString HouseId;
+		USTHouse* ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character Searcher" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// House Related\n" },
+#endif
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "House Related" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HouseId_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_HouseId;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::NewProp_HouseId = { "HouseId", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventFindHouseByID_Parms, HouseId), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HouseId_MetaData), NewProp_HouseId_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventFindHouseByID_Parms, ReturnValue), Z_Construct_UClass_USTHouse_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::NewProp_HouseId,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UCharacterSearcher, nullptr, "FindHouseByID", Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::PropPointers), sizeof(Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::CharacterSearcher_eventFindHouseByID_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::Function_MetaDataParams), Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::CharacterSearcher_eventFindHouseByID_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UCharacterSearcher_FindHouseByID()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UCharacterSearcher_FindHouseByID_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UCharacterSearcher::execFindHouseByID)
+{
+	P_GET_PROPERTY(FStrProperty,Z_Param_HouseId);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(USTHouse**)Z_Param__Result=P_THIS->FindHouseByID(Z_Param_HouseId);
+	P_NATIVE_END;
+}
+// ********** End Class UCharacterSearcher Function FindHouseByID **********************************
 
 // ********** Begin Class UCharacterSearcher Function FindStateByID ********************************
 struct Z_Construct_UFunction_UCharacterSearcher_FindStateByID_Statics
@@ -636,6 +750,66 @@ DEFINE_FUNCTION(UCharacterSearcher::execRegisterCharacter)
 }
 // ********** End Class UCharacterSearcher Function RegisterCharacter ******************************
 
+// ********** Begin Class UCharacterSearcher Function RegisterCulture ******************************
+struct Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics
+{
+	struct CharacterSearcher_eventRegisterCulture_Parms
+	{
+		USTCulture* Culture;
+		FString CultureID;
+		bool ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character Searcher" },
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CultureID_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Culture;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_CultureID;
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_Culture = { "Culture", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventRegisterCulture_Parms, Culture), Z_Construct_UClass_USTCulture_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_CultureID = { "CultureID", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventRegisterCulture_Parms, CultureID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CultureID_MetaData), NewProp_CultureID_MetaData) };
+void Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((CharacterSearcher_eventRegisterCulture_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(CharacterSearcher_eventRegisterCulture_Parms), &Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_Culture,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_CultureID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UCharacterSearcher, nullptr, "RegisterCulture", Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::PropPointers), sizeof(Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::CharacterSearcher_eventRegisterCulture_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::Function_MetaDataParams), Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::CharacterSearcher_eventRegisterCulture_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UCharacterSearcher_RegisterCulture()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UCharacterSearcher_RegisterCulture_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UCharacterSearcher::execRegisterCulture)
+{
+	P_GET_OBJECT(USTCulture,Z_Param_Culture);
+	P_GET_PROPERTY(FStrProperty,Z_Param_CultureID);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->RegisterCulture(Z_Param_Culture,Z_Param_CultureID);
+	P_NATIVE_END;
+}
+// ********** End Class UCharacterSearcher Function RegisterCulture ********************************
+
 // ********** Begin Class UCharacterSearcher Function RegisterHolding ******************************
 struct Z_Construct_UFunction_UCharacterSearcher_RegisterHolding_Statics
 {
@@ -695,6 +869,66 @@ DEFINE_FUNCTION(UCharacterSearcher::execRegisterHolding)
 	P_NATIVE_END;
 }
 // ********** End Class UCharacterSearcher Function RegisterHolding ********************************
+
+// ********** Begin Class UCharacterSearcher Function RegisterHouse ********************************
+struct Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics
+{
+	struct CharacterSearcher_eventRegisterHouse_Parms
+	{
+		USTHouse* House;
+		FString HouseID;
+		bool ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character Searcher" },
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HouseID_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_House;
+	static const UECodeGen_Private::FStrPropertyParams NewProp_HouseID;
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_House = { "House", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventRegisterHouse_Parms, House), Z_Construct_UClass_USTHouse_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_HouseID = { "HouseID", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventRegisterHouse_Parms, HouseID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HouseID_MetaData), NewProp_HouseID_MetaData) };
+void Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((CharacterSearcher_eventRegisterHouse_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(CharacterSearcher_eventRegisterHouse_Parms), &Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_House,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_HouseID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UCharacterSearcher, nullptr, "RegisterHouse", Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::PropPointers), sizeof(Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::CharacterSearcher_eventRegisterHouse_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::Function_MetaDataParams), Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::CharacterSearcher_eventRegisterHouse_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UCharacterSearcher_RegisterHouse()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UCharacterSearcher_RegisterHouse_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UCharacterSearcher::execRegisterHouse)
+{
+	P_GET_OBJECT(USTHouse,Z_Param_House);
+	P_GET_PROPERTY(FStrProperty,Z_Param_HouseID);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->RegisterHouse(Z_Param_House,Z_Param_HouseID);
+	P_NATIVE_END;
+}
+// ********** End Class UCharacterSearcher Function RegisterHouse **********************************
 
 // ********** Begin Class UCharacterSearcher Function RegisterState ********************************
 struct Z_Construct_UFunction_UCharacterSearcher_RegisterState_Statics
@@ -853,6 +1087,52 @@ DEFINE_FUNCTION(UCharacterSearcher::execUnregisterCharacter)
 }
 // ********** End Class UCharacterSearcher Function UnregisterCharacter ****************************
 
+// ********** Begin Class UCharacterSearcher Function UnregisterCulture ****************************
+struct Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics
+{
+	struct CharacterSearcher_eventUnregisterCulture_Parms
+	{
+		FString CultureID;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character Searcher" },
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CultureID_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_CultureID;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::NewProp_CultureID = { "CultureID", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventUnregisterCulture_Parms, CultureID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CultureID_MetaData), NewProp_CultureID_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::NewProp_CultureID,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UCharacterSearcher, nullptr, "UnregisterCulture", Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::PropPointers), sizeof(Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::CharacterSearcher_eventUnregisterCulture_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::Function_MetaDataParams), Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::CharacterSearcher_eventUnregisterCulture_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UCharacterSearcher::execUnregisterCulture)
+{
+	P_GET_PROPERTY(FStrProperty,Z_Param_CultureID);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->UnregisterCulture(Z_Param_CultureID);
+	P_NATIVE_END;
+}
+// ********** End Class UCharacterSearcher Function UnregisterCulture ******************************
+
 // ********** Begin Class UCharacterSearcher Function UnregisterHolding ****************************
 struct Z_Construct_UFunction_UCharacterSearcher_UnregisterHolding_Statics
 {
@@ -898,6 +1178,52 @@ DEFINE_FUNCTION(UCharacterSearcher::execUnregisterHolding)
 	P_NATIVE_END;
 }
 // ********** End Class UCharacterSearcher Function UnregisterHolding ******************************
+
+// ********** Begin Class UCharacterSearcher Function UnregisterHouse ******************************
+struct Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics
+{
+	struct CharacterSearcher_eventUnregisterHouse_Parms
+	{
+		FString HouseID;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Character Searcher" },
+		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HouseID_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStrPropertyParams NewProp_HouseID;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::NewProp_HouseID = { "HouseID", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CharacterSearcher_eventUnregisterHouse_Parms, HouseID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HouseID_MetaData), NewProp_HouseID_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::NewProp_HouseID,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UCharacterSearcher, nullptr, "UnregisterHouse", Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::PropPointers), sizeof(Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::CharacterSearcher_eventUnregisterHouse_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::Function_MetaDataParams), Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::CharacterSearcher_eventUnregisterHouse_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UCharacterSearcher::execUnregisterHouse)
+{
+	P_GET_PROPERTY(FStrProperty,Z_Param_HouseID);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->UnregisterHouse(Z_Param_HouseID);
+	P_NATIVE_END;
+}
+// ********** End Class UCharacterSearcher Function UnregisterHouse ********************************
 
 // ********** Begin Class UCharacterSearcher Function UnregisterState ******************************
 struct Z_Construct_UFunction_UCharacterSearcher_UnregisterState_Statics
@@ -953,7 +1279,9 @@ void UCharacterSearcher::StaticRegisterNativesUCharacterSearcher()
 		{ "ClearAll", &UCharacterSearcher::execClearAll },
 		{ "DeleteSaveData", &UCharacterSearcher::execDeleteSaveData },
 		{ "FindCharacterByID", &UCharacterSearcher::execFindCharacterByID },
+		{ "FindCultureByID", &UCharacterSearcher::execFindCultureByID },
 		{ "FindHoldingByID", &UCharacterSearcher::execFindHoldingByID },
+		{ "FindHouseByID", &UCharacterSearcher::execFindHouseByID },
 		{ "FindStateByID", &UCharacterSearcher::execFindStateByID },
 		{ "Get", &UCharacterSearcher::execGet },
 		{ "GetAllSavedFileInfos", &UCharacterSearcher::execGetAllSavedFileInfos },
@@ -961,11 +1289,15 @@ void UCharacterSearcher::StaticRegisterNativesUCharacterSearcher()
 		{ "LoadRules", &UCharacterSearcher::execLoadRules },
 		{ "LoadSaveData", &UCharacterSearcher::execLoadSaveData },
 		{ "RegisterCharacter", &UCharacterSearcher::execRegisterCharacter },
+		{ "RegisterCulture", &UCharacterSearcher::execRegisterCulture },
 		{ "RegisterHolding", &UCharacterSearcher::execRegisterHolding },
+		{ "RegisterHouse", &UCharacterSearcher::execRegisterHouse },
 		{ "RegisterState", &UCharacterSearcher::execRegisterState },
 		{ "SaveData", &UCharacterSearcher::execSaveData },
 		{ "UnregisterCharacter", &UCharacterSearcher::execUnregisterCharacter },
+		{ "UnregisterCulture", &UCharacterSearcher::execUnregisterCulture },
 		{ "UnregisterHolding", &UCharacterSearcher::execUnregisterHolding },
+		{ "UnregisterHouse", &UCharacterSearcher::execUnregisterHouse },
 		{ "UnregisterState", &UCharacterSearcher::execUnregisterState },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -1005,13 +1337,13 @@ struct Z_Construct_UClass_UCharacterSearcher_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \xef\xbf\xbd\xef\xbf\xbd\xcf\xb7\xef\xbf\xbd\xd0\xbd\xef\xbf\xbd\xc9\xab\xef\xbf\xbd\xef\xbf\xbd\xc8\xab\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xd7\xa2\xef\xbf\xbd\xef\xbf\xbd\xcd\xb2\xef\xbf\xbd\xef\xbf\xbd\xd2\xbd\xef\xbf\xbd\xc9\xab\xca\xb5\xef\xbf\xbd\xef\xbf\xbd\n */" },
+		{ "Comment", "/**\n * \xe6\xb8\xb8\xe6\x88\x8f\xe4\xb8\xad\xe8\xa7\x92\xe8\x89\xb2\xe7\x9a\x84\xe5\x85\xa8\xe5\xb1\x80\xe6\x90\x9c\xe7\xb4\xa2\xe5\x99\xa8\xef\xbc\x8c\xe8\xb4\x9f\xe8\xb4\xa3\xe6\xb3\xa8\xe5\x86\x8c\xe5\x92\x8c\xe6\x9f\xa5\xe6\x89\xbe\xe8\xa7\x92\xe8\x89\xb2\xe5\xae\x9e\xe4\xbe\x8b\n */" },
 #endif
 		{ "IncludePath", "ResourceManagment/CharacterSearcher.h" },
 		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "Public/ResourceManagment/CharacterSearcher.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xcf\xb7\xef\xbf\xbd\xd0\xbd\xef\xbf\xbd\xc9\xab\xef\xbf\xbd\xef\xbf\xbd\xc8\xab\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xd7\xa2\xef\xbf\xbd\xef\xbf\xbd\xcd\xb2\xef\xbf\xbd\xef\xbf\xbd\xd2\xbd\xef\xbf\xbd\xc9\xab\xca\xb5\xef\xbf\xbd\xef\xbf\xbd" },
+		{ "ToolTip", "\xe6\xb8\xb8\xe6\x88\x8f\xe4\xb8\xad\xe8\xa7\x92\xe8\x89\xb2\xe7\x9a\x84\xe5\x85\xa8\xe5\xb1\x80\xe6\x90\x9c\xe7\xb4\xa2\xe5\x99\xa8\xef\xbc\x8c\xe8\xb4\x9f\xe8\xb4\xa3\xe6\xb3\xa8\xe5\x86\x8c\xe5\x92\x8c\xe6\x9f\xa5\xe6\x89\xbe\xe8\xa7\x92\xe8\x89\xb2\xe5\xae\x9e\xe4\xbe\x8b" },
 #endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_currentControlledCharacter_MetaData[] = {
@@ -1026,7 +1358,9 @@ struct Z_Construct_UClass_UCharacterSearcher_Statics
 		{ &Z_Construct_UFunction_UCharacterSearcher_ClearAll, "ClearAll" }, // 2704174338
 		{ &Z_Construct_UFunction_UCharacterSearcher_DeleteSaveData, "DeleteSaveData" }, // 1248946374
 		{ &Z_Construct_UFunction_UCharacterSearcher_FindCharacterByID, "FindCharacterByID" }, // 1663418293
+		{ &Z_Construct_UFunction_UCharacterSearcher_FindCultureByID, "FindCultureByID" }, // 138621630
 		{ &Z_Construct_UFunction_UCharacterSearcher_FindHoldingByID, "FindHoldingByID" }, // 918380490
+		{ &Z_Construct_UFunction_UCharacterSearcher_FindHouseByID, "FindHouseByID" }, // 735871529
 		{ &Z_Construct_UFunction_UCharacterSearcher_FindStateByID, "FindStateByID" }, // 2079937691
 		{ &Z_Construct_UFunction_UCharacterSearcher_Get, "Get" }, // 3679827971
 		{ &Z_Construct_UFunction_UCharacterSearcher_GetAllSavedFileInfos, "GetAllSavedFileInfos" }, // 3214580757
@@ -1034,11 +1368,15 @@ struct Z_Construct_UClass_UCharacterSearcher_Statics
 		{ &Z_Construct_UFunction_UCharacterSearcher_LoadRules, "LoadRules" }, // 401146099
 		{ &Z_Construct_UFunction_UCharacterSearcher_LoadSaveData, "LoadSaveData" }, // 615557450
 		{ &Z_Construct_UFunction_UCharacterSearcher_RegisterCharacter, "RegisterCharacter" }, // 3509135174
+		{ &Z_Construct_UFunction_UCharacterSearcher_RegisterCulture, "RegisterCulture" }, // 484890662
 		{ &Z_Construct_UFunction_UCharacterSearcher_RegisterHolding, "RegisterHolding" }, // 1129795752
+		{ &Z_Construct_UFunction_UCharacterSearcher_RegisterHouse, "RegisterHouse" }, // 2466988745
 		{ &Z_Construct_UFunction_UCharacterSearcher_RegisterState, "RegisterState" }, // 3934203223
 		{ &Z_Construct_UFunction_UCharacterSearcher_SaveData, "SaveData" }, // 3641289133
 		{ &Z_Construct_UFunction_UCharacterSearcher_UnregisterCharacter, "UnregisterCharacter" }, // 2866374325
+		{ &Z_Construct_UFunction_UCharacterSearcher_UnregisterCulture, "UnregisterCulture" }, // 2026062768
 		{ &Z_Construct_UFunction_UCharacterSearcher_UnregisterHolding, "UnregisterHolding" }, // 665760706
+		{ &Z_Construct_UFunction_UCharacterSearcher_UnregisterHouse, "UnregisterHouse" }, // 2612274980
 		{ &Z_Construct_UFunction_UCharacterSearcher_UnregisterState, "UnregisterState" }, // 3948668342
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -1092,10 +1430,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ FSavedDataBriefInfo::StaticStruct, Z_Construct_UScriptStruct_FSavedDataBriefInfo_Statics::NewStructOps, TEXT("SavedDataBriefInfo"), &Z_Registration_Info_UScriptStruct_FSavedDataBriefInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSavedDataBriefInfo), 1725224162U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCharacterSearcher, UCharacterSearcher::StaticClass, TEXT("UCharacterSearcher"), &Z_Registration_Info_UClass_UCharacterSearcher, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCharacterSearcher), 2913378424U) },
+		{ Z_Construct_UClass_UCharacterSearcher, UCharacterSearcher::StaticClass, TEXT("UCharacterSearcher"), &Z_Registration_Info_UClass_UCharacterSearcher, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCharacterSearcher), 1543902204U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_4103458608(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_3533587839(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h__Script_Heros_Of_ST_Statics::ScriptStructInfo),
 	nullptr, 0);

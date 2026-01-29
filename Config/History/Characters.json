@@ -3,9 +3,6 @@
     {
       "CharacterID": "char_001",
       "CharacterName": "李渊",
-      "TitleIDs": [
-        "emperor_of_tang"
-      ],
       "Attributes": {
         "Health": 70,
         "Comprehension": 80,
@@ -17,17 +14,13 @@
         "Governance": 85
       },
       "CharacterStatus": "Healthy",
-      "DeathReason": "Alive"
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
     },
     {
       "CharacterID": "char_002",
       "CharacterName": "李世民",
-      "TitleIDs": [
-        "prince_of_qin",
-        "pm_of_shangshusheng",
-        "general_of_heaven",
-        "count_of_chang_an"
-      ],
       "Attributes": {
         "Health": 85,
         "Comprehension": 100,
@@ -39,14 +32,13 @@
         "Governance": 94
       },
       "CharacterStatus": "Healthy",
-      "DeathReason": "Alive"
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
     },
     {
       "CharacterID": "char_003",
       "CharacterName": "李建成",
-      "TitleIDs": [
-        "crown_prince"
-      ],
       "Attributes": {
         "Health": 69,
         "Comprehension": 83,
@@ -58,14 +50,13 @@
         "Governance": 87
       },
       "CharacterStatus": "Healthy",
-      "DeathReason": "Alive"
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
     },
     {
       "CharacterID": "char_004",
       "CharacterName": "李元吉",
-      "TitleIDs": [
-        "prince_of_qi"
-      ],
       "Attributes": {
         "Health": 81,
         "Comprehension": 76,
@@ -77,7 +68,9 @@
         "Governance": 64
       },
       "CharacterStatus": "Healthy",
-      "DeathReason": "Alive"
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
     }
   ]
 }

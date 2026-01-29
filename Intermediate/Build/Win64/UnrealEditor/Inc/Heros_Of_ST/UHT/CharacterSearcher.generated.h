@@ -20,10 +20,12 @@ class ASTCharacter;
 class ASTHolding;
 class ASTState;
 class UCharacterSearcher;
+class USTCulture;
+class USTHouse;
 struct FSavedDataBriefInfo;
 
 // ********** Begin ScriptStruct FSavedDataBriefInfo ***********************************************
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_21_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_25_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSavedDataBriefInfo_Statics; \
 	static class UScriptStruct* StaticStruct();
 
@@ -32,7 +34,13 @@ struct FSavedDataBriefInfo;
 // ********** End ScriptStruct FSavedDataBriefInfo *************************************************
 
 // ********** Begin Class UCharacterSearcher *******************************************************
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execUnregisterHouse); \
+	DECLARE_FUNCTION(execRegisterHouse); \
+	DECLARE_FUNCTION(execFindHouseByID); \
+	DECLARE_FUNCTION(execUnregisterCulture); \
+	DECLARE_FUNCTION(execRegisterCulture); \
+	DECLARE_FUNCTION(execFindCultureByID); \
 	DECLARE_FUNCTION(execUnregisterHolding); \
 	DECLARE_FUNCTION(execRegisterHolding); \
 	DECLARE_FUNCTION(execFindHoldingByID); \
@@ -54,7 +62,7 @@ struct FSavedDataBriefInfo;
 
 HEROS_OF_ST_API UClass* Z_Construct_UClass_UCharacterSearcher_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUCharacterSearcher(); \
 	friend struct Z_Construct_UClass_UCharacterSearcher_Statics; \
@@ -65,7 +73,7 @@ public: \
 	DECLARE_SERIALIZER(UCharacterSearcher)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UCharacterSearcher(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -77,13 +85,13 @@ public: \
 	NO_API virtual ~UCharacterSearcher();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_32_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_36_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_35_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

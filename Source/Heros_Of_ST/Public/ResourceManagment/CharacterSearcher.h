@@ -10,10 +10,14 @@ class ASTCharacter;
 class ASTState;
 class ASTHolding;
 class USaveGame;
+class USTCulture;
+class USTHouse;
 struct FCharacterSavedData;
 struct FStateSavedData;
 struct FHoldingSavedData;
 struct FTitleSavedData;
+struct FSTCultureData;
+struct FHouseSavedData;
 
 USTRUCT(BlueprintType)
 struct HEROS_OF_ST_API FSavedDataBriefInfo
@@ -27,7 +31,7 @@ public:
 };
 
 /**
- * ÓÎÏ·ÖĞ½ÇÉ«µÄÈ«¾ÖËÑË÷Æ÷£¬¸ºÔğ×¢²áºÍ²éÕÒ½ÇÉ«ÊµÀı
+ * æ¸¸æˆä¸­è§’è‰²çš„å…¨å±€æœç´¢å™¨ï¼Œè´Ÿè´£æ³¨å†Œå’ŒæŸ¥æ‰¾è§’è‰²å®ä¾‹
  */
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API UCharacterSearcher : public UObject
@@ -42,7 +46,7 @@ public:
 		if (!Instance)
 		{
 			Instance = NewObject<UCharacterSearcher>(GetTransientPackage(), NAME_None);
-			Instance->AddToRoot(); // ·ÀÖ¹GC»ØÊÕ
+			Instance->AddToRoot(); // é˜²æ­¢GCå›æ”¶
 		}
 		return Instance;
 	}
@@ -97,13 +101,31 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void UnregisterHolding(const FString& HoldingID);
 
+	// Cultures Related
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	USTCulture* FindCultureByID(const FString& CultureId);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool RegisterCulture(USTCulture* Culture, const FString& CultureID);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void UnregisterCulture(const FString& CultureID);
+
+	// House Related
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	USTHouse* FindHouseByID(const FString& HouseId);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool RegisterHouse(USTHouse* House, const FString& HouseID);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void UnregisterHouse(const FString& HouseID);
+
 private:
 	void OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess);
 	void OnLoadGameComplete(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedSaveGame);
 	UWorld* GetGameWorld() const;
 	void SetupDatabase(const TArray<FCharacterSavedData>& CharacterDatas,
 		const TArray<FStateSavedData>& StateDatas,
-		const TArray<FHoldingSavedData>& HoldingDatas);
+		const TArray<FHoldingSavedData>& HoldingDatas,
+		const TArray<FSTCultureData>& CultureDatas,
+		const TArray<FHouseSavedData>& HouseDatas);
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -112,13 +134,17 @@ public:
 private:
 	// Maps for storing characters, states, and holdings
 	// Key: ID (FName), Value: Pointer to the object
-	// ²»ĞèÒª´æ´¢Titles£¬ÒòÎªTitleÊÇStateºÍCharacterµÄÊôĞÔ£¬ÉúÃüÖÜÆÚÓÉState¹ÜÀí
-	// ¼¸ÖÖÊı¾İñîºÏ¶È½Ï¸ß£¬Òò´ËÍ³Ò»¹ÜÀí
+	// ä¸éœ€è¦å­˜å‚¨Titlesï¼Œå› ä¸ºTitleæ˜¯Stateå’ŒCharacterçš„å±æ€§ï¼Œç”Ÿå‘½å‘¨æœŸç”±Stateç®¡ç†
+	// å‡ ç§æ•°æ®è€¦åˆåº¦è¾ƒé«˜ï¼Œå› æ­¤ç»Ÿä¸€ç®¡ç†
 	TMap<FString, ASTCharacter*> CharacterMap;
 	TMap<FString, ASTState*> StateMap;
 	TMap<FString, ASTHolding*> HoldingMap;
+	TMap<FString, USTCulture*> CultureMap;
+	TMap<FString, USTHouse*> HouseMap;
 	std::atomic<int64> CurrentIDCounter{ 0 };
 	FCriticalSection SyncLockChar;
 	FCriticalSection SyncLockState;
 	FCriticalSection SyncLockHolding;
+	FCriticalSection SyncLockCulture;
+	FCriticalSection SyncLockHouse;
 };

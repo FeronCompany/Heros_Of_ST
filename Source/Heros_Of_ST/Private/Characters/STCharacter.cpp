@@ -4,6 +4,8 @@
 #include "Characters/STCharacter.h"
 #include "Heros_Of_ST/macros.h"
 #include "States/STTitle.h"
+#include "Identity/STCulture.h"
+#include "Identity/STHouse.h"
 
 // Sets default values
 ASTCharacter::ASTCharacter()
@@ -81,16 +83,11 @@ FCharacterSavedData ASTCharacter::GetSavedData() const
 	FCharacterSavedData SavedData;
 	SavedData.CharacterID = CharacterID;
 	SavedData.CharacterName = CharacterName;
-	for (const auto& Title : Titles)
-	{
-		if (Title)
-		{
-			SavedData.TitleIDs.Add(Title->TitleName);
-		}
-	}
 	SavedData.Attributes = Attributes;
 	SavedData.CharacterStatus = CharacterStatus;
 	SavedData.DeathReason = DeathReason;
+	SavedData.CultureID = Culture ? Culture->CultureID : FString();
+	SavedData.HouseID = House ? House->HouseID : FString();
 	return SavedData;
 }
 
@@ -110,19 +107,6 @@ bool ASTCharacter::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FCha
 	if (JsonObject->HasField(TEXT("CharacterName")))
 	{
 		OutSavedData.CharacterName = FName(*JsonObject->GetStringField(TEXT("CharacterName")));
-	}
-	// Parse Titles
-	if (JsonObject->HasField(TEXT("TitleIDs")))
-	{
-		const TArray<TSharedPtr<FJsonValue>> TitleArray = JsonObject->GetArrayField(TEXT("TitleIDs"));
-		for (const auto& TitleValue : TitleArray)
-		{
-			FString TitleID = TitleValue->AsString();
-			if (!TitleID.IsEmpty())
-			{
-				OutSavedData.TitleIDs.Add(TitleID);
-			}
-		}
 	}
 	// Parse Attributes
 	if (JsonObject->HasField(TEXT("Attributes")))
@@ -172,6 +156,14 @@ bool ASTCharacter::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FCha
 	{
 		FString DeathReasonString = JsonObject->GetStringField(TEXT("DeathReason"));
 		OutSavedData.DeathReason = (EDeathReason)StaticEnum<EDeathReason>()->GetValueByNameString(DeathReasonString);
+	}
+	if (JsonObject->HasField(TEXT("CultureID")))
+	{
+		OutSavedData.CultureID = JsonObject->GetStringField(TEXT("CultureID"));
+	}
+	if (JsonObject->HasField(TEXT("HouseID")))
+	{
+		OutSavedData.HouseID = JsonObject->GetStringField(TEXT("HouseID"));
 	}
 	return true;
 }

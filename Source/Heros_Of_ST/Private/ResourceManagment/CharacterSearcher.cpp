@@ -7,6 +7,8 @@
 #include "States/STHolding.h"
 #include "States/STState.h"
 #include "States/STTitle.h"
+#include "Identity/STCulture.h"
+#include "Identity/STHouse.h"
 #include "Heros_Of_ST/macros.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -42,7 +44,7 @@ bool UCharacterSearcher::RegisterCharacter(ASTCharacter* Character, const FStrin
 		return false;
 	}
 	CharacterMap.Add(CharacterID, Character);
-	PRINT_SCREEN("Registered Character ID: \"%s\"", *CharacterID);
+	UE_LOG(LogTemp, Log, TEXT("Registered Character ID: \"%s\""), *CharacterID);
 	return true;
 }
 
@@ -53,7 +55,7 @@ void UCharacterSearcher::UnregisterCharacter(const FString& CharacterID)
 	if (itor)
 	{
 		CharacterMap.Remove(CharacterID);
-		PRINT_SCREEN("Unregistered Character ID: \"%s\"", *CharacterID);
+		UE_LOG(LogTemp, Log, TEXT("Unregistered Character ID: \"%s\""), *CharacterID);
 	}
 	else
 	{
@@ -71,7 +73,7 @@ bool UCharacterSearcher::LoadSaveData(const FString& SlotName, int32 UserIndex)
 {
 	if (!UGameplayStatics::DoesSaveGameExist(SlotName, UserIndex))
 	{
-		PRINT_SCREEN("¥Êµµ≤ª¥Ê‘⁄: %s", *SlotName);
+		PRINT_SCREEN("Â≠òÊ°£‰∏çÂ≠òÂú®: %s", *SlotName);
 		return false;
 	}
 	UGameplayStatics::AsyncLoadGameFromSlot(
@@ -116,6 +118,15 @@ void UCharacterSearcher::SaveData(const FString& SlotName, int32 UserIndex)
 			SaveData->SavedHoldings.Add(SavedData);
 		}
 	}
+	for (const auto& Pair : CultureMap)
+	{
+		USTCulture* Culture = Pair.Value;
+		if (Culture)
+		{
+			FSTCultureData SavedData = Culture->GetSavedCultureData();
+			SaveData->SavedCultures.Add(SavedData);
+		}
+	}
 	SaveData->MainCharacterID = currentControlledCharacter ? currentControlledCharacter->CharacterID : TEXT("");
 	SaveData->SaveTime = FDateTime::Now();
 	UGameplayStatics::AsyncSaveGameToSlot(
@@ -130,7 +141,7 @@ bool UCharacterSearcher::DeleteSaveData(const FString& SlotName)
 {
 	if (!UGameplayStatics::DoesSaveGameExist(SlotName, 0))
 	{
-		PRINT_SCREEN("¥Êµµ≤ª¥Ê‘⁄: %s", *SlotName);
+		PRINT_SCREEN("Â≠òÊ°£‰∏çÂ≠òÂú®: %s", *SlotName);
 		return false;
 	}
 	bool bSuccess = UGameplayStatics::DeleteGameInSlot(SlotName, 0);
@@ -263,7 +274,78 @@ bool UCharacterSearcher::LoadHistory()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Failed to load holding history file: %s"), *HoldingFilePath);
 	}
-	SetupDatabase(CharacterHistories, StateHistories, HoldingHistories);
+
+	FString CultureFilePath = ConfigDir + "Cultures.json";
+	FString CultureJsonContent;
+	TArray<FSTCultureData> CultureHistories;
+	if (FFileHelper::LoadFileToString(CultureJsonContent, *CultureFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(CultureJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& CulturesArray = JsonObject->GetArrayField(TEXT("cultures"));
+			for (const TSharedPtr<FJsonValue>& CultureValue : CulturesArray)
+			{
+				TSharedPtr<FJsonObject> CultureObject = CultureValue->AsObject();
+				if (CultureObject.IsValid())
+				{
+					FSTCultureData CultureData;
+					if (USTCulture::ParseFromJson(CultureObject, CultureData)) {
+						CultureHistories.Add(CultureData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *CultureFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *CultureFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load culture history file: %s"), *CultureFilePath);
+	}
+
+	FString HouseFilePath = ConfigDir + "Houses.json";
+	FString HouseJsonContent;
+	TArray<FHouseSavedData> HouseHistories;
+	if (FFileHelper::LoadFileToString(HouseJsonContent, *HouseFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(HouseJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& HousesArray = JsonObject->GetArrayField(TEXT("houses"));
+			for (const TSharedPtr<FJsonValue>& HouseValue : HousesArray)
+			{
+				TSharedPtr<FJsonObject> HouseObject = HouseValue->AsObject();
+				if (HouseObject.IsValid())
+				{
+					FHouseSavedData HouseData;
+					if (USTHouse::ParseFromJson(HouseObject, HouseData)) {
+						HouseHistories.Add(HouseData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *HouseFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *HouseFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load house history file: %s"), *HouseFilePath);
+	}
+	SetupDatabase(
+		CharacterHistories,
+		StateHistories,
+		HoldingHistories,
+		CultureHistories,
+		HouseHistories);
 	return true;
 }
 
@@ -293,7 +375,12 @@ void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32
 	}
 	// Clear existing data
 	ClearAll();
-	SetupDatabase(SaveData->SavedCharacters, SaveData->SavedStates, SaveData->SavedHoldings);
+	SetupDatabase(
+		SaveData->SavedCharacters,
+		SaveData->SavedStates,
+		SaveData->SavedHoldings,
+		SaveData->SavedCultures,
+		SaveData->SavedHouses);
 	// Set current controlled character
 	if (SaveData->MainCharacterID.IsEmpty())
 	{
@@ -327,7 +414,9 @@ UWorld* UCharacterSearcher::GetGameWorld() const
 void UCharacterSearcher::SetupDatabase(
 	const TArray<FCharacterSavedData>& CharacterDatas,
 	const TArray<FStateSavedData>& StateDatas,
-	const TArray<FHoldingSavedData>& HoldingDatas)
+	const TArray<FHoldingSavedData>& HoldingDatas,
+	const TArray<FSTCultureData>& CultureDatas,
+	const TArray<FHouseSavedData>& HouseDatas)
 {
 	UWorld* World = GetGameWorld();
 	if (!World)
@@ -343,7 +432,7 @@ void UCharacterSearcher::SetupDatabase(
 		Holding->HoldingID = HoldingData.HoldingID;
 		Holding->HoldingName = HoldingData.HoldingName;
 		RegisterHolding(Holding, HoldingData.HoldingID);
-		// …‘∫Û…Ë÷√πÿ¡™–≈œ¢
+		// Á®çÂêéËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
 	}
 	// Load States
 	for (const FStateSavedData& StateData : StateDatas)
@@ -353,7 +442,7 @@ void UCharacterSearcher::SetupDatabase(
 		State->StateName = StateData.StateName;
 		State->StateLevel = StateData.StateLevel;
 		RegisterState(State, StateData.StateID);
-		// …‘∫Û…Ë÷√πÿ¡™–≈œ¢
+		// Á®çÂêéËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
 	}
 	// Load Characters
 	for (const FCharacterSavedData& CharacterData : CharacterDatas)
@@ -370,9 +459,27 @@ void UCharacterSearcher::SetupDatabase(
 		SpawnedCharacter->CharacterStatus = CharacterData.CharacterStatus;
 		SpawnedCharacter->DeathReason = CharacterData.DeathReason;
 		RegisterCharacter(SpawnedCharacter, CharacterData.CharacterID);
-		// …‘∫Û…Ë÷√πÿ¡™–≈œ¢
+		// Á®çÂêéËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
 	}
-	// Holdings …Ë÷√πÿ¡™–≈œ¢
+	for (const FSTCultureData& CultureData : CultureDatas)
+	{
+		USTCulture* Culture = NewObject<USTCulture>();
+		Culture->CultureID = CultureData.CultureID;
+		Culture->CultureName = CultureData.CultureName;
+		Culture->Description = CultureData.Description;
+		RegisterCulture(Culture, CultureData.CultureID);
+		// Á®çÂêéËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
+	}
+	for (const FHouseSavedData& HouseData : HouseDatas)
+	{
+		USTHouse* House = NewObject<USTHouse>();
+		House->HouseID = HouseData.HouseID;
+		House->HouseName = HouseData.HouseName;
+		House->Motto = HouseData.Motto;
+		RegisterHouse(House, HouseData.HouseID);
+		// Á®çÂêéËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
+	}
+	// Holdings ËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
 	for (const FHoldingSavedData& HoldingData : HoldingDatas)
 	{
 		ASTHolding* Holding = FindHoldingByID(HoldingData.HoldingID);
@@ -394,13 +501,13 @@ void UCharacterSearcher::SetupDatabase(
 			}
 		}
 	}
-	// States …Ë÷√πÿ¡™–≈œ¢
+	// States ËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
 	for (const FStateSavedData& StateData : StateDatas)
 	{
 		ASTState* State = FindStateByID(StateData.StateID);
 		if (State)
 		{
-			// …Ë÷√OverlordState
+			// ËÆæÁΩÆOverlordState
 			if (!StateData.OverlordStateID.IsEmpty())
 			{
 				ASTState* OverlordState = FindStateByID(StateData.OverlordStateID);
@@ -418,7 +525,7 @@ void UCharacterSearcher::SetupDatabase(
 						*StateData.StateID);
 				}
 			}
-			// …Ë÷√Titles
+			// ËÆæÁΩÆTitles
 			TArray<USTTitle*> LoadedTitles;
 			for (const FTitleSavedData& TitleData : StateData.Titles)
 			{
@@ -426,7 +533,7 @@ void UCharacterSearcher::SetupDatabase(
 				Title->TitleName = TitleData.TitleName;
 				Title->TitleDescription = TitleData.TitleDescription;
 				Title->TitleRank = TitleData.TitleRank;
-				// …Ë÷√TitleHolder
+				// ËÆæÁΩÆTitleHolder
 				ASTCharacter* TitleHolder = FindCharacterByID(TitleData.TitleHolderID);
 				if (TitleHolder)
 				{
@@ -443,14 +550,111 @@ void UCharacterSearcher::SetupDatabase(
 				}
 				LoadedTitles.Add(Title);
 			}
-			// …Ë÷√Capital
+			// ËÆæÁΩÆCapital
 			ASTHolding* CapitalHolding = FindHoldingByID(StateData.CapitalHoldingID);
 			State->InitTitles(LoadedTitles, CapitalHolding);
 		}
 	}
-	// Characters …Ë÷√πÿ¡™–≈œ¢
+	// Characters ËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
 	for (const FCharacterSavedData& CharacterData : CharacterDatas)
 	{
+		// cultrue
+		ASTCharacter* Character = FindCharacterByID(CharacterData.CharacterID);
+		if (Character)
+		{
+			USTCulture* Culture = FindCultureByID(CharacterData.CultureID);
+			if (Culture)
+			{
+				Character->Culture = Culture;
+			}
+			else
+			{
+				UE_LOG(
+					LogTemp,
+					Warning,
+					TEXT("Culture ID \"%s\" not found for Character ID \"%s\"."),
+					*CharacterData.CultureID,
+					*CharacterData.CharacterID);
+			}
+			USTHouse* House = FindHouseByID(CharacterData.HouseID);
+			if (House)
+			{
+				House->AddMember(Character);
+			}
+			else
+			{
+				UE_LOG(
+					LogTemp,
+					Warning,
+					TEXT("House ID \"%s\" not found for Character ID \"%s\"."),
+					*CharacterData.HouseID,
+					*CharacterData.CharacterID);
+			}
+		}
+	}
+	// culture ËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
+	for (const FSTCultureData& CultureData : CultureDatas)
+	{
+		USTCulture* Culture = FindCultureByID(CultureData.CultureID);
+		if (Culture)
+		{
+			if (!CultureData.ParentCultureID.IsEmpty())
+			{
+				USTCulture* ParentCulture = FindCultureByID(CultureData.ParentCultureID);
+				if (ParentCulture)
+				{
+					Culture->ParentCulture = ParentCulture;
+				}
+				else
+				{
+					UE_LOG(
+						LogTemp,
+						Warning,
+						TEXT("Parent Culture ID \"%s\" not found for Culture ID \"%s\"."),
+						*CultureData.ParentCultureID,
+						*CultureData.CultureID);
+				}
+			}
+		}
+	}
+	// House ËÆæÁΩÆÂÖ≥ËÅî‰ø°ÊÅØ
+	for (const FHouseSavedData& HouseData : HouseDatas)
+	{
+		USTHouse* House = FindHouseByID(HouseData.HouseID);
+		if (House)
+		{
+			ASTCharacter* LeaderCharacter = FindCharacterByID(HouseData.LeaderID);
+			if (LeaderCharacter)
+			{
+				House->Leader = LeaderCharacter;
+			}
+			else
+			{
+				UE_LOG(
+					LogTemp,
+					Warning,
+					TEXT("Leader ID \"%s\" not found for House ID \"%s\"."),
+					*HouseData.LeaderID,
+					*HouseData.HouseID);
+			}
+			if (!HouseData.ParentHouseID.IsEmpty())
+			{
+				USTHouse* ParentHouse = FindHouseByID(HouseData.ParentHouseID);
+				if (ParentHouse)
+				{
+					House->ParentHouse = ParentHouse;
+				}
+				else
+				{
+					UE_LOG(
+						LogTemp,
+						Warning,
+						TEXT("Parent House ID \"%s\" not found for House ID \"%s\"."),
+						*HouseData.ParentHouseID,
+						*HouseData.HouseID);
+				}
+			}
+		}
 	}
 }
 
@@ -461,6 +665,7 @@ void UCharacterSearcher::ClearAll()
 	currentControlledCharacter = nullptr;
 	StateMap.Empty();
 	HoldingMap.Empty();
+	CultureMap.Empty();
 	PRINT_SCREEN("Cleared all registered characters, states, and holdings.");
 }
 
@@ -489,7 +694,7 @@ bool UCharacterSearcher::RegisterState(ASTState* State, const FString& StateID)
 		return false;
 	}
 	StateMap.Add(StateID, State);
-	PRINT_SCREEN("Registered State ID: \"%s\"", *StateID);
+	UE_LOG(LogTemp, Log, TEXT("Registered State ID: \"%s\""), *StateID);
 	return true;
 }
 
@@ -500,7 +705,7 @@ void UCharacterSearcher::UnregisterState(const FString& StateID)
 	if (itor)
 	{
 		StateMap.Remove(StateID);
-		PRINT_SCREEN("Unregistered State ID: \"%s\"", *StateID);
+		UE_LOG(LogTemp, Log, TEXT("Unregistered State ID: \"%s\""), *StateID);
 	}
 	else
 	{
@@ -533,7 +738,7 @@ bool UCharacterSearcher::RegisterHolding(ASTHolding* Holding, const FString& Hol
 		return false;
 	}
 	HoldingMap.Add(HoldingID, Holding);
-	PRINT_SCREEN("Registered Holding ID: \"%s\"", *HoldingID);
+	UE_LOG(LogTemp, Log, TEXT("Registered Holding ID: \"%s\""), *HoldingID);
 	return true;
 }
 
@@ -544,10 +749,98 @@ void UCharacterSearcher::UnregisterHolding(const FString& HoldingID)
 	if (itor)
 	{
 		HoldingMap.Remove(HoldingID);
-		PRINT_SCREEN("Unregistered Holding ID: \"%s\"", *HoldingID);
+		UE_LOG(LogTemp, Log, TEXT("Unregistered Holding ID: \"%s\""), *HoldingID);
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Holding ID \"%s\" not found for unregistration."), *HoldingID);
+	}
+}
+
+USTCulture* UCharacterSearcher::FindCultureByID(const FString& CultureId)
+{
+	FScopeLock Lock(&SyncLockCulture);
+	auto itor = CultureMap.Find(CultureId);
+	if (itor)
+	{
+		return *itor;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Culture ID \"%s\" not found."), *CultureId);
+		return nullptr;
+	}
+}
+
+bool UCharacterSearcher::RegisterCulture(USTCulture* Culture, const FString& CultureID)
+{
+	FScopeLock Lock(&SyncLockCulture);
+	auto itor = CultureMap.Find(CultureID);
+	if (itor)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Culture ID \"%s\" is already registered."), *CultureID);
+		return false;
+	}
+	CultureMap.Add(CultureID, Culture);
+	UE_LOG(LogTemp, Log, TEXT("Registered Culture ID: \"%s\""), *CultureID);
+	return true;
+}
+
+void UCharacterSearcher::UnregisterCulture(const FString& CultureID)
+{
+	FScopeLock Lock(&SyncLockCulture);
+	auto itor = CultureMap.Find(CultureID);
+	if (itor)
+	{
+		CultureMap.Remove(CultureID);
+		UE_LOG(LogTemp, Log, TEXT("Unregistered Culture ID: \"%s\""), *CultureID);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Culture ID \"%s\" not found for unregistration."), *CultureID);
+	}
+}
+
+USTHouse* UCharacterSearcher::FindHouseByID(const FString& HouseId)
+{
+	FScopeLock Lock(&SyncLockHouse);
+	auto itor = HouseMap.Find(HouseId);
+	if (itor)
+	{
+		return *itor;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("House ID \"%s\" not found."), *HouseId);
+		return nullptr;
+	}
+}
+
+bool UCharacterSearcher::RegisterHouse(USTHouse* House, const FString& HouseID)
+{
+	FScopeLock Lock(&SyncLockHouse);
+	auto itor = HouseMap.Find(HouseID);
+	if (itor)
+	{
+		UE_LOG(LogTemp, Error, TEXT("House ID \"%s\" is already registered."), *HouseID);
+		return false;
+	}
+	HouseMap.Add(HouseID, House);
+	UE_LOG(LogTemp, Log, TEXT("Registered House ID: \"%s\""), *HouseID);
+	return true;
+}
+
+void UCharacterSearcher::UnregisterHouse(const FString& HouseID)
+{
+	FScopeLock Lock(&SyncLockHouse);
+	auto itor = HouseMap.Find(HouseID);
+	if (itor)
+	{
+		HouseMap.Remove(HouseID);
+		UE_LOG(LogTemp, Log, TEXT("Unregistered House ID: \"%s\""), *HouseID);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("House ID \"%s\" not found for unregistration."), *HouseID);
 	}
 }

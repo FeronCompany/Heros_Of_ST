@@ -1,0 +1,11 @@
+{
+  "houses": [
+    {
+      "HouseID": "house_li",
+      "Name": "House Li",
+      "Motto": "道可道，非常道。",
+      "LeaderID": "char_001",
+      "ParentHouseID": ""
+    }
+  ]
+}
