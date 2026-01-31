@@ -63,6 +63,24 @@ void UCharacterSearcher::UnregisterCharacter(const FString& CharacterID)
 	}
 }
 
+TArray<ASTCharacter*> UCharacterSearcher::GetPlayableCharacters()
+{
+	TArray<ASTCharacter*> PlayableList;
+	for (auto& CharacterID : PlayableCharacterList)
+	{
+		auto itor = CharacterMap.Find(CharacterID);
+		if (itor)
+		{
+			PlayableList.Add(*itor);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Character ID \"%s\" not found for GetPlayableCharacters."), *CharacterID);
+		}
+	}
+	return PlayableList;
+}
+
 void UCharacterSearcher::BeginDestroy()
 {
 	Super::BeginDestroy();
@@ -196,6 +214,12 @@ bool UCharacterSearcher::LoadHistory()
 						CharacterHistories.Add(CharacterData);
 					}
 				}
+			}
+			auto& PlayableArray = JsonObject->GetArrayField(TEXT("playable"));
+			for (const TSharedPtr<FJsonValue>& CharacterID : PlayableArray)
+			{
+				auto CharID = CharacterID->AsString();
+				PlayableCharacterList.Add(CharID);
 			}
 		}
 		else
@@ -579,7 +603,7 @@ void UCharacterSearcher::SetupDatabase(
 			USTHouse* House = FindHouseByID(CharacterData.HouseID);
 			if (House)
 			{
-				House->AddMember(Character);
+				House->AddMember(Character, true);
 			}
 			else
 			{
@@ -666,6 +690,8 @@ void UCharacterSearcher::ClearAll()
 	StateMap.Empty();
 	HoldingMap.Empty();
 	CultureMap.Empty();
+	HouseMap.Empty();
+	PlayableCharacterList.Empty();
 	PRINT_SCREEN("Cleared all registered characters, states, and holdings.");
 }
 

@@ -44,7 +44,7 @@ bool USTHouse::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHouseSa
 	return true;
 }
 
-bool USTHouse::AddMember(ASTCharacter* NewMember)
+bool USTHouse::AddMember(ASTCharacter* NewMember, bool IsInitial)
 {
 	if (!NewMember)
 	{
@@ -58,5 +58,13 @@ bool USTHouse::AddMember(ASTCharacter* NewMember)
 	}
 	Members.Add(NewMember);
 	NewMember->House = this;
+	if (!IsInitial)
+	{
+		UE_LOG(LogTemp, Log, TEXT("USTHouse::AddMember: Member %s added to house %s"), *NewMember->CharacterID, *HouseName.ToString());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("USTHouse::AddMember: Member %s added to house %s (initial)"), *NewMember->CharacterID, *HouseName.ToString());
+	}
 	return true;
 }

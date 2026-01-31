@@ -62,6 +62,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void UnregisterCharacter(const FString& CharacterID);
 
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	TArray<ASTCharacter*> GetPlayableCharacters();
+
 	virtual void BeginDestroy() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
@@ -128,7 +131,7 @@ private:
 		const TArray<FHouseSavedData>& HouseDatas);
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	ASTCharacter* currentControlledCharacter = nullptr;
 
 private:
@@ -136,10 +139,15 @@ private:
 	// Key: ID (FName), Value: Pointer to the object
 	// 不需要存储Titles，因为Title是State和Character的属性，生命周期由State管理
 	// 几种数据耦合度较高，因此统一管理
+	UPROPERTY()
 	TMap<FString, ASTCharacter*> CharacterMap;
+	UPROPERTY()
 	TMap<FString, ASTState*> StateMap;
+	UPROPERTY()
 	TMap<FString, ASTHolding*> HoldingMap;
+	UPROPERTY()
 	TMap<FString, USTCulture*> CultureMap;
+	UPROPERTY()
 	TMap<FString, USTHouse*> HouseMap;
 	std::atomic<int64> CurrentIDCounter{ 0 };
 	FCriticalSection SyncLockChar;
@@ -147,4 +155,5 @@ private:
 	FCriticalSection SyncLockHolding;
 	FCriticalSection SyncLockCulture;
 	FCriticalSection SyncLockHouse;
+	TArray<FString> PlayableCharacterList;
 };

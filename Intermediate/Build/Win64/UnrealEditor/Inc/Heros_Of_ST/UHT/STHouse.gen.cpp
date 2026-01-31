@@ -118,6 +118,7 @@ struct Z_Construct_UFunction_USTHouse_AddMember_Statics
 	struct STHouse_eventAddMember_Parms
 	{
 		ASTCharacter* NewMember;
+		bool IsInitial;
 		bool ReturnValue;
 	};
 #if WITH_METADATA
@@ -127,12 +128,19 @@ struct Z_Construct_UFunction_USTHouse_AddMember_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_NewMember;
+	static void NewProp_IsInitial_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsInitial;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_NewMember = { "NewMember", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(STHouse_eventAddMember_Parms, NewMember), Z_Construct_UClass_ASTCharacter_NoRegister, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_IsInitial_SetBit(void* Obj)
+{
+	((STHouse_eventAddMember_Parms*)Obj)->IsInitial = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_IsInitial = { "IsInitial", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(STHouse_eventAddMember_Parms), &Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_IsInitial_SetBit, METADATA_PARAMS(0, nullptr) };
 void Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
 	((STHouse_eventAddMember_Parms*)Obj)->ReturnValue = 1;
@@ -140,6 +148,7 @@ void Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_ReturnValue_SetBi
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(STHouse_eventAddMember_Parms), &Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USTHouse_AddMember_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_NewMember,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_IsInitial,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USTHouse_AddMember_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_USTHouse_AddMember_Statics::PropPointers) < 2048);
@@ -157,9 +166,10 @@ UFunction* Z_Construct_UFunction_USTHouse_AddMember()
 DEFINE_FUNCTION(USTHouse::execAddMember)
 {
 	P_GET_OBJECT(ASTCharacter,Z_Param_NewMember);
+	P_GET_UBOOL(Z_Param_IsInitial);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	*(bool*)Z_Param__Result=P_THIS->AddMember(Z_Param_NewMember);
+	*(bool*)Z_Param__Result=P_THIS->AddMember(Z_Param_NewMember,Z_Param_IsInitial);
 	P_NATIVE_END;
 }
 // ********** End Class USTHouse Function AddMember ************************************************
@@ -249,7 +259,7 @@ struct Z_Construct_UClass_USTHouse_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_USTHouse_AddMember, "AddMember" }, // 669010117
+		{ &Z_Construct_UFunction_USTHouse_AddMember, "AddMember" }, // 4151792448
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -314,10 +324,10 @@ struct Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_H
 		{ FHouseSavedData::StaticStruct, Z_Construct_UScriptStruct_FHouseSavedData_Statics::NewStructOps, TEXT("HouseSavedData"), &Z_Registration_Info_UScriptStruct_FHouseSavedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FHouseSavedData), 3751658719U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USTHouse, USTHouse::StaticClass, TEXT("USTHouse"), &Z_Registration_Info_UClass_USTHouse, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTHouse), 2351619278U) },
+		{ Z_Construct_UClass_USTHouse, USTHouse::StaticClass, TEXT("USTHouse"), &Z_Registration_Info_UClass_USTHouse, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USTHouse), 4035638872U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Identity_STHouse_h__Script_Heros_Of_ST_1912541968(TEXT("/Script/Heros_Of_ST"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Identity_STHouse_h__Script_Heros_Of_ST_3913393820(TEXT("/Script/Heros_Of_ST"),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Identity_STHouse_h__Script_Heros_Of_ST_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Identity_STHouse_h__Script_Heros_Of_ST_Statics::ClassInfo),
 	Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Identity_STHouse_h__Script_Heros_Of_ST_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_Identity_STHouse_h__Script_Heros_Of_ST_Statics::ScriptStructInfo),
 	nullptr, 0);

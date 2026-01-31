@@ -39,7 +39,7 @@ public:
 	static bool ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHouseSavedData& OutSavedData);
 
 	UFUNCTION(BlueprintCallable, Category = "House")
-	bool AddMember(ASTCharacter* NewMember);
+	bool AddMember(ASTCharacter* NewMember, bool IsInitial);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House")

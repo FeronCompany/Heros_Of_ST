@@ -54,6 +54,7 @@ struct FSavedDataBriefInfo;
 	DECLARE_FUNCTION(execDeleteSaveData); \
 	DECLARE_FUNCTION(execSaveData); \
 	DECLARE_FUNCTION(execLoadSaveData); \
+	DECLARE_FUNCTION(execGetPlayableCharacters); \
 	DECLARE_FUNCTION(execUnregisterCharacter); \
 	DECLARE_FUNCTION(execRegisterCharacter); \
 	DECLARE_FUNCTION(execFindCharacterByID); \
