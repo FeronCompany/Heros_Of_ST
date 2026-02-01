@@ -15,6 +15,7 @@
     <None Include="..\..\.gitattributes" />
     <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Heros_Of_ST.code-workspace" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -30,6 +31,30 @@
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
+    <Filter Include="Config\History">
+      <UniqueIdentifier>{82FDF58F-E4E2-354C-B697-3D93E99A8AC5}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\History\Characters.json">
+      <Filter>Config\History</Filter>
+    </None>
+    <None Include="..\..\Config\History\Cultures.json">
+      <Filter>Config\History</Filter>
+    </None>
+    <None Include="..\..\Config\History\Holdings.json">
+      <Filter>Config\History</Filter>
+    </None>
+    <None Include="..\..\Config\History\Houses.json">
+      <Filter>Config\History</Filter>
+    </None>
+    <None Include="..\..\Config\History\States.json">
+      <Filter>Config\History</Filter>
+    </None>
+    <Filter Include="Config\Rules">
+      <UniqueIdentifier>{FD0E8A77-CC73-3AA0-944C-D36977FAA949}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\Rules\StateTemplates.json">
+      <Filter>Config\Rules</Filter>
+    </None>
     <Filter Include="Source\Heros_Of_ST">
       <UniqueIdentifier>{5F8E652B-4350-31D9-AEF2-9CD1A8AF027D}</UniqueIdentifier>
     </Filter>
@@ -42,17 +67,32 @@
     <ClInclude Include="..\..\Source\Heros_Of_ST\Heros_Of_ST.h">
       <Filter>Source\Heros_Of_ST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\macros.h">
+      <Filter>Source\Heros_Of_ST</Filter>
+    </ClInclude>
     <Filter Include="Source\Heros_Of_ST\Private">
       <UniqueIdentifier>{7FAA08AD-999A-3390-9BB3-44AAD8B4B766}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Heros_Of_ST\Private\Characters">
       <UniqueIdentifier>{9F2BAB0A-97B6-3B3C-8E4F-CF1033850343}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Characters\BaseCharacter.cpp">
-      <Filter>Source\Heros_Of_ST\Private\Characters</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Characters\STCharacter.cpp">
       <Filter>Source\Heros_Of_ST\Private\Characters</Filter>
+    </ClCompile>
+    <Filter Include="Source\Heros_Of_ST\Private\Controller">
+      <UniqueIdentifier>{EDD13CA6-BF48-3F14-AB19-3321441C0756}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Controller\UIInteractiveController.cpp">
+      <Filter>Source\Heros_Of_ST\Private\Controller</Filter>
+    </ClCompile>
+    <Filter Include="Source\Heros_Of_ST\Private\Identity">
+      <UniqueIdentifier>{1F33F069-CA35-39E0-A676-18E9AD1D95BB}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Identity\STCulture.cpp">
+      <Filter>Source\Heros_Of_ST\Private\Identity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\Identity\STHouse.cpp">
+      <Filter>Source\Heros_Of_ST\Private\Identity</Filter>
     </ClCompile>
     <Filter Include="Source\Heros_Of_ST\Private\ResourceManagment">
       <UniqueIdentifier>{CF88A25B-49EB-3D87-B923-5F308E27A218}</UniqueIdentifier>
@@ -60,13 +100,25 @@
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\CharacterSearcher.cpp">
       <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\STGameInstance.cpp">
+      <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\STPlayerState.cpp">
+      <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\ResourceManagment\STSaveGame.cpp">
       <Filter>Source\Heros_Of_ST\Private\ResourceManagment</Filter>
     </ClCompile>
     <Filter Include="Source\Heros_Of_ST\Private\States">
       <UniqueIdentifier>{6E939A84-ADBB-3C7C-B063-04817867F67A}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STHolding.cpp">
+      <Filter>Source\Heros_Of_ST\Private\States</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STState.cpp">
+      <Filter>Source\Heros_Of_ST\Private\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Heros_Of_ST\Private\States\STTitle.cpp">
       <Filter>Source\Heros_Of_ST\Private\States</Filter>
     </ClCompile>
     <Filter Include="Source\Heros_Of_ST\Public">
@@ -75,11 +127,23 @@
     <Filter Include="Source\Heros_Of_ST\Public\Characters">
       <UniqueIdentifier>{6CFC33AE-F585-35ED-9068-23055939DAF2}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Characters\BaseCharacter.h">
-      <Filter>Source\Heros_Of_ST\Public\Characters</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Characters\STCharacter.h">
       <Filter>Source\Heros_Of_ST\Public\Characters</Filter>
+    </ClInclude>
+    <Filter Include="Source\Heros_Of_ST\Public\Controller">
+      <UniqueIdentifier>{8C98A8A0-1B91-3224-B0D5-272375CAA281}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Controller\UIInteractiveController.h">
+      <Filter>Source\Heros_Of_ST\Public\Controller</Filter>
+    </ClInclude>
+    <Filter Include="Source\Heros_Of_ST\Public\Identity">
+      <UniqueIdentifier>{2C629ECC-90A5-3852-82D7-6182CA6F0202}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Identity\STCulture.h">
+      <Filter>Source\Heros_Of_ST\Public\Identity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\Identity\STHouse.h">
+      <Filter>Source\Heros_Of_ST\Public\Identity</Filter>
     </ClInclude>
     <Filter Include="Source\Heros_Of_ST\Public\ResourceManagment">
       <UniqueIdentifier>{06DC51F6-D661-3E8C-8421-1515CCE4C1D3}</UniqueIdentifier>
@@ -87,17 +151,32 @@
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\CharacterSearcher.h">
       <Filter>Source\Heros_Of_ST\Public\ResourceManagment</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\STGameInstance.h">
+      <Filter>Source\Heros_Of_ST\Public\ResourceManagment</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\STPlayerState.h">
+      <Filter>Source\Heros_Of_ST\Public\ResourceManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\ResourceManagment\STSaveGame.h">
       <Filter>Source\Heros_Of_ST\Public\ResourceManagment</Filter>
     </ClInclude>
     <Filter Include="Source\Heros_Of_ST\Public\States">
       <UniqueIdentifier>{EE635B07-AC57-39CC-96B0-6D21A6B816E9}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STHolding.h">
+      <Filter>Source\Heros_Of_ST\Public\States</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STState.h">
       <Filter>Source\Heros_Of_ST\Public\States</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\Heros_Of_ST\macros.h" />
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\States\STTitle.h">
+      <Filter>Source\Heros_Of_ST\Public\States</Filter>
+    </ClInclude>
+    <Filter Include="Source\Heros_Of_ST\Public\StructsAndInterfaces">
+      <UniqueIdentifier>{689ACDA7-F74B-39FE-A88D-2A6A7A8E0C22}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Heros_Of_ST\Public\StructsAndInterfaces\CharAttributes.h">
+      <Filter>Source\Heros_Of_ST\Public\StructsAndInterfaces</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

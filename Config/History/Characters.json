@@ -1,0 +1,82 @@
+{
+  "playable": [
+    "char_001",
+    "char_002",
+    "char_003",
+    "char_004"
+  ],
+  "characters": [
+    {
+      "CharacterID": "char_001",
+      "CharacterName": "李渊",
+      "Attributes": {
+        "Health": 70,
+        "Comprehension": 76,
+        "Ingenuity": 60,
+        "Perception": 75,
+        "Willpower": 68,
+        "Charisma": 80,
+        "Strategy": 90,
+        "Governance": 85
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
+    },
+    {
+      "CharacterID": "char_002",
+      "CharacterName": "李世民",
+      "Attributes": {
+        "Health": 85,
+        "Comprehension": 100,
+        "Ingenuity": 62,
+        "Perception": 92,
+        "Willpower": 90,
+        "Charisma": 95,
+        "Strategy": 96,
+        "Governance": 86
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
+    },
+    {
+      "CharacterID": "char_003",
+      "CharacterName": "李建成",
+      "Attributes": {
+        "Health": 69,
+        "Comprehension": 83,
+        "Ingenuity": 66,
+        "Perception": 71,
+        "Willpower": 78,
+        "Charisma": 86,
+        "Strategy": 77,
+        "Governance": 87
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
+    },
+    {
+      "CharacterID": "char_004",
+      "CharacterName": "李元吉",
+      "Attributes": {
+        "Health": 81,
+        "Comprehension": 76,
+        "Ingenuity": 55,
+        "Perception": 72,
+        "Willpower": 77,
+        "Charisma": 74,
+        "Strategy": 71,
+        "Governance": 64
+      },
+      "CharacterStatus": "Healthy",
+      "DeathReason": "Alive",
+      "CultureID": "culture_han",
+      "HouseID": "house_li"
+    }
+  ]
+}

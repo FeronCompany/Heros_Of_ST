@@ -16,10 +16,36 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
+class ASTHolding;
+class ASTState;
+class USTTitle;
+enum class EOverlordType : uint8;
+struct FStateSavedData;
+
+// ********** Begin ScriptStruct FStateSavedData ***************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_37_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FStateSavedData_Statics; \
+	static class UScriptStruct* StaticStruct();
+
+
+struct FStateSavedData;
+// ********** End ScriptStruct FStateSavedData *****************************************************
+
 // ********** Begin Class ASTState *****************************************************************
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetSavedStateData); \
+	DECLARE_FUNCTION(execGetAllHoldings); \
+	DECLARE_FUNCTION(execBreakTitle); \
+	DECLARE_FUNCTION(execAbandonOverlord); \
+	DECLARE_FUNCTION(execSubjectTo); \
+	DECLARE_FUNCTION(execInitTitles); \
+	DECLARE_FUNCTION(execGetCaptial); \
+	DECLARE_FUNCTION(execGetTitles);
+
+
 HEROS_OF_ST_API UClass* Z_Construct_UClass_ASTState_NoRegister();
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASTState(); \
 	friend struct Z_Construct_UClass_ASTState_Statics; \
@@ -30,7 +56,7 @@ public: \
 	DECLARE_SERIALIZER(ASTState)
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ASTState(ASTState&&) = delete; \
 	ASTState(const ASTState&) = delete; \
@@ -40,12 +66,13 @@ public: \
 	NO_API virtual ~ASTState();
 
 
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_12_PROLOG
-#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_GENERATED_BODY \
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_58_PROLOG
+#define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_INCLASS_NO_PURE_DECLS \
+	FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h_61_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -56,5 +83,31 @@ class ASTState;
 
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_States_STState_h
+
+// ********** Begin Enum EOverlordType *************************************************************
+#define FOREACH_ENUM_EOVERLORDTYPE(op) \
+	op(EOverlordType::Independent) \
+	op(EOverlordType::Administrative) \
+	op(EOverlordType::Vassalage) \
+	op(EOverlordType::Tributary) 
+
+enum class EOverlordType : uint8;
+template<> struct TIsUEnumClass<EOverlordType> { enum { Value = true }; };
+template<> HEROS_OF_ST_API UEnum* StaticEnum<EOverlordType>();
+// ********** End Enum EOverlordType ***************************************************************
+
+// ********** Begin Enum EStateLevel ***************************************************************
+#define FOREACH_ENUM_ESTATELEVEL(op) \
+	op(EStateLevel::Default) \
+	op(EStateLevel::Commoner) \
+	op(EStateLevel::County) \
+	op(EStateLevel::Duchy) \
+	op(EStateLevel::Kingdom) \
+	op(EStateLevel::Empire) 
+
+enum class EStateLevel : uint8;
+template<> struct TIsUEnumClass<EStateLevel> { enum { Value = true }; };
+template<> HEROS_OF_ST_API UEnum* StaticEnum<EStateLevel>();
+// ********** End Enum EStateLevel *****************************************************************
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

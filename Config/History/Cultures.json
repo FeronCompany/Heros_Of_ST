@@ -1,0 +1,10 @@
+{
+  "cultures": [
+    {
+      "CultureID": "culture_han",
+      "CultureName": "汉人",
+      "Description": "",
+      "ParentCultureID": ""
+    }
+  ]
+}
