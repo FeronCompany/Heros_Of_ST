@@ -35,6 +35,7 @@ struct FSavedDataBriefInfo;
 
 // ********** Begin Class UCharacterSearcher *******************************************************
 #define FID_Users_Administrator_Documents_Unreal_Projects_Heros_Of_ST_Source_Heros_Of_ST_Public_ResourceManagment_CharacterSearcher_h_39_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execSetupGameStart); \
 	DECLARE_FUNCTION(execUnregisterHouse); \
 	DECLARE_FUNCTION(execRegisterHouse); \
 	DECLARE_FUNCTION(execFindHouseByID); \
@@ -54,6 +55,7 @@ struct FSavedDataBriefInfo;
 	DECLARE_FUNCTION(execDeleteSaveData); \
 	DECLARE_FUNCTION(execSaveData); \
 	DECLARE_FUNCTION(execLoadSaveData); \
+	DECLARE_FUNCTION(execGetMainCharacter); \
 	DECLARE_FUNCTION(execGetPlayableCharacters); \
 	DECLARE_FUNCTION(execUnregisterCharacter); \
 	DECLARE_FUNCTION(execRegisterCharacter); \

@@ -2,7 +2,7 @@
   "houses": [
     {
       "HouseID": "house_li",
-      "Name": "李",
+      "HouseName": "李",
       "Motto": "道可道，非常道。",
       "LeaderID": "char_001",
       "ParentHouseID": ""

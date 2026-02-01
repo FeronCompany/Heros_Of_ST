@@ -24,6 +24,7 @@ void ASTCharacter::BeginPlay()
 void ASTCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
+	UE_LOG(LogTemp, Log, TEXT("Character %s is ending play due to %d."), *CharacterID, static_cast<int32>(EndPlayReason));
 }
 
 // Called every frame

@@ -12,5 +12,5 @@ void ASTPlayerState::BeginPlay()
 void ASTPlayerState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	UCharacterSearcher::Get()->ClearAll();
+	UCharacterSearcher::Get()->ClearAll("ASTPlayerState::EndPlay");
 }

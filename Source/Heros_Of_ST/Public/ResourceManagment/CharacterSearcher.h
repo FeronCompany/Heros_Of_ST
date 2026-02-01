@@ -65,6 +65,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	TArray<ASTCharacter*> GetPlayableCharacters();
 
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	ASTCharacter* GetMainCharacter();
+
 	virtual void BeginDestroy() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
@@ -86,7 +89,7 @@ public:
 	bool LoadRules();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
-	void ClearAll();
+	void ClearAll(const FString& caller);
 
 	// States Related
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
@@ -120,6 +123,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void UnregisterHouse(const FString& HouseID);
 
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	void SetupGameStart();
+
 private:
 	void OnSaveGameComplete(const FString& SlotName, const int32 UserIndex, bool bSuccess);
 	void OnLoadGameComplete(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedSaveGame);
@@ -132,7 +138,10 @@ private:
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	ASTCharacter* currentControlledCharacter = nullptr;
+	FString MainCharacterID;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool IsNewGame = false;
 
 private:
 	// Maps for storing characters, states, and holdings
@@ -156,4 +165,15 @@ private:
 	FCriticalSection SyncLockCulture;
 	FCriticalSection SyncLockHouse;
 	TArray<FString> PlayableCharacterList;
+	// Temporary storage for saved data during load operations
+	UPROPERTY()
+	TArray<FCharacterSavedData> TempCharacterDatas;
+	UPROPERTY()
+	TArray<FStateSavedData> TempStateDatas;
+	UPROPERTY()
+	TArray<FHoldingSavedData> TempHoldingDatas;
+	UPROPERTY()
+	TArray<FSTCultureData> TempCultureDatas;
+	UPROPERTY()
+	TArray<FHouseSavedData> TempHouseDatas;
 };

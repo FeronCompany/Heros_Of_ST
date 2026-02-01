@@ -81,10 +81,22 @@ TArray<ASTCharacter*> UCharacterSearcher::GetPlayableCharacters()
 	return PlayableList;
 }
 
+ASTCharacter* UCharacterSearcher::GetMainCharacter()
+{
+	if (MainCharacterID.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("MainCharacterID is empty."));
+		return nullptr;
+	}
+	auto MainCharacter = FindCharacterByID(MainCharacterID);
+	UE_LOG(LogTemp, Log, TEXT("Main Character ID: \"%s\", \"%s\"."), *MainCharacterID, *(MainCharacter->CharacterName.ToString()));
+	return MainCharacter;
+}
+
 void UCharacterSearcher::BeginDestroy()
 {
 	Super::BeginDestroy();
-	ClearAll();
+	ClearAll(TEXT("UCharacterSearcher::BeginDestroy"));
 }
 
 bool UCharacterSearcher::LoadSaveData(const FString& SlotName, int32 UserIndex)
@@ -94,11 +106,12 @@ bool UCharacterSearcher::LoadSaveData(const FString& SlotName, int32 UserIndex)
 		PRINT_SCREEN("存档不存在: %s", *SlotName);
 		return false;
 	}
+	// Clear existing data
+	ClearAll(TEXT("UCharacterSearcher::LoadSaveData"));
 	UGameplayStatics::AsyncLoadGameFromSlot(
 		SlotName,
 		UserIndex,
 		FAsyncLoadGameFromSlotDelegate::CreateUObject(this, &UCharacterSearcher::OnLoadGameComplete));
-	PRINT_SCREEN("Loaded character list from save data (placeholder).");
 	return true;
 }
 
@@ -145,7 +158,16 @@ void UCharacterSearcher::SaveData(const FString& SlotName, int32 UserIndex)
 			SaveData->SavedCultures.Add(SavedData);
 		}
 	}
-	SaveData->MainCharacterID = currentControlledCharacter ? currentControlledCharacter->CharacterID : TEXT("");
+	for (const auto& Pair : HouseMap)
+	{
+		USTHouse* House = Pair.Value;
+		if (House)
+		{
+			FHouseSavedData SavedData = House->GetSavedHouseData();
+			SaveData->SavedHouses.Add(SavedData);
+		}
+	}
+	SaveData->MainCharacterID = MainCharacterID;
 	SaveData->SaveTime = FDateTime::Now();
 	UGameplayStatics::AsyncSaveGameToSlot(
 		SaveData,
@@ -196,7 +218,7 @@ bool UCharacterSearcher::LoadHistory()
 	FString ConfigDir = FPaths::ProjectConfigDir() + "History/";
 	FString CharacterFilePath = ConfigDir + "Characters.json";
 	FString CharacterJsonContent;
-	TArray<FCharacterSavedData> CharacterHistories;
+	TempCharacterDatas.Empty();
 	if (FFileHelper::LoadFileToString(CharacterJsonContent, *CharacterFilePath))
 	{
 		TSharedPtr<FJsonObject> JsonObject;
@@ -211,7 +233,7 @@ bool UCharacterSearcher::LoadHistory()
 				{
 					FCharacterSavedData CharacterData;
 					if (ASTCharacter::ParseFromJson(CharacterObject, CharacterData)) {
-						CharacterHistories.Add(CharacterData);
+						TempCharacterDatas.Add(CharacterData);
 					}
 				}
 			}
@@ -235,7 +257,7 @@ bool UCharacterSearcher::LoadHistory()
 
 	FString StateFilePath = ConfigDir + "States.json";
 	FString StateJsonContent;
-	TArray<FStateSavedData> StateHistories;
+	TempStateDatas.Empty();
 	if (FFileHelper::LoadFileToString(StateJsonContent, *StateFilePath))
 	{
 		TSharedPtr<FJsonObject> JsonObject;
@@ -250,7 +272,7 @@ bool UCharacterSearcher::LoadHistory()
 				{
 					FStateSavedData StateData;
 					if (ASTState::ParseFromJson(StateObject, StateData)) {
-						StateHistories.Add(StateData);
+						TempStateDatas.Add(StateData);
 					}
 				}
 			}
@@ -268,7 +290,7 @@ bool UCharacterSearcher::LoadHistory()
 
 	FString HoldingFilePath = ConfigDir + "Holdings.json";
 	FString HoldingJsonContent;
-	TArray<FHoldingSavedData> HoldingHistories;
+	TempHoldingDatas.Empty();
 	if (FFileHelper::LoadFileToString(HoldingJsonContent, *HoldingFilePath))
 	{
 		TSharedPtr<FJsonObject> JsonObject;
@@ -283,7 +305,7 @@ bool UCharacterSearcher::LoadHistory()
 				{
 					FHoldingSavedData HoldingData;
 					if (ASTHolding::ParseFromJson(HoldingObject, HoldingData)) {
-						HoldingHistories.Add(HoldingData);
+						TempHoldingDatas.Add(HoldingData);
 					}
 				}
 			}
@@ -301,7 +323,7 @@ bool UCharacterSearcher::LoadHistory()
 
 	FString CultureFilePath = ConfigDir + "Cultures.json";
 	FString CultureJsonContent;
-	TArray<FSTCultureData> CultureHistories;
+	TempCultureDatas.Empty();
 	if (FFileHelper::LoadFileToString(CultureJsonContent, *CultureFilePath))
 	{
 		TSharedPtr<FJsonObject> JsonObject;
@@ -316,7 +338,7 @@ bool UCharacterSearcher::LoadHistory()
 				{
 					FSTCultureData CultureData;
 					if (USTCulture::ParseFromJson(CultureObject, CultureData)) {
-						CultureHistories.Add(CultureData);
+						TempCultureDatas.Add(CultureData);
 					}
 				}
 			}
@@ -334,7 +356,7 @@ bool UCharacterSearcher::LoadHistory()
 
 	FString HouseFilePath = ConfigDir + "Houses.json";
 	FString HouseJsonContent;
-	TArray<FHouseSavedData> HouseHistories;
+	TempHouseDatas.Empty();
 	if (FFileHelper::LoadFileToString(HouseJsonContent, *HouseFilePath))
 	{
 		TSharedPtr<FJsonObject> JsonObject;
@@ -349,7 +371,7 @@ bool UCharacterSearcher::LoadHistory()
 				{
 					FHouseSavedData HouseData;
 					if (USTHouse::ParseFromJson(HouseObject, HouseData)) {
-						HouseHistories.Add(HouseData);
+						TempHouseDatas.Add(HouseData);
 					}
 				}
 			}
@@ -364,12 +386,6 @@ bool UCharacterSearcher::LoadHistory()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Failed to load house history file: %s"), *HouseFilePath);
 	}
-	SetupDatabase(
-		CharacterHistories,
-		StateHistories,
-		HoldingHistories,
-		CultureHistories,
-		HouseHistories);
 	return true;
 }
 
@@ -397,23 +413,12 @@ void UCharacterSearcher::OnLoadGameComplete(const FString& SlotName, const int32
 		PRINT_SCREEN("Failed to load save game data from slot: %s", *SlotName);
 		return;
 	}
-	// Clear existing data
-	ClearAll();
-	SetupDatabase(
-		SaveData->SavedCharacters,
-		SaveData->SavedStates,
-		SaveData->SavedHoldings,
-		SaveData->SavedCultures,
-		SaveData->SavedHouses);
-	// Set current controlled character
-	if (SaveData->MainCharacterID.IsEmpty())
-	{
-		currentControlledCharacter = nullptr;
-	}
-	else
-	{
-		currentControlledCharacter = FindCharacterByID(SaveData->MainCharacterID);
-	}
+	TempCharacterDatas = SaveData->SavedCharacters;
+	TempStateDatas = SaveData->SavedStates;
+	TempHoldingDatas = SaveData->SavedHoldings;
+	TempCultureDatas = SaveData->SavedCultures;
+	TempHouseDatas = SaveData->SavedHouses;
+	MainCharacterID = SaveData->MainCharacterID;
 	PRINT_SCREEN("Loaded character list from save data: %s", *SlotName);
 }
 
@@ -682,17 +687,17 @@ void UCharacterSearcher::SetupDatabase(
 	}
 }
 
-void UCharacterSearcher::ClearAll()
+void UCharacterSearcher::ClearAll(const FString& caller)
 {
 	FScopeLock Lock(&SyncLockChar);
 	CharacterMap.Empty();
-	currentControlledCharacter = nullptr;
+	MainCharacterID.Empty();
 	StateMap.Empty();
 	HoldingMap.Empty();
 	CultureMap.Empty();
 	HouseMap.Empty();
 	PlayableCharacterList.Empty();
-	PRINT_SCREEN("Cleared all registered characters, states, and holdings.");
+	UE_LOG(LogTemp, Log, TEXT("Cleared all registered characters, states, and holdings. Called by %s."), *caller);
 }
 
 ASTState* UCharacterSearcher::FindStateByID(const FString& StateId)
@@ -869,4 +874,16 @@ void UCharacterSearcher::UnregisterHouse(const FString& HouseID)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("House ID \"%s\" not found for unregistration."), *HouseID);
 	}
+}
+
+void UCharacterSearcher::SetupGameStart()
+{
+	//PRINT_SCREEN("Setting up game start ...");
+	SetupDatabase(
+		TempCharacterDatas,
+		TempStateDatas,
+		TempHoldingDatas,
+		TempCultureDatas,
+		TempHouseDatas);
+	PRINT_SCREEN("Game start setup completed.");
 }
