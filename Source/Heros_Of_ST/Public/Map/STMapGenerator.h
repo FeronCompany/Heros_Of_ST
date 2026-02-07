@@ -45,6 +45,7 @@ private:
 
 private:	
 	TArray<FVector> HeightMapData;
+	TArray<FVector2D> UVs;
 	FVector2D MapCenter;
 	FVector2D MapSize;
 };

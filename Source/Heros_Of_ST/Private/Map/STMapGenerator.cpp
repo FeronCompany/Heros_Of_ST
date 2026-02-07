@@ -15,11 +15,11 @@ ASTMapGenerator::ASTMapGenerator()
 	PrimaryActorTick.bCanEverTick = true;
 	MapCenter = FVector2D::ZeroVector;
 	MapSize = FVector2D::ZeroVector;
-	ProceduralMeshComponent = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("ProceduralMeshComponent"));
-	RootComponent = ProceduralMeshComponent;
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
-	ArrowComponent->SetupAttachment(RootComponent);
+	RootComponent = ArrowComponent;
 	ArrowComponent->SetWorldScale3D(FVector(5.0f));
+	ProceduralMeshComponent = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("ProceduralMeshComponent"));
+	ProceduralMeshComponent->SetupAttachment(RootComponent);
 }
 
 bool ASTMapGenerator::GenerateMap(float SizeScale, float HeightScale)
@@ -76,6 +76,9 @@ bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
 	int32 Width = ImageWrapper->GetWidth();
 	int32 Height = ImageWrapper->GetHeight();
 	UE_LOG(LogTemp, Log, TEXT("图像尺寸: %dx%d"), Width, Height);
+	auto ForwardVector = GetActorForwardVector();
+	auto RightVector = GetActorRightVector();
+	auto Location = GetActorLocation();
 	for (int32 Y = 0; Y < Height; ++Y)
 	{
 		for (int32 X = 0; X < Width; ++X)
@@ -84,6 +87,7 @@ bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
 			uint8 Gray = UncompressedGray[PixelIndex];
 			float HeightValue = static_cast<float>(Gray) / 255.0f * HeightScale;
 			HeightMapData.Add(FVector(X * SizeScale, Y * SizeScale, HeightValue));
+			UVs.Add(FVector2D(static_cast<float>(X) / (Width - 1), static_cast<float>(Y) / (Height - 1)));
 		}
 	}
 	MapCenter.X = Width * SizeScale / 2.0f;
@@ -120,7 +124,7 @@ bool ASTMapGenerator::GenerateMeshFromHeightMap()
 		HeightMapData,
 		Triangles,
 		TArray<FVector>(),
-		TArray<FVector2D>(),
+		UVs,
 		TArray<FColor>(),
 		TArray<FProcMeshTangent>(),
 		true);
