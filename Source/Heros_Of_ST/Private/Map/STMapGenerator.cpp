@@ -53,6 +53,7 @@ void ASTMapGenerator::BeginPlay()
 bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
 {
 	HeightMapData.Empty();
+	UVs.Empty();
 	FString HeightMapFilePath = FPaths::ProjectConfigDir() + "Map/HeightMap.png";
 	TArray<uint8> RawFileData;
 	if (!FFileHelper::LoadFileToArray(RawFileData, *HeightMapFilePath))
@@ -88,6 +89,50 @@ bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
 			float HeightValue = static_cast<float>(Gray) / 255.0f * HeightScale;
 			HeightMapData.Add(FVector(X * SizeScale, Y * SizeScale, HeightValue));
 			UVs.Add(FVector2D(static_cast<float>(X) / (Width - 1), static_cast<float>(Y) / (Height - 1)));
+			// 根据相邻顶点坐标加权计算法线
+			FVector NormalCalculated = FVector::ZeroVector;
+			TArray<FVector> NeighboringVertices;
+			if (X != 0)
+			{
+				NeighboringVertices.Add(FVector(
+					(X - 1) * SizeScale,
+					Y * SizeScale,
+					static_cast<float>(UncompressedGray[PixelIndex - 1]) / 255.0f * HeightScale));
+			}
+			if (Y != 0)
+			{
+				NeighboringVertices.Add(FVector(
+					X * SizeScale,
+					(Y - 1) * SizeScale,
+					static_cast<float>(UncompressedGray[PixelIndex - Width]) / 255.0f * HeightScale));
+			}
+			if (X != Width - 1)
+			{
+				NeighboringVertices.Add(FVector(
+					(X + 1) * SizeScale,
+					Y * SizeScale,
+					static_cast<float>(UncompressedGray[PixelIndex + 1]) / 255.0f * HeightScale));
+			}
+			if (Y != Height - 1)
+			{
+				NeighboringVertices.Add(FVector(
+					X * SizeScale,
+					(Y + 1) * SizeScale,
+					static_cast<float>(UncompressedGray[PixelIndex + Width]) / 255.0f * HeightScale));
+			}
+			if (NeighboringVertices.Num() < 2)
+			{
+				Normals.Add(FVector::UpVector);
+				continue;
+			}
+			else
+			{
+				// 取前两个邻居顶点与当前点计算法线
+				FVector Edge1 = NeighboringVertices[0] - HeightMapData.Last();
+				FVector Edge2 = NeighboringVertices[1] - HeightMapData.Last();
+				NormalCalculated = FVector::CrossProduct(Edge1, Edge2).GetSafeNormal();
+				Normals.Add(NormalCalculated);
+			}
 		}
 	}
 	MapCenter.X = Width * SizeScale / 2.0f;
@@ -123,7 +168,7 @@ bool ASTMapGenerator::GenerateMeshFromHeightMap()
 		0,
 		HeightMapData,
 		Triangles,
-		TArray<FVector>(),
+		Normals,
 		UVs,
 		TArray<FColor>(),
 		TArray<FProcMeshTangent>(),
