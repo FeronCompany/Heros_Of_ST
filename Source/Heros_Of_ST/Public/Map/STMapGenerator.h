@@ -41,12 +41,14 @@ protected:
 
 private:
 	bool LoadHeightMap(float SizeScale, float HeightScale);
+	bool LoadColorMap();
 	bool GenerateMeshFromHeightMap();
 
 private:	
 	TArray<FVector> HeightMapData;
 	TArray<FVector> Normals;
 	TArray<FVector2D> UVs;
+	TArray<FColor> VertexColors;
 	FVector2D MapCenter;
 	FVector2D MapSize;
 };

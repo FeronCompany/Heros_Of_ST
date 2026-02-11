@@ -7,6 +7,7 @@
 #include "Modules/ModuleManager.h"
 #include "ProceduralMeshComponent.h"
 #include "Components/ArrowComponent.h"
+#include "Heros_Of_ST/macros.h"
 
 // Sets default values
 ASTMapGenerator::ASTMapGenerator()
@@ -24,17 +25,9 @@ ASTMapGenerator::ASTMapGenerator()
 
 bool ASTMapGenerator::GenerateMap(float SizeScale, float HeightScale)
 {
-	if (!LoadHeightMap(SizeScale, HeightScale))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to generate map due to heightmap loading error."));
-		return false;
-	}
-
-	if (!GenerateMeshFromHeightMap()) 
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to generate mesh from heightmap data."));
-		return false;
-	}
+	CHECK_FUNC_RET_BOOL(LoadHeightMap(SizeScale, HeightScale));
+	CHECK_FUNC_RET_BOOL(LoadColorMap());
+	CHECK_FUNC_RET_BOOL(GenerateMeshFromHeightMap());
 	return true;
 }
 
@@ -142,6 +135,51 @@ bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
 	return true;
 }
 
+bool ASTMapGenerator::LoadColorMap()
+{
+	VertexColors.Empty();
+	FString ColorMapFilePath = FPaths::ProjectConfigDir() + "Map/LandscapeMap.png";
+	TArray<uint8> RawFileData;
+	if (!FFileHelper::LoadFileToArray(RawFileData, *ColorMapFilePath))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load colormap file: %s"), *ColorMapFilePath);
+		return false;
+	}
+	IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
+	TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
+	if (!ImageWrapper->SetCompressed(RawFileData.GetData(), RawFileData.Num()))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to parse colormap image: %s"), *ColorMapFilePath);
+		return false;
+	}
+	TArray<uint8> UncompressedRGBA;
+	if (!ImageWrapper->GetRaw(ERGBFormat::RGBA, 8, UncompressedRGBA))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to get raw image data from colormap: %s"), *ColorMapFilePath);
+		return false;
+	}
+	int32 Width = ImageWrapper->GetWidth();
+	int32 Height = ImageWrapper->GetHeight();
+	if (Width != MapSize.X || Height != MapSize.Y)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Colormap size does not match heightmap size: %s"), *ColorMapFilePath);
+		return false;
+	}
+	for (int32 Y = 0; Y < Height; ++Y)
+	{
+		for (int32 X = 0; X < Width; ++X)
+		{
+			int32 PixelIndex = Y * Width + X;
+			uint8 R = UncompressedRGBA[PixelIndex * 4];
+			uint8 G = UncompressedRGBA[PixelIndex * 4 + 1];
+			uint8 B = UncompressedRGBA[PixelIndex * 4 + 2];
+			uint8 A = UncompressedRGBA[PixelIndex * 4 + 3];
+			VertexColors.Add(FColor(R, G, B, A));
+		}
+	}
+	return true;
+}
+
 bool ASTMapGenerator::GenerateMeshFromHeightMap()
 {
 	ProceduralMeshComponent->ClearAllMeshSections();
@@ -170,7 +208,7 @@ bool ASTMapGenerator::GenerateMeshFromHeightMap()
 		Triangles,
 		Normals,
 		UVs,
-		TArray<FColor>(),
+		VertexColors,
 		TArray<FProcMeshTangent>(),
 		true);
 	return true;
