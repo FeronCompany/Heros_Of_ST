@@ -17,7 +17,8 @@ public class Heros_Of_ST : ModuleRules
             "EnhancedInput",
             "Json",
             "ImageWrapper",
-            "ProceduralMeshComponent"
+            "ProceduralMeshComponent",
+            "UnrealEd"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
