@@ -9,7 +9,17 @@ public class Heros_Of_ST : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Json" });
+		PublicDependencyModuleNames.AddRange(new string[] {
+            "Core",
+            "CoreUObject",
+            "Engine",
+            "InputCore",
+            "EnhancedInput",
+            "Json",
+            "ImageWrapper",
+            "ProceduralMeshComponent",
+            "UnrealEd"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
@@ -19,6 +29,8 @@ public class Heros_Of_ST : ModuleRules
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History", "Houses.json"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History", "Cultures.json"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Rules", "StateTemplates.json"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Map", "HeightMap.png"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Map", "LandscapeMap.png"));
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

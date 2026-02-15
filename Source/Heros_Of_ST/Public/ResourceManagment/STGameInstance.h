@@ -16,4 +16,7 @@ class HEROS_OF_ST_API USTGameInstance : public UGameInstance
 	
 public:
 	void Init() override;
+
+	UPROPERTY(BlueprintReadOnly, Category = "STGameInstance")
+	UTexture2D* MapHeightMap = nullptr;
 };
