@@ -7,7 +7,12 @@
 #include "Modules/ModuleManager.h"
 #include "ProceduralMeshComponent.h"
 #include "Components/ArrowComponent.h"
+#include "Components/HierarchicalInstancedStaticMeshComponent.h"
 #include "Heros_Of_ST/macros.h"
+#include "Engine/Texture2D.h"
+#include "ResourceManagment/STGameInstance.h"
+
+const static float TreePlacementThreshold = 0.2f;
 
 // Sets default values
 ASTMapGenerator::ASTMapGenerator()
@@ -21,6 +26,28 @@ ASTMapGenerator::ASTMapGenerator()
 	ArrowComponent->SetWorldScale3D(FVector(5.0f));
 	ProceduralMeshComponent = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("ProceduralMeshComponent"));
 	ProceduralMeshComponent->SetupAttachment(RootComponent);
+	HISMComponent = CreateDefaultSubobject<UHierarchicalInstancedStaticMeshComponent>(TEXT("HISMComponent"));
+	HISMComponent->SetupAttachment(RootComponent);
+	// 设置默认的静态网格资源
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> TreeMesh(TEXT("/Game/meshes/TestTree.TestTree"));
+	if (TreeMesh.Succeeded())
+	{
+		HISMComponent->SetStaticMesh(TreeMesh.Object);
+	}
+	// 设置材质
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface>
+		TreeLeafMaterial(TEXT("/Game/materials/Landscape/M_MixedGrass.M_MixedGrass"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface>
+		TreeTrunkMaterial(TEXT("/Game/materials/SceneObjects/M_TreeSkin.M_TreeSkin"));
+	if (TreeLeafMaterial.Succeeded() && TreeTrunkMaterial.Succeeded())
+	{
+		HISMComponent->SetMaterial(0, TreeLeafMaterial.Object);
+		HISMComponent->SetMaterial(1, TreeTrunkMaterial.Object);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Failed to load tree material"));
+	}
 }
 
 bool ASTMapGenerator::GenerateMap(float SizeScale, float HeightScale)
@@ -175,8 +202,27 @@ bool ASTMapGenerator::LoadColorMap()
 			uint8 B = UncompressedRGBA[PixelIndex * 4 + 2];
 			uint8 A = UncompressedRGBA[PixelIndex * 4 + 3];
 			VertexColors.Add(FColor(R, G, B, A));
+			AddTreeTransformNode(R, G, X, Y);
 		}
 	}
+	do {
+		auto GameInstance = Cast<USTGameInstance>(GetGameInstance());
+		if (GameInstance)
+		{
+			GameInstance->MapHeightMap = UTexture2D::CreateTransient(Width, Height, PF_R8G8B8A8);
+			if (!GameInstance->MapHeightMap)
+			{
+				UE_LOG(LogTemp, Error, TEXT("Failed to create transient texture for heightmap"));
+				break;
+			}
+			FTexture2DMipMap& Mip = GameInstance->MapHeightMap->GetPlatformData()->Mips[0];
+			void* TextureData = Mip.BulkData.Lock(LOCK_READ_WRITE);
+			FMemory::Memcpy(TextureData, UncompressedRGBA.GetData(), UncompressedRGBA.Num());
+			Mip.BulkData.Unlock();
+			GameInstance->MapHeightMap->NeverStream = true; // 确保纹理立即可用
+			GameInstance->MapHeightMap->UpdateResource();
+		}
+	} while (false);
 	return true;
 }
 
@@ -212,6 +258,28 @@ bool ASTMapGenerator::GenerateMeshFromHeightMap()
 		TArray<FProcMeshTangent>(),
 		true);
 	return true;
+}
+
+void ASTMapGenerator::AddTreeTransformNode(uint8 R, uint8 G, int32 X, int32 Y)
+{
+	if (R == 60 && G == 30)
+	{
+		float RandomValue = FMath::FRandRange(0.0f, 1.0f);
+		if (RandomValue > TreePlacementThreshold)
+		{
+			return;
+		}
+		int32 Index = Y * MapSize.X + X;
+		FTransform InstanceTransform;
+		// 为了让树木更好地融入地形，我们在坐标和放大倍数上添加一个随机偏移
+		float RandomXOffset = FMath::FRandRange(-0.5f, 0.5f);
+		float RandomYOffset = FMath::FRandRange(-0.5f, 0.5f);
+		InstanceTransform.SetLocation(
+			FVector(HeightMapData[Index].X + RandomXOffset, HeightMapData[Index].Y + RandomYOffset, HeightMapData[Index].Z));
+		float RandomScale = FMath::FRandRange(0.8f, 1.2f);
+		InstanceTransform.SetScale3D(FVector(RandomScale * 0.2f));
+		HISMComponent->AddInstance(InstanceTransform);
+	}
 }
 
 // Called every frame

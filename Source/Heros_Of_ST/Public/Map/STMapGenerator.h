@@ -8,6 +8,7 @@
 
 class UProceduralMeshComponent;
 class UArrowComponent;
+class UHierarchicalInstancedStaticMeshComponent;
 
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTMapGenerator : public AActor
@@ -28,12 +29,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Map Generator")
 	FVector2D GetMapCenter() const;
 
+public:
 	// 程序化生成地图模型组件
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
 	UProceduralMeshComponent* ProceduralMeshComponent;
 	// 箭头组件
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
 	UArrowComponent* ArrowComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
+	UHierarchicalInstancedStaticMeshComponent* HISMComponent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -43,6 +47,7 @@ private:
 	bool LoadHeightMap(float SizeScale, float HeightScale);
 	bool LoadColorMap();
 	bool GenerateMeshFromHeightMap();
+	void AddTreeTransformNode(uint8 R, uint8 G, int32 X, int32 Y);
 
 private:	
 	TArray<FVector> HeightMapData;
