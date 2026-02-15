@@ -21,32 +21,23 @@ ASTMapGenerator::ASTMapGenerator()
 	PrimaryActorTick.bCanEverTick = true;
 	MapCenter = FVector2D::ZeroVector;
 	MapSize = FVector2D::ZeroVector;
+	HISMComponent = CreateDefaultSubobject<UHierarchicalInstancedStaticMeshComponent>(TEXT("HISMComponent"));
+	//HISMComponent->SetupAttachment(RootComponent);
+	HISMComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	HISMComponent->SetMobility(EComponentMobility::Static);
+	HISMComponent->SetGenerateOverlapEvents(false);
+	HISMComponent->SetCanEverAffectNavigation(false);
+	RootComponent = HISMComponent;
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
-	RootComponent = ArrowComponent;
 	ArrowComponent->SetWorldScale3D(FVector(5.0f));
+	ArrowComponent->SetupAttachment(RootComponent);
 	ProceduralMeshComponent = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("ProceduralMeshComponent"));
 	ProceduralMeshComponent->SetupAttachment(RootComponent);
-	HISMComponent = CreateDefaultSubobject<UHierarchicalInstancedStaticMeshComponent>(TEXT("HISMComponent"));
-	HISMComponent->SetupAttachment(RootComponent);
 	// 设置默认的静态网格资源
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> TreeMesh(TEXT("/Game/meshes/TestTree.TestTree"));
 	if (TreeMesh.Succeeded())
 	{
 		HISMComponent->SetStaticMesh(TreeMesh.Object);
-	}
-	// 设置材质
-	static ConstructorHelpers::FObjectFinder<UMaterialInterface>
-		TreeLeafMaterial(TEXT("/Game/materials/Landscape/M_MixedGrass.M_MixedGrass"));
-	static ConstructorHelpers::FObjectFinder<UMaterialInterface>
-		TreeTrunkMaterial(TEXT("/Game/materials/SceneObjects/M_TreeSkin.M_TreeSkin"));
-	if (TreeLeafMaterial.Succeeded() && TreeTrunkMaterial.Succeeded())
-	{
-		HISMComponent->SetMaterial(0, TreeLeafMaterial.Object);
-		HISMComponent->SetMaterial(1, TreeTrunkMaterial.Object);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to load tree material"));
 	}
 }
 
@@ -277,7 +268,7 @@ void ASTMapGenerator::AddTreeTransformNode(uint8 R, uint8 G, int32 X, int32 Y)
 		InstanceTransform.SetLocation(
 			FVector(HeightMapData[Index].X + RandomXOffset, HeightMapData[Index].Y + RandomYOffset, HeightMapData[Index].Z));
 		float RandomScale = FMath::FRandRange(0.8f, 1.2f);
-		InstanceTransform.SetScale3D(FVector(RandomScale * 0.2f));
+		InstanceTransform.SetScale3D(FVector(RandomScale));
 		HISMComponent->AddInstance(InstanceTransform);
 	}
 }
