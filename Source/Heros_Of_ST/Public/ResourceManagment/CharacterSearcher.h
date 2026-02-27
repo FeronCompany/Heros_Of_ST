@@ -86,6 +86,9 @@ public:
 	bool LoadHistory();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool LoadTutorialHistory();
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	bool LoadRules();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
@@ -135,6 +138,7 @@ private:
 		const TArray<FHoldingSavedData>& HoldingDatas,
 		const TArray<FSTCultureData>& CultureDatas,
 		const TArray<FHouseSavedData>& HouseDatas);
+	bool LoadHistoryFromDirectory(const FString& DirectoryPath);
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

@@ -215,178 +215,12 @@ TArray<FSavedDataBriefInfo> UCharacterSearcher::GetAllSavedFileInfos()
 
 bool UCharacterSearcher::LoadHistory()
 {
-	FString ConfigDir = FPaths::ProjectConfigDir() + "History/";
-	FString CharacterFilePath = ConfigDir + "Characters.json";
-	FString CharacterJsonContent;
-	TempCharacterDatas.Empty();
-	if (FFileHelper::LoadFileToString(CharacterJsonContent, *CharacterFilePath))
-	{
-		TSharedPtr<FJsonObject> JsonObject;
-		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(CharacterJsonContent);
-		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
-		{
-			auto& CharactersArray = JsonObject->GetArrayField(TEXT("characters"));
-			for (const TSharedPtr<FJsonValue>& CharacterValue : CharactersArray)
-			{
-				TSharedPtr<FJsonObject> CharacterObject = CharacterValue->AsObject();
-				if (CharacterObject.IsValid())
-				{
-					FCharacterSavedData CharacterData;
-					if (ASTCharacter::ParseFromJson(CharacterObject, CharacterData)) {
-						TempCharacterDatas.Add(CharacterData);
-					}
-				}
-			}
-			auto& PlayableArray = JsonObject->GetArrayField(TEXT("playable"));
-			for (const TSharedPtr<FJsonValue>& CharacterID : PlayableArray)
-			{
-				auto CharID = CharacterID->AsString();
-				PlayableCharacterList.Add(CharID);
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *CharacterFilePath);
-		}
-		PRINT_SCREEN("Loaded history file: %s", *CharacterFilePath);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to load character history file: %s"), *CharacterFilePath);
-	}
+	return LoadHistoryFromDirectory("History/");
+}
 
-	FString StateFilePath = ConfigDir + "States.json";
-	FString StateJsonContent;
-	TempStateDatas.Empty();
-	if (FFileHelper::LoadFileToString(StateJsonContent, *StateFilePath))
-	{
-		TSharedPtr<FJsonObject> JsonObject;
-		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(StateJsonContent);
-		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
-		{
-			auto& StatesArray = JsonObject->GetArrayField(TEXT("states"));
-			for (const TSharedPtr<FJsonValue>& StateValue : StatesArray)
-			{
-				TSharedPtr<FJsonObject> StateObject = StateValue->AsObject();
-				if (StateObject.IsValid())
-				{
-					FStateSavedData StateData;
-					if (ASTState::ParseFromJson(StateObject, StateData)) {
-						TempStateDatas.Add(StateData);
-					}
-				}
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *StateFilePath);
-		}
-		PRINT_SCREEN("Loaded history file: %s", *StateFilePath);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to load state history file: %s"), *StateFilePath);
-	}
-
-	FString HoldingFilePath = ConfigDir + "Holdings.json";
-	FString HoldingJsonContent;
-	TempHoldingDatas.Empty();
-	if (FFileHelper::LoadFileToString(HoldingJsonContent, *HoldingFilePath))
-	{
-		TSharedPtr<FJsonObject> JsonObject;
-		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(HoldingJsonContent);
-		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
-		{
-			auto& HoldingsArray = JsonObject->GetArrayField(TEXT("holdings"));
-			for (const TSharedPtr<FJsonValue>& HoldingValue : HoldingsArray)
-			{
-				TSharedPtr<FJsonObject> HoldingObject = HoldingValue->AsObject();
-				if (HoldingObject.IsValid())
-				{
-					FHoldingSavedData HoldingData;
-					if (ASTHolding::ParseFromJson(HoldingObject, HoldingData)) {
-						TempHoldingDatas.Add(HoldingData);
-					}
-				}
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *HoldingFilePath);
-		}
-		PRINT_SCREEN("Loaded history file: %s", *HoldingFilePath);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to load holding history file: %s"), *HoldingFilePath);
-	}
-
-	FString CultureFilePath = ConfigDir + "Cultures.json";
-	FString CultureJsonContent;
-	TempCultureDatas.Empty();
-	if (FFileHelper::LoadFileToString(CultureJsonContent, *CultureFilePath))
-	{
-		TSharedPtr<FJsonObject> JsonObject;
-		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(CultureJsonContent);
-		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
-		{
-			auto& CulturesArray = JsonObject->GetArrayField(TEXT("cultures"));
-			for (const TSharedPtr<FJsonValue>& CultureValue : CulturesArray)
-			{
-				TSharedPtr<FJsonObject> CultureObject = CultureValue->AsObject();
-				if (CultureObject.IsValid())
-				{
-					FSTCultureData CultureData;
-					if (USTCulture::ParseFromJson(CultureObject, CultureData)) {
-						TempCultureDatas.Add(CultureData);
-					}
-				}
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *CultureFilePath);
-		}
-		PRINT_SCREEN("Loaded history file: %s", *CultureFilePath);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to load culture history file: %s"), *CultureFilePath);
-	}
-
-	FString HouseFilePath = ConfigDir + "Houses.json";
-	FString HouseJsonContent;
-	TempHouseDatas.Empty();
-	if (FFileHelper::LoadFileToString(HouseJsonContent, *HouseFilePath))
-	{
-		TSharedPtr<FJsonObject> JsonObject;
-		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(HouseJsonContent);
-		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
-		{
-			auto& HousesArray = JsonObject->GetArrayField(TEXT("houses"));
-			for (const TSharedPtr<FJsonValue>& HouseValue : HousesArray)
-			{
-				TSharedPtr<FJsonObject> HouseObject = HouseValue->AsObject();
-				if (HouseObject.IsValid())
-				{
-					FHouseSavedData HouseData;
-					if (USTHouse::ParseFromJson(HouseObject, HouseData)) {
-						TempHouseDatas.Add(HouseData);
-					}
-				}
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *HouseFilePath);
-		}
-		PRINT_SCREEN("Loaded history file: %s", *HouseFilePath);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to load house history file: %s"), *HouseFilePath);
-	}
-	return true;
+bool UCharacterSearcher::LoadTutorialHistory()
+{
+	return LoadHistoryFromDirectory("History/Tutorial/");
 }
 
 bool UCharacterSearcher::LoadRules()
@@ -685,6 +519,182 @@ void UCharacterSearcher::SetupDatabase(
 			}
 		}
 	}
+}
+
+bool UCharacterSearcher::LoadHistoryFromDirectory(const FString& DirectoryPath)
+{
+	FString ConfigDir = FPaths::ProjectConfigDir() + DirectoryPath;
+	FString CharacterFilePath = ConfigDir + "Characters.json";
+	FString CharacterJsonContent;
+	TempCharacterDatas.Empty();
+	if (FFileHelper::LoadFileToString(CharacterJsonContent, *CharacterFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(CharacterJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& CharactersArray = JsonObject->GetArrayField(TEXT("characters"));
+			for (const TSharedPtr<FJsonValue>& CharacterValue : CharactersArray)
+			{
+				TSharedPtr<FJsonObject> CharacterObject = CharacterValue->AsObject();
+				if (CharacterObject.IsValid())
+				{
+					FCharacterSavedData CharacterData;
+					if (ASTCharacter::ParseFromJson(CharacterObject, CharacterData)) {
+						TempCharacterDatas.Add(CharacterData);
+					}
+				}
+			}
+			auto& PlayableArray = JsonObject->GetArrayField(TEXT("playable"));
+			for (const TSharedPtr<FJsonValue>& CharacterID : PlayableArray)
+			{
+				auto CharID = CharacterID->AsString();
+				PlayableCharacterList.Add(CharID);
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *CharacterFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *CharacterFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load character history file: %s"), *CharacterFilePath);
+	}
+
+	FString StateFilePath = ConfigDir + "States.json";
+	FString StateJsonContent;
+	TempStateDatas.Empty();
+	if (FFileHelper::LoadFileToString(StateJsonContent, *StateFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(StateJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& StatesArray = JsonObject->GetArrayField(TEXT("states"));
+			for (const TSharedPtr<FJsonValue>& StateValue : StatesArray)
+			{
+				TSharedPtr<FJsonObject> StateObject = StateValue->AsObject();
+				if (StateObject.IsValid())
+				{
+					FStateSavedData StateData;
+					if (ASTState::ParseFromJson(StateObject, StateData)) {
+						TempStateDatas.Add(StateData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *StateFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *StateFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load state history file: %s"), *StateFilePath);
+	}
+
+	FString HoldingFilePath = ConfigDir + "Holdings.json";
+	FString HoldingJsonContent;
+	TempHoldingDatas.Empty();
+	if (FFileHelper::LoadFileToString(HoldingJsonContent, *HoldingFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(HoldingJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& HoldingsArray = JsonObject->GetArrayField(TEXT("holdings"));
+			for (const TSharedPtr<FJsonValue>& HoldingValue : HoldingsArray)
+			{
+				TSharedPtr<FJsonObject> HoldingObject = HoldingValue->AsObject();
+				if (HoldingObject.IsValid())
+				{
+					FHoldingSavedData HoldingData;
+					if (ASTHolding::ParseFromJson(HoldingObject, HoldingData)) {
+						TempHoldingDatas.Add(HoldingData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *HoldingFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *HoldingFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load holding history file: %s"), *HoldingFilePath);
+	}
+
+	FString CultureFilePath = ConfigDir + "Cultures.json";
+	FString CultureJsonContent;
+	TempCultureDatas.Empty();
+	if (FFileHelper::LoadFileToString(CultureJsonContent, *CultureFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(CultureJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& CulturesArray = JsonObject->GetArrayField(TEXT("cultures"));
+			for (const TSharedPtr<FJsonValue>& CultureValue : CulturesArray)
+			{
+				TSharedPtr<FJsonObject> CultureObject = CultureValue->AsObject();
+				if (CultureObject.IsValid())
+				{
+					FSTCultureData CultureData;
+					if (USTCulture::ParseFromJson(CultureObject, CultureData)) {
+						TempCultureDatas.Add(CultureData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *CultureFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *CultureFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load culture history file: %s"), *CultureFilePath);
+	}
+
+	FString HouseFilePath = ConfigDir + "Houses.json";
+	FString HouseJsonContent;
+	TempHouseDatas.Empty();
+	if (FFileHelper::LoadFileToString(HouseJsonContent, *HouseFilePath))
+	{
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(HouseJsonContent);
+		if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+		{
+			auto& HousesArray = JsonObject->GetArrayField(TEXT("houses"));
+			for (const TSharedPtr<FJsonValue>& HouseValue : HousesArray)
+			{
+				TSharedPtr<FJsonObject> HouseObject = HouseValue->AsObject();
+				if (HouseObject.IsValid())
+				{
+					FHouseSavedData HouseData;
+					if (USTHouse::ParseFromJson(HouseObject, HouseData)) {
+						TempHouseDatas.Add(HouseData);
+					}
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Load JSON failed: %s"), *HouseFilePath);
+		}
+		PRINT_SCREEN("Loaded history file: %s", *HouseFilePath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load house history file: %s"), *HouseFilePath);
+	}
+	return true;
 }
 
 void UCharacterSearcher::ClearAll(const FString& caller)

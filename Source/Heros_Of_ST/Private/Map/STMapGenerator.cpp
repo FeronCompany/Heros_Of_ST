@@ -43,8 +43,20 @@ ASTMapGenerator::ASTMapGenerator()
 
 bool ASTMapGenerator::GenerateMap(float SizeScale, float HeightScale)
 {
-	CHECK_FUNC_RET_BOOL(LoadHeightMap(SizeScale, HeightScale));
-	CHECK_FUNC_RET_BOOL(LoadColorMap());
+	FString HeightMapName = "Map/HeightMap.png";
+	FString ColorMapName = "Map/LandscapeMap.png";
+	CHECK_FUNC_RET_BOOL(LoadHeightMap(HeightMapName, SizeScale, HeightScale));
+	CHECK_FUNC_RET_BOOL(LoadColorMap(ColorMapName));
+	CHECK_FUNC_RET_BOOL(GenerateMeshFromHeightMap());
+	return true;
+}
+
+bool ASTMapGenerator::GenerateTutorialMap(float SizeScale, float HeightScale)
+{
+	FString HeightMapName = "Map/Tutorial/HeightMap.png";
+	FString ColorMapName = "Map/Tutorial/LandscapeMap.png";
+	CHECK_FUNC_RET_BOOL(LoadHeightMap(HeightMapName, SizeScale, HeightScale));
+	CHECK_FUNC_RET_BOOL(LoadColorMap(ColorMapName));
 	CHECK_FUNC_RET_BOOL(GenerateMeshFromHeightMap());
 	return true;
 }
@@ -61,11 +73,11 @@ void ASTMapGenerator::BeginPlay()
 	
 }
 
-bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
+bool ASTMapGenerator::LoadHeightMap(const FString& HeightMapName, float SizeScale, float HeightScale)
 {
 	HeightMapData.Empty();
 	UVs.Empty();
-	FString HeightMapFilePath = FPaths::ProjectConfigDir() + "Map/HeightMap.png";
+	FString HeightMapFilePath = FPaths::ProjectConfigDir() + HeightMapName;
 	TArray<uint8> RawFileData;
 	if (!FFileHelper::LoadFileToArray(RawFileData, *HeightMapFilePath))
 	{
@@ -153,10 +165,10 @@ bool ASTMapGenerator::LoadHeightMap(float SizeScale, float HeightScale)
 	return true;
 }
 
-bool ASTMapGenerator::LoadColorMap()
+bool ASTMapGenerator::LoadColorMap(const FString& ColorMapName)
 {
 	VertexColors.Empty();
-	FString ColorMapFilePath = FPaths::ProjectConfigDir() + "Map/LandscapeMap.png";
+	FString ColorMapFilePath = FPaths::ProjectConfigDir() + ColorMapName;
 	TArray<uint8> RawFileData;
 	if (!FFileHelper::LoadFileToArray(RawFileData, *ColorMapFilePath))
 	{

@@ -27,6 +27,9 @@ public:
 	bool GenerateMap(float SizeScale, float HeightScale);
 
 	UFUNCTION(BlueprintCallable, Category = "Map Generator")
+	bool GenerateTutorialMap(float SizeScale, float HeightScale);
+
+	UFUNCTION(BlueprintCallable, Category = "Map Generator")
 	FVector2D GetMapCenter() const;
 
 public:
@@ -44,8 +47,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	bool LoadHeightMap(float SizeScale, float HeightScale);
-	bool LoadColorMap();
+	bool LoadHeightMap(const FString& HeightMapName, float SizeScale, float HeightScale);
+	bool LoadColorMap(const FString& ColorMapName);
 	bool GenerateMeshFromHeightMap();
 	void AddTreeTransformNode(uint8 R, uint8 G, int32 X, int32 Y);
 

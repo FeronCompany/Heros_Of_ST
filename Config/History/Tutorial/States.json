@@ -1,0 +1,83 @@
+{
+  "states": [
+    {
+      "StateID": "tang_empire",
+      "StateName": "唐朝",
+      "OverlordStateID": "",
+      "OverlordType": "Independent",
+      "Titles": [
+        {
+          "TitleName": "emperor_of_tang",
+          "TitleDescription": "皇帝",
+          "TitleHolderID": "char_001",
+          "TitleBelongingStateID": "tang_empire",
+          "TitleRank": "Emperor"
+        },
+        {
+          "TitleName": "crown_prince",
+          "TitleDescription": "太子",
+          "TitleHolderID": "char_003",
+          "TitleBelongingStateID": "tang_empire",
+          "TitleRank": "King"
+        },
+        {
+          "TitleName": "prince_of_qin",
+          "TitleDescription": "秦王",
+          "TitleHolderID": "char_002",
+          "TitleBelongingStateID": "tang_empire",
+          "TitleRank": "King"
+        },
+        {
+          "TitleName": "prince_of_qi",
+          "TitleDescription": "齐王",
+          "TitleHolderID": "char_004",
+          "TitleBelongingStateID": "tang_empire",
+          "TitleRank": "King"
+        },
+        {
+          "TitleName": "general_of_heaven",
+          "TitleDescription": "天策上将",
+          "TitleHolderID": "char_002",
+          "TitleBelongingStateID": "tang_empire",
+          "TitleRank": "King"
+        }
+      ],
+      "CapitalHoldingID": "chang_an",
+      "StateLevel": "Empire"
+    },
+    {
+      "StateID": "shangshusheng_of_tang",
+      "StateName": "尚书省",
+      "OverlordStateID": "tang_empire",
+      "OverlordType": "Administrative",
+      "Titles": [
+        {
+          "TitleName": "pm_of_shangshusheng",
+          "TitleDescription": "尚书令",
+          "TitleHolderID": "char_002",
+          "TitleBelongingStateID": "shangshusheng_of_tang",
+          "TitleRank": "King"
+        }
+      ],
+      "CapitalHoldingID": "chang_an",
+      "StateLevel": "Kingdom"
+    },
+    {
+      "StateID": "county_of_chang_an",
+      "StateName": "长安县",
+      "OverlordStateID": "tang_empire",
+      "OverlordType": "Administrative",
+      "Titles": [
+        {
+          "TitleName": "count_of_chang_an",
+          "TitleDescription": "长安县令",
+          "TitleHolderID": "char_002",
+          "TitleBelongingStateID": "county_of_chang_an",
+          "TitleRank": "Count"
+        }
+      ],
+      "CapitalHoldingID": "chang_an",
+      "StateLevel": "County"
+    }
+  ]
+}
