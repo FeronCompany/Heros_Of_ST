@@ -294,6 +294,7 @@ void UCharacterSearcher::SetupDatabase(
 		ASTHolding* Holding = World->SpawnActor<ASTHolding>();
 		Holding->HoldingID = HoldingData.HoldingID;
 		Holding->HoldingName = HoldingData.HoldingName;
+		Holding->Location = HoldingData.Location;
 		RegisterHolding(Holding, HoldingData.HoldingID);
 		// 稍后设置关联信息
 	}
@@ -796,6 +797,11 @@ void UCharacterSearcher::UnregisterHolding(const FString& HoldingID)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Holding ID \"%s\" not found for unregistration."), *HoldingID);
 	}
+}
+
+TMap<FString, ASTHolding*>& UCharacterSearcher::GetAllHoldings()
+{
+	return HoldingMap;
 }
 
 USTCulture* UCharacterSearcher::FindCultureByID(const FString& CultureId)

@@ -19,6 +19,8 @@ public:
 	FName HoldingName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
 	FString OwningStateID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	FIntVector2 Location;
 };
 
 UCLASS(Blueprintable)
@@ -47,4 +49,6 @@ public:
 	FString HoldingID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
 	FName HoldingName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
+	FIntVector2 Location;
 };

@@ -25,6 +25,7 @@ FHoldingSavedData ASTHolding::GetSavedHoldingData() const
 	SavedData.HoldingID = HoldingID;
 	SavedData.HoldingName = HoldingName;
 	SavedData.OwningStateID = OwnerState ? OwnerState->StateID : FString();
+	SavedData.Location = Location;
 	return  SavedData;
 }
 
@@ -46,6 +47,21 @@ bool ASTHolding::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHoldi
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("OwningStateID")))
 	{
 		OutSavedData.OwningStateID = JsonObject->GetStringField(TEXT("OwningStateID"));
+	}
+	if (JsonObject->HasTypedField<EJson::Object>(TEXT("Location")))
+	{
+		TSharedPtr<FJsonObject> LocationObject = JsonObject->GetObjectField(TEXT("Location"));
+		if (LocationObject.IsValid())
+		{
+			int32 X = LocationObject->GetIntegerField(TEXT("X"));
+			int32 Y = LocationObject->GetIntegerField(TEXT("Y"));
+			OutSavedData.Location = FIntVector2(X, Y);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Invalid Location object in JSON for HoldingSavedData."));
+			return false;
+		}
 	}
 	return true;
 }

@@ -109,6 +109,8 @@ public:
 	bool RegisterHolding(ASTHolding* Holding, const FString& HoldingID);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void UnregisterHolding(const FString& HoldingID);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	TMap<FString, ASTHolding*>& GetAllHoldings();
 
 	// Cultures Related
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")

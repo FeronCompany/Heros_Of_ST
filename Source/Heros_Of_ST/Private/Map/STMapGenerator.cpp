@@ -11,16 +11,19 @@
 #include "Heros_Of_ST/macros.h"
 #include "Engine/Texture2D.h"
 #include "ResourceManagment/STGameInstance.h"
+#include "MapModels/HoldingModel.h"
+#include "ResourceManagment/CharacterSearcher.h"
+#include "States/STHolding.h"
 
 const static float TreePlacementThreshold = 0.2f;
 
 // Sets default values
 ASTMapGenerator::ASTMapGenerator()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	MapCenter = FVector2D::ZeroVector;
-	MapSize = FVector2D::ZeroVector;
+	MapSize = FIntVector2::ZeroValue;
 	HISMComponent = CreateDefaultSubobject<UHierarchicalInstancedStaticMeshComponent>(TEXT("HISMComponent"));
 	//HISMComponent->SetupAttachment(RootComponent);
 	HISMComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -39,6 +42,11 @@ ASTMapGenerator::ASTMapGenerator()
 	{
 		HISMComponent->SetStaticMesh(TreeMesh.Object);
 	}
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> DefaultHoldingMesh(TEXT("/Game/meshes/TestCylinder.TestCylinder"));
+	if (DefaultHoldingMesh.Succeeded())
+	{
+		HoldingMesh = DefaultHoldingMesh.Object;
+	}
 }
 
 bool ASTMapGenerator::GenerateMap(float SizeScale, float HeightScale)
@@ -48,6 +56,7 @@ bool ASTMapGenerator::GenerateMap(float SizeScale, float HeightScale)
 	CHECK_FUNC_RET_BOOL(LoadHeightMap(HeightMapName, SizeScale, HeightScale));
 	CHECK_FUNC_RET_BOOL(LoadColorMap(ColorMapName));
 	CHECK_FUNC_RET_BOOL(GenerateMeshFromHeightMap());
+	GenerateHoldingsOnMap();
 	return true;
 }
 
@@ -58,12 +67,33 @@ bool ASTMapGenerator::GenerateTutorialMap(float SizeScale, float HeightScale)
 	CHECK_FUNC_RET_BOOL(LoadHeightMap(HeightMapName, SizeScale, HeightScale));
 	CHECK_FUNC_RET_BOOL(LoadColorMap(ColorMapName));
 	CHECK_FUNC_RET_BOOL(GenerateMeshFromHeightMap());
+	GenerateHoldingsOnMap();
 	return true;
 }
 
 FVector2D ASTMapGenerator::GetMapCenter() const
 {
 	return MapCenter;
+}
+
+FVector ASTMapGenerator::GetLocationByPixelPos(int32 X, int32 Y) const
+{
+	if (X < 0 || X >= MapSize.X || Y < 0 || Y >= MapSize.Y)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Pixel position out of bounds: (%d, %d)"), X, Y);
+		return FVector::ZeroVector;
+	}
+	int32 Index = Y * MapSize.X + X;
+	if (HeightMapData.IsValidIndex(Index))
+	{
+		FVector LocalPosition = HeightMapData[Index];
+		return GetActorLocation() + LocalPosition;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Invalid index for height map data: %d"), Index);
+		return FVector::ZeroVector;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -282,6 +312,25 @@ void ASTMapGenerator::AddTreeTransformNode(uint8 R, uint8 G, int32 X, int32 Y)
 		float RandomScale = FMath::FRandRange(0.8f, 1.2f);
 		InstanceTransform.SetScale3D(FVector(RandomScale));
 		HISMComponent->AddInstance(InstanceTransform);
+	}
+}
+
+void ASTMapGenerator::GenerateHoldingsOnMap()
+{
+	auto Holdings = UCharacterSearcher::Get()->GetAllHoldings();
+	for (const auto& Pair : Holdings)
+	{
+		const FString& HoldingID = Pair.Key;
+		AHoldingModel* HoldingModel = Cast<AHoldingModel>(GetWorld()->SpawnActor(AHoldingModel::StaticClass()));
+		if (HoldingModel)
+		{
+			HoldingModels.Add(HoldingID, HoldingModel);
+			HoldingModel->SetActorLocation(GetLocationByPixelPos(Pair.Value->Location.X, Pair.Value->Location.Y));
+			HoldingModel->SetActorScale3D(FVector(1.0f, 1.0f, 1.0f));
+			// 设置静态网格资源和HoldingID
+			HoldingModel->StaticMeshComponent->SetStaticMesh(HoldingMesh);
+			HoldingModel->HoldingID = HoldingID;
+		}
 	}
 }
 
