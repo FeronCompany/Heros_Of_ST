@@ -17,4 +17,17 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UIInteractiveController")
 	void LoadGame(const FString& SlotName);
 	virtual void LoadGame_Implementation(const FString& SlotName);
+
+	UFUNCTION(BlueprintCallable, Category = "UIInteractiveController")
+	void CursorTraceBase();
+
+protected:
+	virtual void Tick(float DeltaSeconds) override;
+
+private:
+	void UnHoverLastActor();
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
+	AActor* LastHoveredActor = nullptr;
 };

@@ -295,6 +295,9 @@ void UCharacterSearcher::SetupDatabase(
 		Holding->HoldingID = HoldingData.HoldingID;
 		Holding->HoldingName = HoldingData.HoldingName;
 		Holding->Location = HoldingData.Location;
+		Holding->Pops = HoldingData.Pops;
+		Holding->TotalPopulation = HoldingData.TotalPopulation;
+		Holding->ControlLevel = HoldingData.ControlLevel;
 		RegisterHolding(Holding, HoldingData.HoldingID);
 		// 稍后设置关联信息
 	}

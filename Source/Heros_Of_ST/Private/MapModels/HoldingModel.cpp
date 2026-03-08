@@ -15,6 +15,14 @@ AHoldingModel::AHoldingModel()
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	RootComponent = StaticMeshComponent;
 	ArrowComponent->SetupAttachment(RootComponent);
+
+	// 设置默认的悬停叠加材质
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface>
+		HoverOverlayMat(TEXT("/Game/materials/Interactive/OutlinerMaterial.OutlinerMaterial"));
+	if (HoverOverlayMat.Succeeded())
+	{
+		HoverOverlayMaterial = HoverOverlayMat.Object;
+	}
 }
 
 // Called every frame
@@ -22,6 +30,26 @@ void AHoldingModel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AHoldingModel::OnHover_Implementation()
+{
+	StaticMeshComponent->SetOverlayMaterial(HoverOverlayMaterial);
+}
+
+void AHoldingModel::OnCursorAway_Implementation()
+{
+	StaticMeshComponent->SetOverlayMaterial(nullptr);
+}
+
+void AHoldingModel::OnCursorPick_Implementation()
+{
+	PRINT_SCREEN("Picked HoldingModel: %s", *GetName());
+}
+
+void AHoldingModel::OnCursorDrop_Implementation()
+{
+	PRINT_SCREEN("Dropped HoldingModel: %s", *GetName());
 }
 
 // Called when the game starts or when spawned

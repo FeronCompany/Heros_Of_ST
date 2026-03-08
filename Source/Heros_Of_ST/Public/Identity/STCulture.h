@@ -19,6 +19,8 @@ public:
 	FName Description;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Culture Data")
 	FString ParentCultureID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Culture Data")
+	FString SecondaryParentCultureID;
 };
 
 /**
@@ -41,4 +43,6 @@ public:
 	FName Description;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Culture")
 	USTCulture* ParentCulture;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Culture")
+	USTCulture* SecondaryParentCulture;
 };

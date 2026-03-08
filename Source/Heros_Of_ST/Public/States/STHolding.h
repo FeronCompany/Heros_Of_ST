@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "StructsAndInterfaces/Political.h"
 #include "STHolding.generated.h"
 
 class ASTState;
@@ -21,6 +22,12 @@ public:
 	FString OwningStateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
 	FIntVector2 Location;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	TMap<FString, FPopulationUnit> Pops; // Population by culture ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	int32 TotalPopulation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
+	int32 ControlLevel; // 0-100, representing the level of control the owning state has over this holding
 };
 
 UCLASS(Blueprintable)
@@ -51,4 +58,10 @@ public:
 	FName HoldingName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
 	FIntVector2 Location;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
+	TMap<FString, FPopulationUnit> Pops; // Population by culture ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
+	int32 TotalPopulation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
+	int32 ControlLevel; // 0-100, representing the level of control the owning state has over this holding
 };
