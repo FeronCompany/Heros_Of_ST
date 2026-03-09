@@ -9,6 +9,7 @@
 class UProceduralMeshComponent;
 class UArrowComponent;
 class UHierarchicalInstancedStaticMeshComponent;
+class AHoldingModel;
 
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API ASTMapGenerator : public AActor
@@ -27,7 +28,13 @@ public:
 	bool GenerateMap(float SizeScale, float HeightScale);
 
 	UFUNCTION(BlueprintCallable, Category = "Map Generator")
+	bool GenerateTutorialMap(float SizeScale, float HeightScale);
+
+	UFUNCTION(BlueprintCallable, Category = "Map Generator")
 	FVector2D GetMapCenter() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Map Generator")
+	FVector GetLocationByPixelPos(int32 X, int32 Y) const;
 
 public:
 	// 程序化生成地图模型组件
@@ -44,10 +51,11 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	bool LoadHeightMap(float SizeScale, float HeightScale);
-	bool LoadColorMap();
+	bool LoadHeightMap(const FString& HeightMapName, float SizeScale, float HeightScale);
+	bool LoadColorMap(const FString& ColorMapName);
 	bool GenerateMeshFromHeightMap();
 	void AddTreeTransformNode(uint8 R, uint8 G, int32 X, int32 Y);
+	void GenerateHoldingsOnMap();
 
 private:	
 	TArray<FVector> HeightMapData;
@@ -55,5 +63,8 @@ private:
 	TArray<FVector2D> UVs;
 	TArray<FColor> VertexColors;
 	FVector2D MapCenter;
-	FVector2D MapSize;
+	FIntVector2 MapSize;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Map Generator", meta = (AllowPrivateAccess = "true"))
+	TMap<FString, AHoldingModel*> HoldingModels;
+	TObjectPtr<UStaticMesh> HoldingMesh;
 };

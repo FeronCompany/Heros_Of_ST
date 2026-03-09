@@ -28,9 +28,16 @@ public class Heros_Of_ST : ModuleRules
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History", "States.json"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History", "Houses.json"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History", "Cultures.json"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History/Tutorial", "Characters.json"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History/Tutorial", "Holdings.json"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History/Tutorial", "States.json"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History/Tutorial", "Houses.json"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/History/Tutorial", "Cultures.json"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Rules", "StateTemplates.json"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Map", "HeightMap.png"));
         RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Map", "LandscapeMap.png"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Map/Tutorial", "HeightMap.png"));
+        RuntimeDependencies.Add(Path.Combine(ModuleDirectory, "../../Config/Map/Tutorial", "LandscapeMap.png"));
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

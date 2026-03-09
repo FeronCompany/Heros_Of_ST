@@ -10,6 +10,7 @@ FSTCultureData USTCulture::GetSavedCultureData() const
 	Data.CultureName = CultureName;
 	Data.Description = Description;
 	Data.ParentCultureID = ParentCulture ? ParentCulture->CultureID : FString();
+	Data.SecondaryParentCultureID = SecondaryParentCulture ? SecondaryParentCulture->CultureID : FString();
 	return Data;
 }
 
@@ -35,6 +36,10 @@ bool USTCulture::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FSTCul
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("ParentCultureID")))
 	{
 		OutSavedData.ParentCultureID = JsonObject->GetStringField(TEXT("ParentCultureID"));
+	}
+	if (JsonObject->HasTypedField<EJson::String>(TEXT("SecondaryParentCultureID")))
+	{
+		OutSavedData.SecondaryParentCultureID = JsonObject->GetStringField(TEXT("SecondaryParentCultureID"));
 	}
 	return true;
 }

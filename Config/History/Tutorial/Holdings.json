@@ -4,7 +4,7 @@
       "HoldingID": "chang_an",
       "HoldingName": "长安",
       "OwningStateID": "county_of_chang_an",
-      "Location": { "X": 100,"Y": 100 },
+      "Location": { "X": 100,"Y": 50 },
       "Pops": {
         "culture_han": {
           "PopID": "pop_0001",
@@ -14,7 +14,6 @@
       },
       "TotalPopulation": 200000,
       "ControlLevel": 100
-    }
     }
   ]
 }

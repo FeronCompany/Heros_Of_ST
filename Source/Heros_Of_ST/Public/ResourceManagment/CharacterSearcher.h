@@ -86,6 +86,9 @@ public:
 	bool LoadHistory();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	bool LoadTutorialHistory();
+
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	bool LoadRules();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
@@ -106,6 +109,8 @@ public:
 	bool RegisterHolding(ASTHolding* Holding, const FString& HoldingID);
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
 	void UnregisterHolding(const FString& HoldingID);
+	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
+	TMap<FString, ASTHolding*>& GetAllHoldings();
 
 	// Cultures Related
 	UFUNCTION(BlueprintCallable, Category = "Character Searcher")
@@ -135,6 +140,7 @@ private:
 		const TArray<FHoldingSavedData>& HoldingDatas,
 		const TArray<FSTCultureData>& CultureDatas,
 		const TArray<FHouseSavedData>& HouseDatas);
+	bool LoadHistoryFromDirectory(const FString& DirectoryPath);
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
