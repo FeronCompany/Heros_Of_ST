@@ -329,7 +329,7 @@ void ASTMapGenerator::GenerateHoldingsOnMap()
 			HoldingModel->SetActorScale3D(FVector(1.0f, 1.0f, 1.0f));
 			// 设置静态网格资源和HoldingID
 			HoldingModel->StaticMeshComponent->SetStaticMesh(HoldingMesh);
-			HoldingModel->HoldingID = HoldingID;
+			HoldingModel->Holding = Pair.Value;
 		}
 	}
 }

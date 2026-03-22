@@ -5,6 +5,7 @@
 #include "Components/ArrowComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Heros_Of_ST/macros.h"
+#include "Controller/UIInteractiveController.h"
 
 // Sets default values
 AHoldingModel::AHoldingModel()
@@ -44,12 +45,24 @@ void AHoldingModel::OnCursorAway_Implementation()
 
 void AHoldingModel::OnCursorPick_Implementation()
 {
-	PRINT_SCREEN("Picked HoldingModel: %s", *GetName());
+	// TODO: 选中时的逻辑
+
+	AUIInteractiveController* UIController = Cast<AUIInteractiveController>(GetWorld()->GetFirstPlayerController());
+	if (UIController)
+	{
+		UIController->DispalyHoldingInfo(Holding);
+	}
 }
 
 void AHoldingModel::OnCursorDrop_Implementation()
 {
-	PRINT_SCREEN("Dropped HoldingModel: %s", *GetName());
+	// TODO: 取消选中时的逻辑
+
+	AUIInteractiveController* UIController = Cast<AUIInteractiveController>(GetWorld()->GetFirstPlayerController());
+	if (UIController)
+	{
+		UIController->HideHoldingInfo();
+	}
 }
 
 // Called when the game starts or when spawned

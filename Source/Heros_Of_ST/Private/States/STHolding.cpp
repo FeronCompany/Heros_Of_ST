@@ -29,7 +29,19 @@ FHoldingSavedData ASTHolding::GetSavedHoldingData() const
 	SavedData.Pops = Pops;
 	SavedData.TotalPopulation = TotalPopulation;
 	SavedData.ControlLevel = ControlLevel;
+	SavedData.Resources = Resources;
+	SavedData.Status = Status;
+	SavedData.GarrisonSize = GarrisonSize;
 	return  SavedData;
+}
+
+ASTCharacter* ASTHolding::GetHolder() const
+{
+	if (OwnerState)
+	{
+		return OwnerState->GetRuler();
+	}
+	return nullptr;
 }
 
 bool ASTHolding::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHoldingSavedData& OutSavedData)
@@ -98,6 +110,29 @@ bool ASTHolding::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHoldi
 	}
 	OutSavedData.TotalPopulation = JsonObject->GetIntegerField(TEXT("TotalPopulation"));
 	OutSavedData.ControlLevel = JsonObject->GetIntegerField(TEXT("ControlLevel"));
+	if (JsonObject->HasTypedField<EJson::Object>(TEXT("Resources")))
+	{
+		TSharedPtr<FJsonObject> ResourcesObject = JsonObject->GetObjectField(TEXT("Resources"));
+		if (ResourcesObject.IsValid())
+		{
+			for (const auto& ResourcePair : ResourcesObject->Values)
+			{
+				FString ResourceTypeStr = ResourcePair.Key;
+				StorageType ResourceType = static_cast<StorageType>(
+					StaticEnum<StorageType>()->GetValueByName(FName(*ResourceTypeStr)));
+				int32 Amount = ResourcePair.Value->AsNumber();
+				OutSavedData.Resources.Add(ResourceType, Amount);
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Invalid Resources object in JSON for HoldingSavedData."));
+			return false;
+		}
+	}
+	OutSavedData.Status = static_cast<HoldingStatus>(
+		StaticEnum<HoldingStatus>()->GetValueByName(FName(*JsonObject->GetStringField(TEXT("Status")))));
+	OutSavedData.GarrisonSize = JsonObject->GetIntegerField(TEXT("GarrisonSize"));
 	return true;
 }
 

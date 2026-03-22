@@ -9,6 +9,7 @@
 
 class UArrowComponent;
 class UStaticMeshComponent;
+class ASTHolding;
 
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API AHoldingModel : public AActor, public ISTInteractable
@@ -33,7 +34,8 @@ public:
 	UArrowComponent* ArrowComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
 	UStaticMeshComponent* StaticMeshComponent;
-	FString HoldingID;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
+	ASTHolding* Holding;
 private:
 	UMaterialInterface* HoverOverlayMaterial;
 };
