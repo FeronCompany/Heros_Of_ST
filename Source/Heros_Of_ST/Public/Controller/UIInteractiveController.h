@@ -26,6 +26,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UIInteractiveController")
 	void PickCheckBase();
 
+	UFUNCTION(BlueprintCallable, Category = "UIInteractiveController")
+	void RemoveFocus();
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UIInteractiveController")
 	void DispalyCharacterInfo(const ASTCharacter* CharacterInfo);
 	virtual void DispalyCharacterInfo_Implementation(const ASTCharacter* CharacterInfo) {};

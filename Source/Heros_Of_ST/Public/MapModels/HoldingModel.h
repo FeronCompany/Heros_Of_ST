@@ -35,6 +35,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
 	UStaticMeshComponent* StaticMeshComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
+	UStaticMeshComponent* PlainCircle;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
 	ASTHolding* Holding;
 private:
 	UMaterialInterface* HoverOverlayMaterial;

@@ -17,6 +17,20 @@ AHoldingModel::AHoldingModel()
 	RootComponent = StaticMeshComponent;
 	ArrowComponent->SetupAttachment(RootComponent);
 
+	PlainCircle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlainCircle"));
+	PlainCircle->SetupAttachment(RootComponent);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> PlainMesh(TEXT("/Engine/BasicShapes/Plane"));
+	if (PlainMesh.Succeeded())
+	{
+		PlainCircle->SetStaticMesh(PlainMesh.Object);
+		static ConstructorHelpers::FObjectFinder<UMaterial> PlainMaterial(TEXT("/Game/materials/Interactive/Mat_PickCircle.Mat_PickCircle"));
+		if (PlainMaterial.Succeeded()) {
+			PlainCircle->SetMaterial(0, PlainMaterial.Object);
+		}
+	}
+	PlainCircle->SetRelativeLocation({ 0, 0, 10.0f });
+	PlainCircle->SetVisibility(false);
+
 	// 设置默认的悬停叠加材质
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface>
 		HoverOverlayMat(TEXT("/Game/materials/Interactive/OutlinerMaterial.OutlinerMaterial"));
@@ -45,7 +59,7 @@ void AHoldingModel::OnCursorAway_Implementation()
 
 void AHoldingModel::OnCursorPick_Implementation()
 {
-	// TODO: 选中时的逻辑
+	PlainCircle->SetVisibility(true);
 
 	AUIInteractiveController* UIController = Cast<AUIInteractiveController>(GetWorld()->GetFirstPlayerController());
 	if (UIController)
@@ -56,7 +70,7 @@ void AHoldingModel::OnCursorPick_Implementation()
 
 void AHoldingModel::OnCursorDrop_Implementation()
 {
-	// TODO: 取消选中时的逻辑
+	PlainCircle->SetVisibility(false);
 
 	AUIInteractiveController* UIController = Cast<AUIInteractiveController>(GetWorld()->GetFirstPlayerController());
 	if (UIController)

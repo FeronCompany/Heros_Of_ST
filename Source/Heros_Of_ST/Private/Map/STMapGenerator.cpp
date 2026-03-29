@@ -42,7 +42,7 @@ ASTMapGenerator::ASTMapGenerator()
 	{
 		HISMComponent->SetStaticMesh(TreeMesh.Object);
 	}
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> DefaultHoldingMesh(TEXT("/Game/meshes/TestCylinder.TestCylinder"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> DefaultHoldingMesh(TEXT("/Game/meshes/han_city.han_city"));
 	if (DefaultHoldingMesh.Succeeded())
 	{
 		HoldingMesh = DefaultHoldingMesh.Object;

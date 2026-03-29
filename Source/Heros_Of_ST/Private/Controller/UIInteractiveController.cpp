@@ -64,6 +64,11 @@ void AUIInteractiveController::PickCheckBase()
 	}
 }
 
+void AUIInteractiveController::RemoveFocus()
+{
+	UnPickLastActor();
+}
+
 void AUIInteractiveController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
