@@ -4,8 +4,10 @@
 #include "MapModels/HoldingModel.h"
 #include "Components/ArrowComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Heros_Of_ST/macros.h"
 #include "Controller/UIInteractiveController.h"
+#include "States/STHolding.h"
 
 // Sets default values
 AHoldingModel::AHoldingModel()
@@ -37,6 +39,19 @@ AHoldingModel::AHoldingModel()
 	if (HoverOverlayMat.Succeeded())
 	{
 		HoverOverlayMaterial = HoverOverlayMat.Object;
+	}
+
+	UIComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("UIComponent"));
+	UIComponent->SetupAttachment(RootComponent);
+	UIComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	UIComponent->SetDrawSize(FVector2D(60, 30));
+	UIComponent->SetRelativeLocation({ 0, 0, 30.0f });
+	static ConstructorHelpers::FClassFinder<UUserWidget> UIWidgetClass(
+		TEXT("/Game/UI/HoldingBanner.HoldingBanner_C")
+	);
+	if (UIWidgetClass.Succeeded())
+	{
+		UIComponent->SetWidgetClass(UIWidgetClass.Class);
 	}
 }
 
@@ -79,10 +94,20 @@ void AHoldingModel::OnCursorDrop_Implementation()
 	}
 }
 
+void AHoldingModel::InitHoldingDispaly()
+{
+	UUserWidget* UIInstance = UIComponent->GetWidget();
+	if (UIInstance && Holding)
+	{
+		UFunction* TargetFunc = UIInstance->FindFunction(TEXT("SetHoldingName"));
+		FText text = FText::FromString(Holding->HoldingName.ToString());
+		UIInstance->ProcessEvent(TargetFunc, &text);
+	}
+}
+
 // Called when the game starts or when spawned
 void AHoldingModel::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Log, TEXT("HoldingModel %s BeginPlay"), *GetName());
 }
 

@@ -18,7 +18,8 @@ public class Heros_Of_ST : ModuleRules
             "Json",
             "ImageWrapper",
             "ProceduralMeshComponent",
-            "UnrealEd"
+            "UnrealEd",
+            "UMG"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

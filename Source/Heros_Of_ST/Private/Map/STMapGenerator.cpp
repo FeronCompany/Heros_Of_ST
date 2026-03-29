@@ -330,6 +330,7 @@ void ASTMapGenerator::GenerateHoldingsOnMap()
 			// 设置静态网格资源和HoldingID
 			HoldingModel->StaticMeshComponent->SetStaticMesh(HoldingMesh);
 			HoldingModel->Holding = Pair.Value;
+			HoldingModel->InitHoldingDispaly();
 		}
 	}
 }
