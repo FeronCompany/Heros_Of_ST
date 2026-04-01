@@ -9,6 +9,8 @@
 
 class UArrowComponent;
 class UStaticMeshComponent;
+class ASTHolding;
+class UWidgetComponent;
 
 UCLASS(Blueprintable)
 class HEROS_OF_ST_API AHoldingModel : public AActor, public ISTInteractable
@@ -25,15 +27,22 @@ public:
 	virtual void OnCursorPick_Implementation() override;
 	virtual void OnCursorDrop_Implementation() override;
 
+	void InitHoldingDispaly();
+
 protected:
 	virtual void BeginPlay() override;
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "HoldingModel")
 	UArrowComponent* ArrowComponent;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Map Generator")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "HoldingModel")
 	UStaticMeshComponent* StaticMeshComponent;
-	FString HoldingID;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "HoldingModel")
+	UStaticMeshComponent* PlainCircle;
+	UPROPERTY(EditAnywhere, Category = "HoldingModel")
+	UWidgetComponent* UIComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "HoldingModel")
+	ASTHolding* Holding;
 private:
 	UMaterialInterface* HoverOverlayMaterial;
 };

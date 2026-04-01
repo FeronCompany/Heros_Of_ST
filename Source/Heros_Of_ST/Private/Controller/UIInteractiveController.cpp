@@ -3,6 +3,8 @@
 
 #include "StructsAndInterfaces/STInteractable.h"
 #include "Controller/UIInteractiveController.h"
+#include "GameFramework/HUD.h"
+#include "Heros_Of_ST/macros.h"
 
 void AUIInteractiveController::LoadGame_Implementation(const FString& SlotName)
 {
@@ -40,6 +42,33 @@ void AUIInteractiveController::CursorTraceBase()
 	}
 }
 
+void AUIInteractiveController::PickCheckBase()
+{
+	// 鼠标点击检测
+	FHitResult HitResult;
+	if (GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), false, HitResult))
+	{
+		auto HitActor = HitResult.GetActor();
+		if (HitActor)
+		{
+			if (HitActor->GetClass()->ImplementsInterface(USTInteractable::StaticClass()))
+			{
+				if (LastPickedActor != HitActor)
+				{
+					UnPickLastActor();
+				}
+				ISTInteractable::Execute_OnCursorPick(HitActor);
+				LastPickedActor = HitActor;
+			}
+		}
+	}
+}
+
+void AUIInteractiveController::RemoveFocus()
+{
+	UnPickLastActor();
+}
+
 void AUIInteractiveController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -55,5 +84,17 @@ void AUIInteractiveController::UnHoverLastActor()
 			ISTInteractable::Execute_OnCursorAway(LastHoveredActor);
 		}
 		LastHoveredActor = nullptr;
+	}
+}
+
+void AUIInteractiveController::UnPickLastActor()
+{
+	if (LastPickedActor)
+	{
+		if (LastPickedActor->GetClass()->ImplementsInterface(USTInteractable::StaticClass()))
+		{
+			ISTInteractable::Execute_OnCursorDrop(LastPickedActor);
+		}
+		LastPickedActor = nullptr;
 	}
 }

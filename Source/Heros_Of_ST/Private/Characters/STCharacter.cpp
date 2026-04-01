@@ -107,7 +107,7 @@ bool ASTCharacter::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FCha
 	// Parse CharacterName
 	if (JsonObject->HasField(TEXT("CharacterName")))
 	{
-		OutSavedData.CharacterName = FName(*JsonObject->GetStringField(TEXT("CharacterName")));
+		OutSavedData.CharacterName = JsonObject->GetStringField(TEXT("CharacterName"));
 	}
 	// Parse Attributes
 	if (JsonObject->HasField(TEXT("Attributes")))

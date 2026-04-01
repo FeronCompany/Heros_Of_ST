@@ -31,7 +31,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
 	FString TitleName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
-	FName TitleDescription;
+	FString TitleDescription;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
 	FString TitleHolderID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title Saved Data")
@@ -57,7 +57,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
 	FString TitleName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
-	FName TitleDescription;
+	FString TitleDescription;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")
 	ASTCharacter* TitleHolder{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Title")

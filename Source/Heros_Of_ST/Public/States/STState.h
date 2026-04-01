@@ -39,7 +39,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
 	FString StateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
-	FName StateName;
+	FString StateName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
 	FString OverlordStateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
@@ -88,6 +88,12 @@ public:
 	TArray<ASTHolding*> GetAllHoldings() const;
 
 	UFUNCTION(BlueprintCallable, Category = "State")
+	ASTCharacter* GetRuler() const;
+
+	UFUNCTION(BlueprintCallable, Category = "State")
+	ASTState* GetTopRealm() const;
+
+	UFUNCTION(BlueprintCallable, Category = "State")
 	FStateSavedData GetSavedStateData() const;
 
 	static bool ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FStateSavedData& OutSavedData);
@@ -102,20 +108,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	FString StateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	FName StateName;
+	FString StateName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	ASTState* OverlordState{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	EOverlordType OverlordType{ EOverlordType::Independent };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	TArray<ASTState*> VassalStates;
-	// ÖÎËù
+	// æ²»æ‰€
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	ASTHolding* Captial{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	EStateLevel StateLevel{ EStateLevel::Default };
 
 private:
-	// ËùÊôÍ·ÏÎÁĞ±í * ³õÊ¼»¯ºó²»ÔÊĞíĞŞ¸Ä
+	// æ‰€å±å¤´è¡”åˆ—è¡¨ * åˆå§‹åŒ–åä¸å…è®¸ä¿®æ”¹
 	TArray<USTTitle*> Titles;
 };

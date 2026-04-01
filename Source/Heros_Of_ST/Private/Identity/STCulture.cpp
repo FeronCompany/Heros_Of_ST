@@ -27,11 +27,11 @@ bool USTCulture::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FSTCul
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("CultureName")))
 	{
-		OutSavedData.CultureName = FName(*JsonObject->GetStringField(TEXT("CultureName")));
+		OutSavedData.CultureName = JsonObject->GetStringField(TEXT("CultureName"));
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("Description")))
 	{
-		OutSavedData.Description = FName(*JsonObject->GetStringField(TEXT("Description")));
+		OutSavedData.Description = JsonObject->GetStringField(TEXT("Description"));
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("ParentCultureID")))
 	{

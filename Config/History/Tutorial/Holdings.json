@@ -13,7 +13,17 @@
         }
       },
       "TotalPopulation": 200000,
-      "ControlLevel": 100
+      "ControlLevel": 100,
+      "Resources": {
+        "Grain": 100000,
+        "Wood": 5000,
+        "Stone": 2000,
+        "Silk": 2000,
+        "Armor": 1000,
+        "Coins": 50000
+      },
+      "Status": "Prosperous",
+      "GarrisonSize": 2000
     }
   ]
 }

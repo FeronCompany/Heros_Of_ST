@@ -106,6 +106,28 @@ TArray<ASTHolding*> ASTState::GetAllHoldings() const
 	}
 }
 
+ASTCharacter* ASTState::GetRuler() const
+{
+	// 若头衔列表不为空，则返回第一个头衔的持有者
+	if (Titles.Num() > 0 && Titles[0] && Titles[0]->TitleHolder)
+	{
+		return Titles[0]->TitleHolder;
+	}
+	return nullptr;
+}
+
+ASTState* ASTState::GetTopRealm() const
+{
+	if (OverlordState)
+	{
+		return OverlordState->GetTopRealm();
+	}
+	else
+	{
+		return const_cast<ASTState*>(this);
+	}
+}
+
 FStateSavedData ASTState::GetSavedStateData() const
 {
 	FStateSavedData SavedData;
@@ -138,7 +160,7 @@ bool ASTState::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FStateSa
 	}
 	if (JsonObject->HasField(TEXT("StateName")))
 	{
-		OutSavedData.StateName = FName(*JsonObject->GetStringField(TEXT("StateName")));
+		OutSavedData.StateName = JsonObject->GetStringField(TEXT("StateName"));
 	}
 	if (JsonObject->HasField(TEXT("OverlordStateID")))
 	{
