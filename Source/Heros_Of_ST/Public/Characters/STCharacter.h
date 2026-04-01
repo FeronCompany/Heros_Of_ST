@@ -47,7 +47,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
 	FString CharacterID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
-	FName CharacterName;
+	FString CharacterName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
 	FCharAttributes Attributes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Saved Data")
@@ -96,7 +96,7 @@ public:
 	FString CharacterID;
 	// Character名称
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-	FName CharacterName;
+	FString CharacterName;
 	// 头衔列表
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
 	TArray<USTTitle*> Titles;

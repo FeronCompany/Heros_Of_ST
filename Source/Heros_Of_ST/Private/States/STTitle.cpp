@@ -30,7 +30,7 @@ bool USTTitle::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FTitleSa
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("TitleDescription")))
 	{
-		OutSavedData.TitleDescription = FName(*JsonObject->GetStringField(TEXT("TitleDescription")));
+		OutSavedData.TitleDescription = JsonObject->GetStringField(TEXT("TitleDescription"));
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("TitleHolderID")))
 	{

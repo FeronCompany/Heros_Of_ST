@@ -57,7 +57,7 @@ bool ASTHolding::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHoldi
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("HoldingName")))
 	{
-		OutSavedData.HoldingName = FName(*JsonObject->GetStringField(TEXT("HoldingName")));
+		OutSavedData.HoldingName = JsonObject->GetStringField(TEXT("HoldingName"));
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("OwningStateID")))
 	{

@@ -89,7 +89,7 @@ ASTCharacter* UCharacterSearcher::GetMainCharacter()
 		return nullptr;
 	}
 	auto MainCharacter = FindCharacterByID(MainCharacterID);
-	UE_LOG(LogTemp, Log, TEXT("Main Character ID: \"%s\", \"%s\"."), *MainCharacterID, *(MainCharacter->CharacterName.ToString()));
+	UE_LOG(LogTemp, Log, TEXT("Main Character ID: \"%s\", \"%s\"."), *MainCharacterID, *MainCharacter->CharacterName);
 	return MainCharacter;
 }
 

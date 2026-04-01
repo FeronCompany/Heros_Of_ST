@@ -160,7 +160,7 @@ bool ASTState::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FStateSa
 	}
 	if (JsonObject->HasField(TEXT("StateName")))
 	{
-		OutSavedData.StateName = FName(*JsonObject->GetStringField(TEXT("StateName")));
+		OutSavedData.StateName = JsonObject->GetStringField(TEXT("StateName"));
 	}
 	if (JsonObject->HasField(TEXT("OverlordStateID")))
 	{

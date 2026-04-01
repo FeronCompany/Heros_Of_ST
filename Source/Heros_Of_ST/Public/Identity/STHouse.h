@@ -16,9 +16,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House Saved Data")
 	FString HouseID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House Saved Data")
-	FName HouseName;
+	FString HouseName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House Saved Data")
-	FName Motto;
+	FString Motto;
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House Saved Data")
 	//TArray<FString> MemberIDs;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House Saved Data")
@@ -45,9 +45,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House")
 	FString HouseID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House")
-	FName HouseName;
+	FString HouseName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House")
-	FName Motto;
+	FString Motto;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House")
 	TArray<ASTCharacter*> Members;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "House")

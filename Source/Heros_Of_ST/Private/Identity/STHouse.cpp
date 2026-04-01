@@ -27,11 +27,11 @@ bool USTHouse::ParseFromJson(const TSharedPtr<FJsonObject>& JsonObject, FHouseSa
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("HouseName")))
 	{
-		OutSavedData.HouseName = FName(*JsonObject->GetStringField(TEXT("HouseName")));
+		OutSavedData.HouseName = JsonObject->GetStringField(TEXT("HouseName"));
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("Motto")))
 	{
-		OutSavedData.Motto = FName(*JsonObject->GetStringField(TEXT("Motto")));
+		OutSavedData.Motto = JsonObject->GetStringField(TEXT("Motto"));
 	}
 	if (JsonObject->HasTypedField<EJson::String>(TEXT("LeaderID")))
 	{
@@ -60,11 +60,11 @@ bool USTHouse::AddMember(ASTCharacter* NewMember, bool IsInitial)
 	NewMember->House = this;
 	if (!IsInitial)
 	{
-		UE_LOG(LogTemp, Log, TEXT("USTHouse::AddMember: Member %s added to house %s"), *NewMember->CharacterID, *HouseName.ToString());
+		UE_LOG(LogTemp, Log, TEXT("USTHouse::AddMember: Member %s added to house %s"), *NewMember->CharacterID, *HouseName);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Log, TEXT("USTHouse::AddMember: Member %s added to house %s (initial)"), *NewMember->CharacterID, *HouseName.ToString());
+		UE_LOG(LogTemp, Log, TEXT("USTHouse::AddMember: Member %s added to house %s (initial)"), *NewMember->CharacterID, *HouseName);
 	}
 	return true;
 }

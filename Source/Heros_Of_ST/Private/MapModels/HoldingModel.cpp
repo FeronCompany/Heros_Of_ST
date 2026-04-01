@@ -100,7 +100,7 @@ void AHoldingModel::InitHoldingDispaly()
 	if (UIInstance && Holding)
 	{
 		UFunction* TargetFunc = UIInstance->FindFunction(TEXT("SetHoldingName"));
-		FText text = FText::FromString(Holding->HoldingName.ToString());
+		FText text = FText::FromString(Holding->HoldingName);
 		UIInstance->ProcessEvent(TargetFunc, &text);
 	}
 }

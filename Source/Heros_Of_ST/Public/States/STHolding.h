@@ -30,7 +30,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
 	FString HoldingID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
-	FName HoldingName;
+	FString HoldingName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
 	FString OwningStateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding Saved Data")
@@ -76,7 +76,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
 	FString HoldingID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
-	FName HoldingName;
+	FString HoldingName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
 	FIntVector2 Location;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")

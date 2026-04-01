@@ -39,7 +39,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
 	FString StateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
-	FName StateName;
+	FString StateName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
 	FString OverlordStateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State Saved Data")
@@ -108,7 +108,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	FString StateID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
-	FName StateName;
+	FString StateName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	ASTState* OverlordState{ nullptr };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
