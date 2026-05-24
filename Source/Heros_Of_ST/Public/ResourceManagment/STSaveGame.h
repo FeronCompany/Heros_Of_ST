@@ -7,7 +7,7 @@
 #include "Characters/STCharacter.h"
 #include "States/STHolding.h"
 #include "States/STState.h"
-#include "States/STTitle.h"
+#include "States/STDivisionArmy.h"
 #include "Identity/STCulture.h"
 #include "Identity/STHouse.h"
 #include "STSaveGame.generated.h"
@@ -29,6 +29,7 @@ public:
 	UPROPERTY(SaveGame) TArray<FHoldingSavedData> SavedHoldings;
 	UPROPERTY(SaveGame) TArray<FSTCultureData> SavedCultures;
 	UPROPERTY(SaveGame) TArray<FHouseSavedData> SavedHouses;
+	UPROPERTY(SaveGame) TArray<FSTDivisionArmyData> SavedDivisions;
 	UPROPERTY(SaveGame) int32 CurrentSavedVersion;
 	UPROPERTY(SaveGame) FString MainCharacterID;
 	UPROPERTY(SaveGame) FDateTime SaveTime;
